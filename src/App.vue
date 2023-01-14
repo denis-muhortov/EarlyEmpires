@@ -1,5 +1,5 @@
 <script setup>
-// import blockLogin from "./components/blockLogin.vue";
+import window_login from "./components/window_login.vue";
 
 </script>
 
@@ -12,13 +12,13 @@ export default {
     };
   },
   components: {
-
+    window_login,
   },
 
 };
 </script>
 <template>
-
+  <window_login/>
 </template>
 
 <style scoped></style>
