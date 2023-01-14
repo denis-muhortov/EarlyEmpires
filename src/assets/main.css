@@ -14,7 +14,7 @@
   margin: 0 auto;
   padding: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-weight: normal;
   background: url(../assets/background.png);
@@ -71,7 +71,7 @@ a,
 
   #app {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 0 auto;
   }

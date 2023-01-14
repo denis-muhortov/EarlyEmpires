@@ -39,6 +39,8 @@
   --button-color-green-dark: rgba(10, 94, 18, 1.0);
   --button-color-blue-dark: rgba(36, 0, 255, 1);
 
+  --scroll-color-dark-orange: rgba(216, 151, 24, 1);
+
 }
 
 /* semantic color variables for this project */
@@ -79,7 +81,7 @@
   font-weight: normal;
 }
 ::-webkit-scrollbar {
-  width: 0.6vw;
+  width: 0.4vw;
 }
 
 ::-webkit-scrollbar-track {
@@ -89,8 +91,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10vw;
-  background: linear-gradient(180deg, var(--game-color-blue-dark), var(--game-color-blue-dark));
+  border-radius: 0vw;
+  background: linear-gradient(180deg, var(--scroll-color-dark-orange), var(--scroll-color-dark-orange));
 }
 body {
   min-height: 100vh;
