@@ -1,25 +1,23 @@
 @import './base.css';
 
 @font-face {
-    font-family: "Fauna";
-    src: url("./fonts/Fauna_Bold.ttf") format("truetype");
-}
-@font-face {
-    font-family: "Orbitron";
-    src: url("./fonts/Orbitron.ttf") format("truetype");
+    font-family: "TheAncient";
+    src: url("./fonts/TheAncient.ttf") format("truetype");
 }
 
 
 #app {
   max-width: 100vw;
   max-height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: normal;
-  background: url(../assets/background.svg);
+  background: url(../assets/background.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
