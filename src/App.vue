@@ -22,7 +22,7 @@ export default {
 };
 </script>
 <template>
-  <window_game/>
+  <window_login/>
 </template>
 
 <style scoped></style>

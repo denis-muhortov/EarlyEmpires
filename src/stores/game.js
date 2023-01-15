@@ -1,4 +1,8 @@
 import { defineStore } from "pinia";
+import { ExplorerApi } from "atomicassets";
+import * as waxjsLib from "@waxio/waxjs/dist";
+import AnchorLink from 'anchor-link';
+import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 
 // You can name the return value of `defineStore()` anything you want,
 // but it's best to use the name of the store and surround it with `use`
@@ -11,6 +15,7 @@ export const useGameStore = defineStore("game", {
     collectionName: String,
     atomicExplorerApi: {},
     waxjs: {},
+    anchorLink: {},
     sendAction: Promise,
     userName: String,
     userAuth: String,
@@ -884,50 +889,169 @@ export const useGameStore = defineStore("game", {
     },
   },
   actions: {
+
+
+
     init({
-      waxjs,
-      sendAction,
-      userName,
-      userAuth,
       smartContract,
       tokenSmart,
       collectionName,
-      atomicExplorerApi,
+
+      apiEndpoint,
+      atomicEndpoint,
       historyEndpoint,
+      chainId
     }) {
-      this.smartContract = smartContract;
-      this.tokenSmart = tokenSmart;
-      this.collectionName = collectionName;
-      this.atomicExplorerApi = atomicExplorerApi;
-      this.waxjs = waxjs;
-      this.sendAction = sendAction;
-      this.userName = userName;
-      this.userAuth = userAuth;
+
+      apiEndpoint = apiEndpoint ?? "https://wax-public-testnet.neftyblocks.com";
+      historyEndpoint = historyEndpoint ?? "https://wax-testnet-hyperion.neftyblocks.com";
+      atomicEndpoint = atomicEndpoint ?? "https://testatomic.3dkrender.com";
+      chainId = chainId ?? "f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12";
+
+
+
+      this.smartContract = smartContract ?? "empires";
+      this.tokenSmart = tokenSmart ?? "empires";
+      this.collectionName = collectionName ?? "empires";
       this.historyEndpoint = historyEndpoint;
+      this.atomicExplorerApi = new ExplorerApi(atomicEndpoint, "atomicassets", { fetch });
+      this.waxjs = new waxjsLib.WaxJS({
+        rpcEndpoint: apiEndpoint,
+        tryAutoLogin: false,
+      });
+
+      let transport = new AnchorLinkBrowserTransport();
+
+      let link = new AnchorLink({
+        transport,
+        chains: [{
+          chainId: chainId,
+          nodeUrl: apiEndpoint,
+        }]
+      });
+
+      this.anchorLink = link;
     },
 
-    async restoreFromStorage({
-      waxjs,
-      sendAction,
-      atomicExplorerApi,
+    async login({
+      apiEndpoint,
+      atomicEndpoint,
       historyEndpoint,
-      storageData,
-    }) {
-      let initObj = storageData.init;
-      let confObj = storageData.conf;
-      let statObj = storageData.stat;
+      chainId,
+      walletType
+    } = {}){
+
 
       this.init({
-        waxjs: waxjs,
-        sendAction: sendAction,
-        userName: initObj.userName,
-        userAuth: initObj.userAuth,
-        smartContract: initObj.smartContract,
-        tokenSmart: initObj.tokenSmart,
-        collectionName: initObj.collectionName,
-        atomicExplorerApi: atomicExplorerApi,
-        historyEndpoint: historyEndpoint,
+        apiEndpoint,
+        atomicEndpoint,
+        historyEndpoint,
+        chainId
       });
+
+      let walletName, auth, sendAction;
+
+      if (walletType == 'wax') {
+        async function sendActionWax(actions) {
+          if (!this.waxjs.api) await this.waxjs.login();
+          let res = await this.waxjs.api.transact({ actions: actions }, { blocksBehind: 3, expireSeconds: 120, });
+          return res.transaction_id;
+        }
+
+        walletName = await this.waxjs.login();
+        auth = [{
+          actor: walletName,
+          permission: 'active',
+        }];
+        sendAction = sendActionWax;
+      } else {
+
+        let res = await this.anchorLink.login(this.smartContract);
+        let anchorSession = res.session;
+        walletName = anchorSession.auth.actor;
+        auth = [anchorSession.auth];
+
+        async function sendActionAnchor(actions) {
+          let res = await anchorSession.transact({ actions: actions });
+          return res.processed.id;
+        }
+
+        sendAction = sendActionAnchor;
+
+        
+      }
+
+      this.sendAction = sendAction;
+      this.userName = walletName;
+      this.userAuth = auth;
+    },
+    
+    async restoreFromStorage({
+      apiEndpoint,
+      atomicEndpoint,
+      historyEndpoint,
+      chainId,
+      name = "game",
+    }) {
+
+      let storageData = localStorage.getItem(name);
+
+      if (!storageData) {
+        throw "autologin failed"
+      }
+      storageData = JSON.parse(storageData);
+
+      let walletType = storageData.restore.wallet;
+
+
+      this.init({
+        apiEndpoint,
+        atomicEndpoint,
+        historyEndpoint,
+        chainId
+      });
+
+      if (walletType == 'wax') {
+        async function sendActionWax(actions) {
+          if (!this.waxjs.api) await this.waxjs.login();
+          let res = await this.waxjs.api.transact({ actions: actions }, { blocksBehind: 3, expireSeconds: 120, });
+          return res.transaction_id;
+        }
+        this.sendAction = sendActionWax;
+
+      } else {
+
+        let res = await this.anchorLink.restoreSession(this.smartContract);
+
+        if(res){
+          let anchorSession = res.session;
+          this.sendAction = async function(actions){
+            let res = await anchorSession.transact({ actions: actions });
+            return res.processed.id;
+          }
+        }else{
+          this.sendAction = async function(actions){
+            let res = await this.anchorLink.transact({ actions: actions });
+            return res.processed.id;
+          }
+        }
+        
+
+        //this.sendAction = sendActionAnchor;
+      }
+
+
+
+
+
+      let initObj = storageData.init;
+      this.userName = initObj.userName;
+      this.userAuth = initObj.userAuth;
+
+
+
+      let confObj = storageData.conf;
+      let statObj = storageData.stat;
 
       if (confObj.expDate >= this.getCurrentSeconds()) {
         this.tables.gamecfg = confObj.tables.gamecfg;
