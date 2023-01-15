@@ -30,8 +30,6 @@
                 <a href="">discord</a>
                 <a href="">twitter</a>
             </div>
-
-
             <div class="close">
                 <img src="../assets/pageGame/close.png" alt="close"/>
             </div>

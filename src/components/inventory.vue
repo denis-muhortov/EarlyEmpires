@@ -47,6 +47,19 @@ export default {
     background: rgba(23, 27, 40, 0.5);
     overflow-y: auto;
 }
+.filter:hover{
+    border: 1px solid #D89718;
+    background: #D8971820;
+}
+.filter{
+    margin: 5px 0px 0px;
+    border: 1px solid #D8971800;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.filter img{
+    width: 89%;
+}
 .reload{
     cursor: pointer;
     border: 1px solid #D89718;
