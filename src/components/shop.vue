@@ -152,4 +152,22 @@ input{
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+@media (max-width: 1080px) {
+    .element_control{
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .container_change:first-child{
+        margin: 5px 5px 50px 15px;
+    }
+    .container_change:first-child::before{
+        right: unset;
+        bottom: 0;
+        transform: translate(0%, 150%) rotate(90deg);
+    }
+    .btn{
+        margin: 10px 0px 5px 100px;
+    }
+}
 </style>

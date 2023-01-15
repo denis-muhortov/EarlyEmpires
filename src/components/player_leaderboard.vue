@@ -32,5 +32,9 @@
 .elemet_items{
     width: 25%;
 }
-
+@media (max-width: 1080px) {
+    .item_leaderboard{
+        width: 100%;
+    }
+}
 </style>

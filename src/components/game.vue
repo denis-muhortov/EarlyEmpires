@@ -102,4 +102,22 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
 }
+@media (max-width: 1080px) {
+    .element_control{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filter{
+        position: absolute;
+        top: 5px;
+        right: 60px;
+        border: 1px solid#D89718;
+    }
+    .filter img{
+    width: 77%;
+    }
+    .btnv2{
+        margin: 10px 0px 10px 25px;
+    }
+}
 </style>
