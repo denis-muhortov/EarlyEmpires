@@ -30,15 +30,15 @@ export default {
                 <div class="block_position">
                     <p>Rariry</p>
                     <select>
-                        <option>Пункт 1</option>
-                        <option>Пункт 2</option> 
+                        <option>Иди нахуй</option>
+                        <option>Пошел на хуй</option> 
                     </select>
                 </div>
                 <div class="block_position">
                     <p>Generation</p>
                     <select>
-                        <option>Пункт 1</option>
-                        <option>Пункт 2</option> 
+                        <option>Иди нахуй</option>
+                        <option>Пошел на хуй</option> 
                     </select>
                 </div>
                 <div class="block_position">
@@ -138,9 +138,6 @@ select {
     outline:none;
     width: 280px;
     padding: 10px;
-    font: inherit;
-    letter-spacing: inherit;
-    word-spacing: inherit;
     font-size: 18px;
     border: 1px solid #F5A516;
     background: #F5A51660;
@@ -151,11 +148,16 @@ select:focus {
     outline:none;
 }
 option{
+    cursor: pointer;
     font-size: 18px;
-    border: 1px solid #F5A516;
-    background: #F5A51660;
-    color: var(--vt-c-white);
+    background: rgba(255, 255, 255, 0.0);
+    color: black;
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;       
 }
-
+.block_description{
+    margin: 10px 0px;
+    font-size: 24px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;      
+}
 </style>

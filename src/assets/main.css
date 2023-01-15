@@ -4,7 +4,9 @@
     font-family: "TheAncient";
     src: url("./fonts/TheAncient.ttf") format("truetype");
 }
-
+* {-webkit-tap-highlight-color: rgba(0, 0, 0, 0)}
+* { Outline: none}
+img{pointer-events: none;}
 
 #app {
   width: 100%;

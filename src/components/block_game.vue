@@ -4,6 +4,7 @@ import inventory from "../components/inventory.vue";
 import shop from "../components/shop.vue";
 import change from "../components/change.vue";
 import calculate from "../components/calculate.vue";
+import leaderboard from "../components/leaderboard.vue";
 </script>
 
 <script>
@@ -20,7 +21,8 @@ export default {
     shop,
     change,
     calculate,
-  },
+    leaderboard,
+},
 
 };
 </script>
@@ -35,10 +37,6 @@ export default {
         </div>
         <div class="Block">
             <game/>
-            <inventory/>
-            <shop/>
-            <change/>
-            <calculate/>
         </div>
         <div class="Flat_Menu">
             <div class="element_menu game">
@@ -99,8 +97,48 @@ export default {
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+    z-index: 5;
 }
 .Block{
     width: 90%;
+}
+.element_menu:hover::after{
+    opacity: 1;
+    right: 80px;
+    z-index: 2;
+}
+.element_menu::after{
+    position: absolute;
+    padding: 5px 20px;
+    top: 25%;
+    right: 60px;
+    border: 1px solid var(--vt-c-white);
+    text-transform: uppercase;
+    font-size: 18px;
+    background: #1F1F1F;
+    color: #D89718;
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: all 0.25s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+.element_menu.game::after{
+    content: "game";
+}
+.element_menu.inventory::after{
+    content: "inventory";
+}
+.element_menu.shop::after{
+    content: "shop";
+}
+.element_menu.change::after{
+    content: "change";
+}
+.element_menu.calculate::after{
+    content: "calculate";
+}
+.element_menu.leaderboard::after{
+    content: "leaderboard";
 }
 </style>
