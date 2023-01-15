@@ -1,5 +1,9 @@
 <script setup>
 import game from "../components/game.vue";
+import inventory from "../components/inventory.vue";
+import shop from "../components/shop.vue";
+import change from "../components/change.vue";
+import calculate from "../components/calculate.vue";
 </script>
 
 <script>
@@ -12,6 +16,10 @@ export default {
   },
   components: {
     game,
+    inventory,
+    shop,
+    change,
+    calculate,
   },
 
 };
@@ -27,6 +35,10 @@ export default {
         </div>
         <div class="Block">
             <game/>
+            <inventory/>
+            <shop/>
+            <change/>
+            <calculate/>
         </div>
         <div class="Flat_Menu">
             <div class="element_menu game">
@@ -71,6 +83,7 @@ export default {
     font-size: 18px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    user-select: none;
 }
 .Menu img{
     margin: 15px 0px 0px 0px;

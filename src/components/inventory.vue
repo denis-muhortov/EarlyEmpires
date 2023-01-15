@@ -1,5 +1,6 @@
 <script setup>
-import item from "../components/item.vue";
+import item_wax from "../components/item_wax.vue";
+import item_chest from "../components/item_chest.vue";
 </script>
 
 <script>
@@ -11,7 +12,8 @@ export default {
     };
   },
   components: {
-    item,
+    item_wax,
+    item_chest,
   },
 
 };
@@ -20,10 +22,7 @@ export default {
     <div class="block_game">
         <div class="element_control">
             <div class="btnv2">
-                Unstake all
-            </div>
-            <div class="btnv2">
-                Claim all
+                Stake all
             </div>
             <div class="filter">
                 <img src="../assets/pageGame/filter.png" alt="filter"/>
@@ -33,7 +32,8 @@ export default {
             </div>
         </div>
         <div class="content">
-            <item/>
+            <item_wax/>
+            <item_chest/>
         </div>
     </div>
 </template>
