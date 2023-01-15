@@ -44,6 +44,7 @@ export const useGameStore = defineStore("game", {
 
 
       usersbyrate: [],
+      usersbystake: [],
     },
 
     walletAssets: [],
@@ -68,13 +69,15 @@ export const useGameStore = defineStore("game", {
           wallet: state.userName,
           balances: [],
           exchange_time: (new Date(0)).toISOString(),
-          sum_rate: "0.00000000 EAT"
+          sum_rate: "0.00000000 EAT",
+          stakeidx: "0.00000000 MEAT"
         }
       }
       
     },
     playerUsedTools: (state) => state.tables.usertools,
-    leaderboard: (state) => state.tables.usersbyrate,
+    leaderboardrate: (state) => state.tables.usersbyrate,
+    leaderboardstake: (state) => state.tables.usersbystake,
 
     shopList: (state) => state.tables.shop,
     boxesList: (state) => state.tables.boxes,
@@ -286,10 +289,24 @@ export const useGameStore = defineStore("game", {
             state.smartContract,
             state.smartContract,
             "users",
-            10,
+            50,
             undefined,
             undefined,
             2,
+            undefined,
+            true
+          );
+          return rows;
+        },
+        async usersbystake() {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            state.smartContract,
+            "users",
+            10,
+            undefined,
+            undefined,
+            3,
             undefined,
             true
           );
@@ -852,8 +869,9 @@ export const useGameStore = defineStore("game", {
 
       
       let usertools = await this.getSmartTables.usertools();
-
+      
       let usersbyrate = await this.getSmartTables.usersbyrate();
+      let usersbystake = await this.getSmartTables.usersbystake();
 
       let stat = await (this.getSmartTables.stat())[0];
 
@@ -883,6 +901,7 @@ export const useGameStore = defineStore("game", {
       this.$patch((state) => {
         state.tables.usertools = usertools;
         state.tables.usersbyrate = usersbyrate;
+        state.tables.usersbystake = usersbystake;
         state.tables.stat = stat;
 
         state.inventoryAssets = inventoryAssets;
