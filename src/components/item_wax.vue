@@ -14,19 +14,13 @@
                 <div class="info lvl">
                     LVL: 100
                 </div>
-                <div class="info gen">
-                    GEN: 1
-                </div>
                 <div class="info power">
                     POWER: 99999999
-                </div>
-                <div class="info unclaimed">
-                    UNCLAIMED: 99999999
                 </div>
             </div>
             <div>
                 <div class="btn">
-                    Unstake
+                    Stake
                 </div>
             </div>
         </div>
@@ -66,35 +60,5 @@
 }
 .btn:hover{
     background: rgba(255, 255, 255, 0.2);
-}
-.nft{
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.0);
-    transition: all 0.25s;
-}
-.nft::after{
-    content: "UPGRADE";
-    position: absolute;
-    top: 0%;
-    transform: translate(0%, 250%);
-    border: 1px solid #F5A516;
-    padding: 5px 10px;
-    font-size: 18px;
-    color: #F5A516;
-    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    opacity: 0;
-    transition: all 0.25s;
-}
-.nft:hover::after{
-    transition: all 0.5s;
-    opacity: 1;
-    transform: translate(0%, 200%);
-}
-.nft:hover{
-    transition: all 0.5s;
-    border: 1px solid rgba(245, 165, 22, 1.0);
-}
-.nft:hover img{
-    filter: brightness(25%);
 }
 </style>
