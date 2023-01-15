@@ -188,7 +188,7 @@ export const useGameStore = defineStore("game", {
   
           return resultRows;
         } else {
-          let res = await this.waxjs.rpc.get_table_rows({
+          let res = await state.waxjs.rpc.get_table_rows({
             json: true,
             code: contract,
             scope: scope,
