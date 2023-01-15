@@ -1,37 +1,30 @@
-<script setup>
-import game from "../components/game.vue";
-import inventory from "../components/inventory.vue";
-import shop from "../components/shop.vue";
-import change from "../components/change.vue";
-import calculate from "../components/calculate.vue";
-import leaderboard from "../components/leaderboard.vue";
-</script>
+
 <script>
 export default {
-  name: "window_block",
-  emits: ['selectTab'],
-  data() {
-    return {
-        statuspopup: false,  
-        userLogged: false,
-    };
-  },
-  components: {
-    game,
-    inventory,
-    shop,
-    change,
-    calculate,
-    leaderboard,
+    name: "popup_menu",
+    emits: ['selectTab'],
+    props: {
+        selectedTab: {
+            type: String,
+            default: 'game'
+        }
+    },
+    data() {
+        return {
+            statuspopup: false,
+        };
+    },
+    components: {
     },
     methods: {
         togglepopup() {
             this.statuspopup = !this.statuspopup;
         },
-        changepage(page){
-            this.$emit('selectTab', page)
+        changepage(page) {
+            this.togglepopup();
+            this.$emit('selectTab', page);
         }
-},
+    },
 };
 </script>
 <template>
@@ -39,7 +32,7 @@ export default {
         <div class="block_menu">
             <div class="account_block">
                 <div class="account_name">
-                    <img src="../assets/pageGame/player.png" alt="player"/>
+                    <img src="../assets/pageGame/player.png" alt="player" />
                     xxxxxxxxx.wam
                 </div>
                 <div class="account_exit">
@@ -47,12 +40,12 @@ export default {
                 </div>
             </div>
             <div class="part_manu">
-                <div class="elemetn active" @click="currentTab = 'blockmining'" :class="{ active: currentTab == 'blockmining'}" >game</div>
-                <div class="elemetn">inventory</div>
-                <div class="elemetn">shop</div>
-                <div class="elemetn">exchange</div>
-                <div class="elemetn">calculator</div>
-                <div class="elemetn">leaderboard</div>
+                <div class="elemetn" @click="changepage('game')" :class="{active : selectedTab=='game'}">game</div>
+                <div class="elemetn" @click="changepage('inventory')" :class="{active : selectedTab=='inventory'}">inventory</div>
+                <div class="elemetn" @click="changepage('shop')" :class="{active : selectedTab=='shop'}">shop</div>
+                <div class="elemetn" @click="changepage('exchange')" :class="{active : selectedTab=='exchange'}">exchange</div>
+                <div class="elemetn" @click="changepage('calculator')" :class="{active : selectedTab=='calculator'}">calculator</div>
+                <div class="elemetn" @click="changepage('leaderboard')" :class="{active : selectedTab=='leaderboard'}">leaderboard</div>
             </div>
             <div class="link_game">
                 <a href="">whitepapper</a>
@@ -64,13 +57,13 @@ export default {
                 <a href="">twitter</a>
             </div>
             <div class="close" @click="togglepopup">
-                <img src="../assets/pageGame/close.png" alt="close"/>
+                <img src="../assets/pageGame/close.png" alt="close" />
             </div>
         </div>
     </div>
 </template>
 <style scoped>
-.close{
+.close {
     position: absolute;
     top: 0;
     right: 0;
@@ -78,17 +71,20 @@ export default {
     z-index: 4;
     transition: all 0.5s;
 }
-.close:hover{
+
+.close:hover {
     transform: rotate(90deg);
     transition: all 0.35s;
 }
-.Container_menu.active{
+
+.Container_menu.active {
     left: 0;
     opacity: 1;
     pointer-events: auto;
     transition: all 0.5s ease;
 }
-.Container_menu{
+
+.Container_menu {
     position: fixed;
     left: -450px;
     width: 400px;
@@ -99,7 +95,8 @@ export default {
     pointer-events: none;
     transition: all 0.5s ease;
 }
-.block_menu{
+
+.block_menu {
     width: 90%;
     height: 95%;
     justify-content: flex-start;
@@ -108,69 +105,83 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.account_block{
+
+.account_block {
     width: 100%;
-    height: 15%;  
-    justify-content: flex-start;  
+    height: 15%;
+    justify-content: flex-start;
     align-items: center;
 }
-.account_name{
+
+.account_name {
     width: 100%;
-    justify-content: flex-start;  
+    justify-content: flex-start;
     flex-direction: row;
 }
-.account_name img{
+
+.account_name img {
     margin: 0px 10px 0px 0px;
 }
-.account_exit{
+
+.account_exit {
     color: red;
     transition: all 0.2s;
 }
-.account_exit:hover{
+
+.account_exit:hover {
     cursor: pointer;
     color: rgb(58, 7, 7);
 }
-.part_manu{
+
+.part_manu {
     font-size: 38px;
     width: 100%;
     height: 60%;
     justify-content: center;
     align-items: flex-start;
 }
-.part_manu div{
+
+.part_manu div {
     margin: 3% 0%;
     transition: all 0.2s;
 }
-.part_manu div:hover{
+
+.part_manu div:hover {
     color: #F5A516;
-    cursor: pointer;    
+    cursor: pointer;
 }
-.elemetn.active{
+
+.elemetn.active {
     color: #F5A516;
 }
-.link_game{
+
+.link_game {
     width: 100%;
     height: 15%;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
 }
-.link_game a{
+
+.link_game a {
     color: #FFFFFF;
     transition: all 0.25s;
 }
-.link_chanel{
+
+.link_chanel {
     width: 100%;
     height: 10%;
     justify-content: space-around;
-    align-items: center;    
-    flex-direction: row;   
+    align-items: center;
+    flex-direction: row;
 }
-.link_chanel a{
+
+.link_chanel a {
     transition: all 0.25s;
     color: #75A2FB;
 }
 
-.link_game a:hover, .link_chanel a:hover{
+.link_game a:hover,
+.link_chanel a:hover {
     background: none;
     color: #F5A516;
     cursor: pointer;

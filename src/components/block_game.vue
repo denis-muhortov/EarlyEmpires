@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       userLogged: false,
+      currentTab: 'game'
     };
   },
   components: {
@@ -27,13 +28,13 @@ export default {
     },
     methods: {
         openmenu(){
-            this.$refs.window_menu.togglepopup();
+            this.$refs.windowmenu.togglepopup();
         }
 },
 };
 </script>
 <template>
-    <popup_menu ref="window_menu"/>
+    <popup_menu ref="windowmenu" @selectTab="(tab) => {currentTab = tab }" :selectedTab="currentTab"/>
     <div class="GameContainer">
         <div class="Menu" @click="openmenu">
             m<br>
@@ -44,7 +45,7 @@ export default {
         </div>
         <div class="Block">
             <transition name="fade" mode="out-in">
-                <component :is="currentTab" @selectTab="(tab) => { currentTab = tab }"></component>
+                <component :is="currentTab"></component>
             </transition>
         </div>
         <div class="Flat_Menu">
