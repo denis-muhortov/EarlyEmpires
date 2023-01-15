@@ -59,8 +59,22 @@ export const useGameStore = defineStore("game", {
   getters: {
     gameConfig: (state) => state.tables.gamecfg,
     gameStat: (state) => state.tables.gamecfg,
-    player: (state) => state.tables.users[0],
+    player: (state) => {
+
+      if(state.tables.users[0]){
+        return state.tables.users[0];
+      }else{
+        return {
+          wallet: state.userName,
+          balances: [],
+          exchange_time: (new Date(0)).toISOString(),
+          sum_rate: "0.00000000 EAT"
+        }
+      }
+      
+    },
     playerUsedTools: (state) => state.tables.usertools,
+    leaderboard: (state) => state.tables.usersbyrate,
 
     shopList: (state) => state.tables.shop,
     boxesList: (state) => state.tables.boxes,
