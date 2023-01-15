@@ -1,8 +1,41 @@
+<script setup>
+import game from "../components/game.vue";
+import inventory from "../components/inventory.vue";
+import shop from "../components/shop.vue";
+import change from "../components/change.vue";
+import calculate from "../components/calculate.vue";
+import leaderboard from "../components/leaderboard.vue";
+</script>
 <script>
-
+export default {
+  name: "window_block",
+  emits: ['selectTab'],
+  data() {
+    return {
+        statuspopup: false,  
+        userLogged: false,
+    };
+  },
+  components: {
+    game,
+    inventory,
+    shop,
+    change,
+    calculate,
+    leaderboard,
+    },
+    methods: {
+        togglepopup() {
+            this.statuspopup = !this.statuspopup;
+        },
+        changepage(page){
+            this.$emit('selectTab', page)
+        }
+},
+};
 </script>
 <template>
-    <div class="Container_menu">
+    <div class="Container_menu" :class="{ active: statuspopup }">
         <div class="block_menu">
             <div class="account_block">
                 <div class="account_name">
@@ -14,7 +47,7 @@
                 </div>
             </div>
             <div class="part_manu">
-                <div class="elemetn active">game</div>
+                <div class="elemetn active" @click="currentTab = 'blockmining'" :class="{ active: currentTab == 'blockmining'}" >game</div>
                 <div class="elemetn">inventory</div>
                 <div class="elemetn">shop</div>
                 <div class="elemetn">exchange</div>
@@ -30,7 +63,7 @@
                 <a href="">discord</a>
                 <a href="">twitter</a>
             </div>
-            <div class="close">
+            <div class="close" @click="togglepopup">
                 <img src="../assets/pageGame/close.png" alt="close"/>
             </div>
         </div>
@@ -42,19 +75,29 @@
     top: 0;
     right: 0;
     cursor: pointer;
+    z-index: 4;
     transition: all 0.5s;
 }
 .close:hover{
     transform: rotate(90deg);
     transition: all 0.35s;
 }
+.Container_menu.active{
+    left: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.5s ease;
+}
 .Container_menu{
     position: fixed;
-    left: 0;
+    left: -450px;
     width: 400px;
     height: 100vh;
     background: #1A1A20;
     z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
 }
 .block_menu{
     width: 90%;

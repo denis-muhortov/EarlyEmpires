@@ -5,6 +5,7 @@ import shop from "../components/shop.vue";
 import change from "../components/change.vue";
 import calculate from "../components/calculate.vue";
 import leaderboard from "../components/leaderboard.vue";
+import popup_menu from "../components/popup_menu.vue";
 </script>
 
 <script>
@@ -22,13 +23,19 @@ export default {
     change,
     calculate,
     leaderboard,
+    popup_menu,
+    },
+    methods: {
+        openmenu(){
+            this.$refs.window_menu.togglepopup();
+        }
 },
-
 };
 </script>
 <template>
+    <popup_menu ref="window_menu"/>
     <div class="GameContainer">
-        <div class="Menu">
+        <div class="Menu" @click="openmenu">
             m<br>
             e<br>
             n<br>
@@ -36,7 +43,9 @@ export default {
             <img src="../assets/pageGame/calculate.png" alt="calculate"/>
         </div>
         <div class="Block">
-            <game/>
+            <transition name="fade" mode="out-in">
+                <component :is="currentTab" @selectTab="(tab) => { currentTab = tab }"></component>
+            </transition>
         </div>
         <div class="Flat_Menu">
             <div class="element_menu game">
