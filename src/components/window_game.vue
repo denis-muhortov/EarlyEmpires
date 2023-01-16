@@ -1,4 +1,3 @@
-
 <script>
 import block_game from "../components/block_game.vue";
 import { useGameStore } from '../stores/game.js';
