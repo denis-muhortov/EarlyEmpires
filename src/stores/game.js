@@ -10,16 +10,16 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 // the first argument is a unique id of the store across your application
 export const useGameStore = defineStore("game", {
   state: () => ({
-    smartContract: "",
-    tokenSmart: "",
-    collectionName: "",
+    smartContract: undefined,
+    tokenSmart: undefined,
+    collectionName: undefined,
     atomicExplorerApi: undefined,
     waxjs: undefined,
     anchorLink: undefined,
     sendAction: Promise,
-    userName: "",
+    userName: undefined,
     userAuth: [],
-    historyEndpoint: "",
+    historyEndpoint: undefined,
 
     tables: {
       //configs
