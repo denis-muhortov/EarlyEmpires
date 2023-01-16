@@ -8,7 +8,7 @@ export default {
   name: "game",
   data() {
     return {
-        vie: false,
+        view: false,
     };
   },
   components: {
@@ -17,16 +17,19 @@ export default {
   },
   methods:{
     vieposition(){
-        this.vie = true;
+        this.view = true;
     }
   },
 };
 </script>
 <template>
-    <transition name="fade" mode="out-in">
-            <popup_filter v-if="vie" @close="vie = false"/>
-    </transition>
+    
     <div class="block_game">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_filter v-if="view" @close="view = false"/>
+            </transition>
+        </teleport>
         <div class="element_control">
             <div class="btnv2">
                 Unstake all

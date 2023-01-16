@@ -47,7 +47,7 @@ export default {
             <img src="../assets/pageGame/calculate.png" alt="calculate"/>
         </div>
         <div class="Block">
-            <transition name="fade" mode="out-in">
+            <transition name="fade" mode="out-in" appear>
                 <component :is="currentTab"></component>
             </transition>
         </div>

@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "game",
+  name: "nft-filter",
   emits: ['close'],
   data() {
     return {
