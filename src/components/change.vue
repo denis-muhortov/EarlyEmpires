@@ -26,38 +26,68 @@ export default {
             </div>
         </div>
         <div class="content">
-            <div class="container_change">
-                <div class="balance">
-                    Balance: 99999999
-                </div>
-                <div class="container_tokenChange">
-                    <div class="token_block">
-                        <img src="../assets/shop/wax.png" alt="token"/>
-                        WAX
+            <div class="block_change">
+                <div class="container_change">
+                    <div class="balance">
+                        Balance: 99999999
                     </div>
-                    <input type="text">
-                </div>
-            </div>
-            <div class="info_change">
-                1 EET = 0.000008 GET
-            </div>
-            <div class="container_change">
-                <div class="balance">
-                    Balance: 99999999
-                </div>
-                <div class="container_tokenChange">
-                    <div class="token_block">
-                        <img src="../assets/shop/wax.png" alt="token"/>
-                        WAX
+                    <div class="container_tokenChange">
+                        <div class="token_block">
+                            <img src="../assets/shop/wax.png" alt="token"/>
+                            WAX
+                        </div>
+                        <input type="text">
+                        <div class="iconchange">
+                            <img src="../assets/shop/iconchange.png" alt="iconchange"/>
+                        </div>
                     </div>
-                    <input type="text">
+                </div>
+                <div class="info_change">
+                    1 EET = 0.000008 GET
+                </div>
+                <div class="container_change">
+                    <div class="balance">
+                        Balance: 99999999
+                    </div>
+                    <div class="container_tokenChange">
+                        <div class="token_block">
+                            <img src="../assets/shop/wax.png" alt="token"/>
+                            WAX
+                        </div>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="description">
+                    text
+                </div>
+                <div class="btn">
+                    Confirm
                 </div>
             </div>
-            <div class="description">
-                text
-            </div>
-            <div class="btn">
-                Confirm
+            <div class="block_change">
+                <div class="container_change">
+                    <div class="balance">
+                        Balance: 99999999
+                    </div>
+                    <div class="container_tokenChange">
+                        <div class="token_block">
+                            <img src="../assets/shop/wax.png" alt="token"/>
+                            WAX
+                        </div>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="description">
+                    text
+                </div>
+                <div class="helpblockv2">
+                    <div class="btn">
+                        Deposit
+                    </div>
+                    <div class="btn">
+                        Withdrow
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -93,12 +123,11 @@ export default {
 .content{
     width: calc(100% - 10px);
     padding: 10px;
-    height: fit-content;
     height: 100%;
     justify-content: center;
     align-items: center;
     align-content: center;
-    flex-direction: column;
+    flex-direction: row-reverse;
 }
 
 
@@ -140,12 +169,30 @@ input{
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.iconchange{
+    position: absolute;
+    right: 0px;
+    cursor: pointer;
+    transform: translate(150%, 0%);
+    transition: all 0.25s ease;
+}
+.iconchange img{
+    width: 32px;
+}
+.iconchange:hover{
+    transform: translate(150%, 0%) rotate(180deg);
+}
 
 .description{
     margin: 40px 0px 10px 0px;
     font-size: 18px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;    
+}
+.helpblockv2{
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .btn{
     margin: 5px 0px;
@@ -161,5 +208,51 @@ input{
 }
 .btn:hover{
     background: rgba(255, 255, 255, 0.2);
+}
+
+.block_change{
+    width: calc(40% - 10px);
+    margin: 0px 10px;
+}
+@media (max-width: 1440px) {
+    .block_change{
+    width: calc(50% - 10px);
+    margin: 0px 10px;
+}   
+}
+@media (max-width: 1300px) {
+    .block_change{
+    width: calc(100% - 10px);
+    margin: 0px 10px;
+    }   
+    .content{
+        flex-direction: column-reverse;
+    }
+    .block_change:last-child{
+        margin: 0px 0px 100px 0px;
+    }
+}
+@media (max-width: 780px) {
+    input{
+        width: 150px;
+    }
+}
+@media (max-width: 640px) {
+    input{
+        width: 180px;
+    }
+}
+@media (max-width: 450px) {
+    .content{
+        width: 100%;
+        margin: 0px 0px;
+    }
+    .block_change{
+        width: 100%;
+        margin: 0px 0px;
+    }   
+    input{
+        width: 120px;
+    }
 }
 </style>

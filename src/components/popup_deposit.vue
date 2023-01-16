@@ -25,27 +25,8 @@ export default {
                 <img src="../assets/pageGame/token.png" alt="token"/>
                 <input type="text">
             </div>
-            <div class="block_position">
-                <div class="status_balance">
-                    Balance: 9999
-                </div>
-                <img src="../assets/pageGame/token.png" alt="token"/>
-                <input type="text">
-            </div>
-            <div class="block_position">
-                <div class="status_balance">
-                    Balance: 9999
-                </div>
-                <img src="../assets/pageGame/token.png" alt="token"/>
-                <input type="text">
-            </div>
-            <div class="helpblockv2">
-                <div class="btn">
-                    deposit
-                </div>
-                <div class="btn">
-                    withdrow
-                </div>
+            <div class="btn">
+                deposit
             </div>
             <div class="close" @click="vieposition">
                 <img src="../assets/pageGame/close.png" alt="close"/>
@@ -68,7 +49,7 @@ export default {
 }
 .block_filter{
     width: 550px;
-    height: 350px;
+    height: 250px;
     border: 1px solid #F5A516;
     background: #171B2890;
 }
@@ -97,11 +78,6 @@ input{
     font-size: 18px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-.helpblockv2{
-    width: 90%;
-    flex-direction: row;
-    justify-content: space-around;
 }
 .btn{
     margin: 20px 0px 0px 0px;

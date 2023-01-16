@@ -1,6 +1,5 @@
 <script setup>
 import block_game from "../components/block_game.vue";
-import popup_deposit from "../components/popup_deposit.vue";
 </script>
 
 <script>
@@ -12,22 +11,11 @@ export default {
     };
   },
   components: {
-    popup_deposit,
-  },
-  methods:{
-    vieposition(){
-        this.view = true;
-    }
   },
 };
 </script>
 <template>
     <div class="MainContainer">
-        <teleport to="body">
-            <transition name="fade" mode="out-in">
-                <popup_deposit v-if="view" @close="view = false"/>
-            </transition>
-        </teleport>
         <div class="logo">
             <img src="../assets/login/logo.png" alt="logo"/>
         </div>
@@ -58,9 +46,6 @@ export default {
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
                     999999
-                </div>
-                <div class="block_token_open" @click="vieposition">
-                    <img src="../assets/pageGame/add.png" alt="add"/>
                 </div>
             </div>
         </div>
