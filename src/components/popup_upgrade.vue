@@ -4,6 +4,7 @@ export default {
   emits: ['close'],
   data() {
     return {
+        lvl: 0,
     };
   },
   components: {
@@ -27,9 +28,9 @@ export default {
                         CARD NAME
                     </div>
                     <div class="info lvl">
-                        LVL: 100
+                        <div class="lvlbox"> LVL: {{ lvl }}</div>
                         <div class="slidecontainer">
-                            <input type="range" min="1" max="100" class="slider" id="myRange">
+                            <input type="range" min="1" max="100" class="slider" id="myRange" v-model.number="lvl">
                         </div>
                     </div>
                     <div class="info gen">
@@ -37,6 +38,9 @@ export default {
                     </div>
                     <div class="info power">
                         POWER: 99999999
+                    </div>
+                    <div class="info time">
+                        TIME: 00:00:00
                     </div>
                     <div class="info unclaimed">
                         UNCLAIMED: 99999999
@@ -103,6 +107,11 @@ export default {
 }
 .info{
     flex-direction: row;
+}
+.lvlbox{
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 70px;
 }
 .btn{
     padding: 2px 25px;

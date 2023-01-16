@@ -26,7 +26,10 @@ export default {
     userHashrate(){
         return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
     },
-    exchangerate(){
+    exchangerateEAT(){
+    return +(1/this.globalHashrate)
+  },
+  exchangerateEET(){
     return +(this.globalHashrate)
   },
   }
@@ -43,7 +46,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
+                        Balance: {{game.walletBalanceEAT.toFixed(8)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -57,11 +60,11 @@ export default {
                     </div>
                 </div>
                 <div class="info_change">
-                    1 {{'EAT'}} = {{exchangerate.toFixed(8)}} {{'EET'}}
+                    1 {{'EAT'}} = {{exchangerateEAT.toFixed(8)}} {{'EET'}}
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEET.toFixed(2)}}
+                        Balance: {{game.walletBalanceEET.toFixed(8)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -81,7 +84,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
+                        Balance: {{game.walletBalanceEAT.toFixed(8)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
