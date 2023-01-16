@@ -58,15 +58,15 @@ export default {
                 Tokens: 
             </div>
             <div class="BlockTokens">
-                <div class="Token">
+                <div class="Token EAT">
                     <img src="../assets/pageGame/token.png" alt="token"/>
                     {{game.balanceEAT.toFixed(4)}}
                 </div>
-                <div class="Token">
+                <div class="Token EET">
                     <img src="../assets/pageGame/token.png" alt="token"/>
                     {{game.balanceEET.toFixed(4)}}
                 </div>
-                <div class="Token">
+                <div class="Token MEAT">
                     <img src="../assets/pageGame/token.png" alt="token"/>
                     {{game.balanceMEAT.toFixed(4)}}
                 </div>
@@ -126,6 +126,35 @@ img{
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     align-items: flex-start;
     justify-content: flex-start;    
+}
+.Token:hover::after{
+    transform: translate(0%, 125%);
+    opacity: 1;
+}
+.Token::after{
+    position: absolute;
+    bottom: 0px;
+    padding: 3px 25px;
+    transform: translate(0%, 25%);
+    border: 1px solid var(--vt-c-white);
+    text-transform: uppercase;
+    font-size: 18px;
+    background: #1F1F1F;
+    color: #D89718;
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: all 0.25s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+.Token.EAT::after{
+    content: "EAT";
+}
+.Token.EET::after{
+    content: "EET";
+}
+.Token.MEAT::after{
+    content: "MEAT";
 }
 .Token, .BlockTokens{
     flex-direction: row;
