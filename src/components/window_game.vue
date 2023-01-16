@@ -65,11 +65,11 @@ export default {
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    {{game.balanceMEAT.toFixed(2)}}
+                    {{game.balanceEET.toFixed(2)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    {{game.balanceGEM.toFixed(2)}}
+                    {{game.balanceMEAT.toFixed(2)}}
                 </div>
                 <div class="block_token_open" @click="vieposition">
                     <img src="../assets/pageGame/add.png" alt="add"/>

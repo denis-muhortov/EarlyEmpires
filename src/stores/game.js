@@ -70,7 +70,7 @@ export const useGameStore = defineStore("game", {
           balances: [],
           exchange_time: (new Date(0)).toISOString(),
           sum_rate: "0.00000000 EAT",
-          stakeidx: "0.00000000 MEAT"
+          stakeidx: "0.00000000 EET"
         }
       }
       
@@ -116,13 +116,13 @@ export const useGameStore = defineStore("game", {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "EAT");
     },
+    balanceEET: (state) => {
+      if (!state.player) return 0;
+      return state.findBalance(state.player.balances, "EET");
+    },
     balanceMEAT: (state) => {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "MEAT");
-    },
-    balanceGEM: (state) => {
-      if (!state.player) return 0;
-      return state.findBalance(state.player.balances, "GEM");
     },
 
     findBalance: (state) => {
@@ -139,11 +139,11 @@ export const useGameStore = defineStore("game", {
     walletBalanceEAT: (state) => {
       return state.findBalance(state.walletBalances, "EAT");
     },
+    walletBalanceEET: (state) => {
+      return state.findBalance(state.walletBalances, "EET");
+    },
     walletBalanceMEAT: (state) => {
       return state.findBalance(state.walletBalances, "MEAT");
-    },
-    walletBalanceGEM: (state) => {
-      return state.findBalance(state.walletBalances, "GEM");
     },
 
     getCurrentSeconds() {
@@ -397,7 +397,7 @@ export const useGameStore = defineStore("game", {
                 from: state.userName,
                 to: state.smartContract,
                 quantity: quantity,
-                memo: "buy gem",
+                memo: "buy meat",
               },
               authorization: state.userAuth,
             },
