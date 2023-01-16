@@ -1,14 +1,15 @@
-<script setup>
+<script>
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
-</script>
+import { useGameStore } from '../stores/game.js';
 
-<script>
+
 export default {
   name: "game",
   data() {
+    let game = useGameStore();
     return {
-      userLogged: false,
+        game: game,
     };
   },
   components: {
@@ -29,7 +30,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -47,7 +48,7 @@ export default {
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEET.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -67,7 +68,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
