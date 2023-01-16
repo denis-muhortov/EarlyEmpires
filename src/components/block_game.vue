@@ -29,12 +29,15 @@ export default {
     methods: {
         openmenu(){
             this.$refs.windowmenu.togglepopup();
+        },
+        openpage(page) {
+            this.currentTab = page; 
         }
 },
 };
 </script>
 <template>
-    <popup_menu ref="windowmenu" @selectTab="(tab) => {currentTab = tab }" :selectedTab="currentTab"/>
+    <popup_menu ref="windowmenu" @selectTab="openpage" :selectedTab="currentTab"/>
     <div class="GameContainer">
         <div class="Menu" @click="openmenu">
             m<br>
@@ -49,22 +52,22 @@ export default {
             </transition>
         </div>
         <div class="Flat_Menu">
-            <div class="element_menu game">
+            <div class="element_menu game" @click="openpage('game')">
                 <img src="../assets/pageGame/game.png" alt="game"/>
             </div>
-            <div class="element_menu inventory">
+            <div class="element_menu inventory" @click="openpage('inventory')">
                 <img src="../assets/pageGame/inventory.png" alt="inventory"/>
             </div>
-            <div class="element_menu shop">
+            <div class="element_menu shop" @click="openpage('shop')">
                 <img src="../assets/pageGame/shop.png" alt="shop"/>
             </div>
-            <div class="element_menu change">
+            <div class="element_menu change" @click="openpage('change')">
                 <img src="../assets/pageGame/change.png" alt="change"/>
             </div>
-            <div class="element_menu calculate">
+            <div class="element_menu calculate" @click="openpage('calculate')">
                 <img src="../assets/pageGame/calculate.png" alt="calculate"/>
             </div>
-            <div class="element_menu leaderboard">
+            <div class="element_menu leaderboard" @click="openpage('leaderboard')">
                 <img src="../assets/pageGame/leaderboard.png" alt="leaderboard"/>
             </div>
         </div>

@@ -1,7 +1,22 @@
 <script>
+export default {
+  name: "game",
+  emits: ['close'],
+  data() {
+    return {
+    };
+  },
+  components: {
+  },
+  methods:{
+    vieposition(){
+        this.$emit('close');
+    }
+  },
+};
 </script>
 <template>
-    <div class="container_filter">
+    <div class="container_filter" >
         <div class="block_filter">
             <div class="block_position">
                 <p>Rariry</p>
@@ -20,7 +35,7 @@
             <div class="btn">
                 Filter
             </div>
-            <div class="close">
+            <div class="close" @click="vieposition">
                 <img src="../assets/pageGame/close.png" alt="close"/>
             </div>
         </div>

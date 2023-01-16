@@ -39,11 +39,13 @@ export default {
                 <div class="block_position">
                     <p>Generation</p>
                     <select>
-                        <option>Archean</option>
-                        <option>Proterozoic</option> 
-                        <option>Paleozoic</option> 
-                        <option>Mesozoic</option> 
-                        <option>Cenozoic</option> 
+                        <option>F</option>
+                        <option>E</option> 
+                        <option>D</option> 
+                        <option>C</option> 
+                        <option>B</option> 
+                        <option>A</option>
+                        <option>S</option>
                     </select>
                 </div>
                 <div class="block_position">

@@ -1,5 +1,6 @@
 <script setup>
 import item from "../components/item.vue";
+import popup_filter from "../components/filter.vue";
 </script>
 
 <script>
@@ -7,16 +8,24 @@ export default {
   name: "game",
   data() {
     return {
-      userLogged: false,
+        vie: false,
     };
   },
   components: {
     item,
+    popup_filter,
   },
-
+  methods:{
+    vieposition(){
+        this.vie = true;
+    }
+  },
 };
 </script>
 <template>
+    <transition name="fade" mode="out-in">
+            <popup_filter v-if="vie" @close="vie = false"/>
+    </transition>
     <div class="block_game">
         <div class="element_control">
             <div class="btnv2">
@@ -25,7 +34,7 @@ export default {
             <div class="btnv2">
                 Claim all
             </div>
-            <div class="filter">
+            <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter"/>
             </div>
             <div class="reload">
@@ -38,6 +47,28 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
+
+
+
 .block_game{
     width: 95%;
     height: 800px;
