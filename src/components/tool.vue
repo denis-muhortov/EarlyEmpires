@@ -22,6 +22,9 @@ export default {
 </script>
 <template>
     <div class="item">
+        <div class="timer">
+            <img src="../assets/pageGame/time.png" alt="timer"/>
+        </div>
         <teleport to="body">
             <transition name="fade" mode="out-in">
                 <popup_upgrade v-if="view" @close="view = false"/>
@@ -43,6 +46,9 @@ export default {
                 </div>
                 <div class="info power">
                     POWER: 99999999
+                </div>
+                <div class="info time">
+                    time: 00:00:00
                 </div>
                 <div class="info unclaimed">
                     UNCLAIMED: 99999999
@@ -77,12 +83,23 @@ export default {
   transform: translate(0%, 0%);
 }
 
-
-
+.timer.active{
+    opacity: 1;
+}
+.timer{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    opacity: 0;
+    transition: all 0.25s ease;
+}
+.timer img{
+    width: 30px;
+}
 .item{
     margin: 10px;
     width: 370px;
-    height: 220px;
+    height: 240px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
     flex-direction: row;
