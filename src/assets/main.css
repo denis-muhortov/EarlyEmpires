@@ -24,6 +24,7 @@ img{pointer-events: none;}
   background-size: cover;
   background-position: center;
   overflow-x: hidden;
+  user-select: none;
 }
 
 body {

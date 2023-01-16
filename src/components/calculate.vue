@@ -30,15 +30,20 @@ export default {
                 <div class="block_position">
                     <p>Rariry</p>
                     <select>
-                        <option>Иди нахуй</option>
-                        <option>Пошел на хуй</option> 
+                        <option>common</option>
+                        <option>rare</option> 
+                        <option>epic</option> 
+                        <option>legendary</option> 
                     </select>
                 </div>
                 <div class="block_position">
                     <p>Generation</p>
                     <select>
-                        <option>Иди нахуй</option>
-                        <option>Пошел на хуй</option> 
+                        <option>Archean</option>
+                        <option>Proterozoic</option> 
+                        <option>Paleozoic</option> 
+                        <option>Mesozoic</option> 
+                        <option>Cenozoic</option> 
                     </select>
                 </div>
                 <div class="block_position">
