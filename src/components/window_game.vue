@@ -1,18 +1,29 @@
 <script setup>
 import block_game from "../components/block_game.vue";
+import { useGameStore } from '../stores/game.js';
 </script>
 
 <script>
 export default {
   name: "window_game",
   data() {
+    let game = useGameStore();
     return {
-      userLogged: false,
+        game: game,
     };
   },
   components: {
     block_game,
   },
+  computed:{
+    globalHashrate(){
+        return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+    },
+    userHashrate(){
+        return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
+    },
+
+  }
 
 };
 </script>
@@ -26,10 +37,10 @@ export default {
                 Hashrate: 
             </div>
             <div class="Global">
-                Global: 999999
+                Global: {{globalHashrate.toFixed(2)}}
             </div>
             <div class="Your">
-                Your: 999999
+                Your: {{userHashrate.toFixed(2)}}
             </div>
         </div>
         <div class="ContainerTokens">
@@ -39,15 +50,15 @@ export default {
             <div class="BlockTokens">
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="logo"/>
-                    999999
+                    {{game.balanceEAT.toFixed(2)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="logo"/>
-                    999999
+                    {{game.balanceMEAT.toFixed(2)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="logo"/>
-                    999999
+                    {{game.balanceGEM.toFixed(2)}}
                 </div>
             </div>
         </div>
