@@ -1,13 +1,9 @@
-<script setup>
-import window_login from "./components/window_login.vue";
-import window_game from "./components/window_game.vue";
-import popup_menu from "./components/popup_menu.vue";
-import popup_upgrade from "./components/popup_upgrade.vue";
-import popup_filter from "./components/filter.vue";
 
-</script>
 
 <script>
+import window_login from "./components/window_login.vue";
+import window_game from "./components/window_game.vue";
+
 export default {
   name: "App",
   data() {
@@ -18,15 +14,16 @@ export default {
   components: {
     window_login,
     window_game,
-    popup_menu,
-    popup_filter,
-    popup_upgrade,
   },
 
 };
 </script>
 <template>
+  <!-- <window_login v-if="!userLogged" @login="userLogged = true"/>
+  <window_game v-else @logout="userLogged = false"/> -->
+
   <window_game/>
+
 </template>
 
 <style scoped></style>

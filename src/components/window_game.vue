@@ -1,12 +1,11 @@
-<script setup>
+
+<script>
 import block_game from "../components/block_game.vue";
 import { useGameStore } from '../stores/game.js';
 import popup_deposit from "../components/popup_deposit.vue";
-</script>
-
-<script>
 export default {
   name: "window_game",
+  emits: ['logout'],
   data() {
     let game = useGameStore();
     return {
@@ -16,6 +15,7 @@ export default {
   },
   components: {
     popup_deposit,
+    block_game,
   },
   methods:{
     vieposition(){
@@ -37,7 +37,7 @@ export default {
     <div class="MainContainer">
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_deposit v-if="view" @close="view = false"/>
+                <popup_deposit v-if="view" @close="view = false" @logout="$emit('logout')"/>
             </transition>
         </teleport>
         <div class="logo">
