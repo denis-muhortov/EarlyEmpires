@@ -594,7 +594,7 @@ export const useGameStore = defineStore("game", {
 
       this.smartContract = smartContract ?? "empires";
       this.tokenSmart = tokenSmart ?? "empires";
-      this.collectionName = collectionName ?? "empires";
+      this.collectionName = collectionName ?? "earlyempires";
       this.historyEndpoint = historyEndpoint;
       this.atomicExplorerApi = new ExplorerApi(atomicEndpoint, "atomicassets", { fetch });
       this.waxjs = new waxjsLib.WaxJS({

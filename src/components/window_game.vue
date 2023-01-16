@@ -22,7 +22,6 @@ export default {
     userHashrate(){
         return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
     },
-
   }
 
 };
