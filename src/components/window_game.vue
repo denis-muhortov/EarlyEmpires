@@ -47,10 +47,10 @@ export default {
                 Hashrate: 
             </div>
             <div class="Global">
-                Global: {{globalHashrate.toFixed(2)}}
+                Global: {{globalHashrate.toFixed(6)}}
             </div>
             <div class="Your">
-                Your: {{userHashrate.toFixed(2)}}
+                Your: {{userHashrate.toFixed(6)}}
             </div>
         </div>
         <div class="ContainerTokens">
@@ -60,15 +60,15 @@ export default {
             <div class="BlockTokens">
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    {{game.balanceEAT.toFixed(2)}}
+                    {{game.balanceEAT.toFixed(4)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    {{game.balanceEET.toFixed(2)}}
+                    {{game.balanceEET.toFixed(4)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    {{game.balanceMEAT.toFixed(2)}}
+                    {{game.balanceMEAT.toFixed(4)}}
                 </div>
             </div>
         </div>

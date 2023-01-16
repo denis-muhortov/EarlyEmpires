@@ -39,6 +39,9 @@ export default {
                     <div class="info power">
                         POWER: 99999999
                     </div>
+                    <div class="info time">
+                        TIME: 00:00:00
+                    </div>
                     <div class="info unclaimed">
                         UNCLAIMED: 99999999
                     </div>
