@@ -1,6 +1,6 @@
 
 <script>
-import popup_filter from "../components/filter.vue";
+import popup_filter from "./filter_inventory.vue";
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
 import { useGameStore } from '../stores/game.js'
@@ -55,7 +55,7 @@ export default {
                     chest: null,
                 }
 
-                let tool = this.game.playerBoxes.find(c => +c.asset_id == +asset.asset_id);
+                let tool = this.game.playerTools.find(c => +c.asset_id == +asset.asset_id);
                 if (tool) {
                     resultItem.component = `item_wax`;
                     resultItem.tool = tool;
@@ -117,7 +117,7 @@ export default {
         </div>
         <div class="content">
             <component
-            v-for="item in waxItemsList"
+            v-for="item in filterList"
             :key="item.asset_id"
             :tool="item.tool"
             :chest="item.chest"

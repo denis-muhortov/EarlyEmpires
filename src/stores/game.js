@@ -553,7 +553,7 @@ export const useGameStore = defineStore("game", {
     },
 
     getAssetsByTemplateConfigTable: (state) => {
-      return async (configTable, inventoryAssets) => {
+      return (configTable, inventoryAssets) => {
         let result = [];
 
         let configTemplates = configTable.map((tableRow) => {
@@ -1046,6 +1046,48 @@ export const useGameStore = defineStore("game", {
       });
     },
 
+    async removeAllTools() {
+
+
+      let actions = [];
+
+      let curSecs = this.getCurrentSeconds();
+
+      for(let tool of this.playerUsedTools){
+        if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
+          actions.push(this.getSmartActions.retrievetool(tool.asset_id));
+        }
+
+      }
+
+
+      await this.sendAction(actions);
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let usertools = await this.getSmartTables.usertools();
+
+      let walletAssets = await this.atomicExplorerApi.getAssets(
+        {
+          owner: this.userName,
+          collection_name: this.collectionName,
+        },
+        1,
+        1000
+      );
+      let inventoryAssets = await this.assetIdsToAtomicAssets(
+        this.gameAssetsIdsFromState({usertools: usertools})
+      );
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.usertools = usertools;
+
+        state.inventoryAssets = inventoryAssets;
+        state.walletAssets = walletAssets;
+      });
+    },
+
 
     async openBox(assetIds) {
       await this.sendAction(this.getSmartActions.openbox(assetIds));
@@ -1097,6 +1139,33 @@ export const useGameStore = defineStore("game", {
         state.tables.usertools = usertools;
       });
 
+    },
+
+    async claimAll() {
+
+
+      let actions = [];
+
+      let curSecs = this.getCurrentSeconds();
+
+      for(let tool of this.playerUsedTools){
+        if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
+          actions.push(this.getSmartActions.claim(tool.asset_id));
+        }
+
+      }
+
+      await this.sendAction(actions);
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let usertools = await this.getSmartTables.usertools();
+
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.usertools = usertools;
+      });
     },
 
     async buy(id) {

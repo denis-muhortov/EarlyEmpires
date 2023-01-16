@@ -1,14 +1,17 @@
-<script setup>
-import item from "../components/item.vue";
-import popup_filter from "../components/filter.vue";
-</script>
 
 <script>
+import item from "./tool.vue";
+import popup_filter from "./filter_game.vue";
+import { useGameStore } from '../stores/game.js'
 export default {
   name: "game",
   data() {
+    const game = useGameStore();
     return {
+        game: game,
         view: false,
+        filterRarity: -1,
+        filterGen: -1,
     };
   },
   components: {
@@ -18,22 +21,79 @@ export default {
   methods:{
     vieposition(){
         this.view = true;
-    }
+    },
+    setRarityFilter(rar){
+        this.filterRarity = rar;
+    },
+    setGenFilter(gen){
+        this.filterGen = gen;
+    },
+    unstakeAll() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.removeAllTools(); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+    claimAll() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.claimAll(); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
   },
+  computed:{
+    toolsList() {
+        let tools = this.game.playerTools;
+        let resultItems = [];
+
+        for (let tool of tools) {
+                let resultItem = {
+                    asset_id: +asset.asset_id,
+                    rarity: tool.config.rarity,
+                    gen: tool.config.gen,
+                }
+                resultItems.push(Object.assign({}, tool, resultItem));
+        }
+
+        return resultItems;
+    },
+    filterList() {
+        let list = this.toolsList;
+
+        if(this.filterRarity > 0){
+            list = list.filter((item)=> {
+                return item.rarity == this.filterRarity;
+            });
+        }
+
+        if(this.filterGen > 0){
+            list = list.filter((item)=> {
+                return item.gen == this.filterGen;
+            });
+        }
+        return list;
+    },
+  }
 };
 </script>
 <template>
     <div class="block_game">
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_filter v-if="view" @close="view = false"/>
+                <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setGenFilter="setGenFilter"/>
             </transition>
         </teleport>
         <div class="element_control">
-            <div class="btnv2">
+            <div class="btnv2" @click="unstakeAll">
                 Unstake all
             </div>
-            <div class="btnv2">
+            <div class="btnv2" @click="claimAll">
                 Claim all
             </div>
             <div class="filter" @click="vieposition">
@@ -44,7 +104,10 @@ export default {
             </div>
         </div>
         <div class="content">
-            <item/>
+            <item
+            v-for="item in filterList"
+            :key="item.asset_id"
+            :tool="item"/>
         </div>
     </div>
 </template>

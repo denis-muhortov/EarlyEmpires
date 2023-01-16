@@ -1,7 +1,7 @@
 <script>
 export default {
-  name: "popup_filter",
-  emits: ['close', 'setRarityFilter', 'setTypeFilter'],
+  name: "popup_game_filter",
+  emits: ['close', 'setRarityFilter', 'setGenFilter'],
   data() {
     let rarityList = [
         {view:"All", value:-1},
@@ -11,17 +11,17 @@ export default {
         {view:"4", value:4},
         {view:"5", value:5},
     ]
-    let typeList = [
-        {view:"All", value:''},
-        {view:"Tools", value:'tool'},
-        {view:"Chest", value:'chest'},
+    let gensList = [
+        {view:"All", value:-1},
+        {view:"1", value:1},
+        {view:"2", value:2},
     ]
 
     return {
         rarityList: rarityList,
-        typeList: typeList,
+        gensList: gensList,
         rarityFilter: rarityList[0].value,
-        typeFilter: typeList[0].value
+        genFilter: gensList[0].value
     };
   },
   components: {
@@ -32,7 +32,7 @@ export default {
     },
     selectFilter(){
         this.$emit('setRarityFilter', this.rarityFilter);
-        this.$emit('setTypeFilter', this.typeFilter);
+        this.$emit('setGenFilter', this.genFilter);
         this.$emit('close');
     }
   },
@@ -52,10 +52,10 @@ export default {
                 </select>
             </div>
             <div class="block_position">
-                <p>Type</p>
-                <select v-model="typeFilter">
+                <p>Gen</p>
+                <select v-model="genFilter">
                     <option
-                    v-for="item in typeList"
+                    v-for="item in gensList"
                     :key="item.value"
                     :value="item.value"
                     >{{item.view}}</option>

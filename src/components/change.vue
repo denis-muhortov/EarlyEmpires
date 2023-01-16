@@ -102,7 +102,7 @@ export default {
                         Deposit
                     </div>
                     <div class="btn">
-                        Withdrow
+                        Withdraw
                     </div>
                 </div>
             </div>

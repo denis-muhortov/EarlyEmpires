@@ -1,10 +1,10 @@
 <script setup>
-import popup_upgrade from "../components/popup_upgrade.vue";
+import popup_upgrade from "./popup_upgrade.vue";
 </script>
 
 <script>
 export default {
-  name: "item",
+  name: "tool",
   data() {
     return {
         view: false,
