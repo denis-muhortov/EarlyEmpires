@@ -1,15 +1,18 @@
-<script setup>
+
+<script>
 import popup_filter from "../components/filter.vue";
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
-</script>
-
-<script>
+import { useGameStore } from '../stores/game.js'
 export default {
   name: "inventory",
   data() {
+    const game = useGameStore();
     return {
+        game: game,
         view: false,
+        filterRarity: -1,
+        filterType: '',
     };
   },
   components: {
@@ -20,7 +23,77 @@ export default {
   methods:{
     vieposition(){
         this.view = true;
+    },
+    stakeAll() {
+        let allTools = this.game.playerTools.filter(t => this.game.walletAssets.some(a => +a.asset_id == t.asset_id));
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.addTool(allTools.map(t => t.asset_id)); },
+            onSuccessMessage: (res) => { 
+                return `.!.`;
+             },
+        });
+    },
+    setRarityFilter(rar){
+        this.filterRarity = rar;
+    },
+    setTypeFilter(type){
+        this.filterType = type;
     }
+  },
+  computed:{
+    waxItemsList() {
+        let assets = this.game.walletAssets;
+        let resultItems = [];
+
+        for (let asset of assets) {
+                let resultItem = {
+                    asset_id: +asset.asset_id,
+                    type: '',
+                    rarity: 0,
+                    component: null,
+                    tool: null,
+                    chest: null,
+                }
+
+                let tool = this.game.playerBoxes.find(c => +c.asset_id == +asset.asset_id);
+                if (tool) {
+                    resultItem.component = `item_wax`;
+                    resultItem.tool = tool;
+                    resultItem.rarity = tool.config.rarity;
+                    resultItem.type = 'tool';
+
+                    resultItems.push(resultItem);
+                    continue;
+                }
+
+                let box = this.game.playerBoxes.find(c => +c.asset_id == +asset.asset_id);
+                if (box) {
+                    resultItem.component = `item_chest`;
+                    resultItem.chest = box;
+                    resultItem.type = 'chest';
+                    resultItems.push(resultItem);
+                    continue;
+                }
+        }
+
+        return resultItems;
+    },
+    filterList() {
+        let list = this.waxItemsList;
+
+        if(this.filterRarity > 0){
+            list = list.filter((item)=> {
+                return item.rarity == this.filterRarity;
+            });
+        }
+
+        if(this.filterType == ''){
+            list = list.filter((item)=> {
+                return item.type == this.filterType;
+            });
+        }
+        return list;
+    },
   },
 };
 </script>
@@ -28,11 +101,11 @@ export default {
     <div class="block_game">
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_filter v-if="view" @close="view = false"/>
+                <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setTypeFilter="setTypeFilter"/>
             </transition>
         </teleport>
         <div class="element_control">
-            <div class="btnv2">
+            <div class="btnv2" @click="stakeAll">
                 Stake all
             </div>
             <div class="filter" @click="vieposition">
@@ -43,8 +116,12 @@ export default {
             </div>
         </div>
         <div class="content">
-            <item_wax/>
-            <item_chest/>
+            <component
+            v-for="item in waxItemsList"
+            :key="item.asset_id"
+            :tool="item.tool"
+            :chest="item.chest"
+            :is="item.component" />
         </div>
     </div>
 </template>

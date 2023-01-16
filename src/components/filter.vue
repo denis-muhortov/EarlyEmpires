@@ -1,15 +1,38 @@
 <script>
 export default {
   name: "popup_filter",
-  emits: ['close'],
+  emits: ['close', 'setRarityFilter', 'setTypeFilter'],
   data() {
+    let rarityList = [
+        {view:"All", value:-1},
+        {view:"1", value:1},
+        {view:"2", value:2},
+        {view:"3", value:3},
+        {view:"4", value:4},
+        {view:"5", value:5},
+    ]
+    let typeList = [
+        {view:"All", value:''},
+        {view:"Tools", value:'tool'},
+        {view:"Chest", value:'chest'},
+    ]
+
     return {
+        rarityList: rarityList,
+        typeList: typeList,
+        rarityFilter: rarityList[0].value,
+        typeFilter: typeList[0].value
     };
   },
   components: {
   },
   methods:{
     vieposition(){
+        this.$emit('close');
+    },
+    selectFilter(){
+        this.$emit('setRarityFilter', this.rarityFilter);
+        this.$emit('setTypeFilter', this.typeFilter);
         this.$emit('close');
     }
   },
@@ -19,20 +42,26 @@ export default {
     <div class="container_filter" >
         <div class="block_filter">
             <div class="block_position">
-                <p>Rariry</p>
-                <select>
-                    <option>Иди нахуй</option>
-                    <option>Пошел на хуй</option> 
+                <p>Rarity</p>
+                <select v-model="rarityFilter">
+                    <option
+                    v-for="rar in rarityList"
+                    :key="rar.value"
+                    :value="rar.value"
+                    >{{rar.view}}</option>
                 </select>
             </div>
             <div class="block_position">
                 <p>Type</p>
-                <select>
-                    <option>Иди нахуй</option>
-                    <option>Пошел на хуй</option> 
+                <select v-model="typeFilter">
+                    <option
+                    v-for="item in typeList"
+                    :key="item.value"
+                    :value="item.value"
+                    >{{item.view}}</option>
                 </select>
             </div>
-            <div class="btn">
+            <div class="btn" @click="selectFilter">
                 Filter
             </div>
             <div class="close" @click="vieposition">

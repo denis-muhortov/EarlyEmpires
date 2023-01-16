@@ -16,7 +16,7 @@ export const useGameStore = defineStore("game", {
     atomicExplorerApi: undefined,
     waxjs: undefined,
     anchorLink: undefined,
-    sendAction: Promise,
+    sendAction: async (x)=>{console.log('send actions'),console.log(x);},
     userName: undefined,
     userAuth: [],
     historyEndpoint: undefined,
@@ -144,6 +144,9 @@ export const useGameStore = defineStore("game", {
     },
     walletBalanceMEAT: (state) => {
       return state.findBalance(state.walletBalances, "MEAT");
+    },
+    walletBalanceWAX: (state) => {
+      return state.findBalance(state.walletBalances, "WAX");
     },
 
     getCurrentSeconds() {
@@ -388,7 +391,7 @@ export const useGameStore = defineStore("game", {
           ];
           return actions;
         },
-        deposit(quantity) {
+        depositwax(quantity) {
           let actions = [
             {
               account: 'eosio.token',
@@ -522,6 +525,10 @@ export const useGameStore = defineStore("game", {
         let balance = [
           ...(await this.waxjs.rpc.get_currency_balance(
             this.tokenSmart,
+            this.userName
+          )),
+          ...(await this.waxjs.rpc.get_currency_balance(
+            'eosio.token',
             this.userName
           )),
         ];
@@ -910,9 +917,20 @@ export const useGameStore = defineStore("game", {
         state.walletBalances = walletBalances;
       });
 
-      setTimeout(async () => {
-        this.depositActions = await this.fetchDeposits();
-      }, 5000);
+    },
+    async depositWax(quantity) {
+      await this.sendAction(this.getSmartActions.depositwax(quantity));
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let walletBalances = await this.fetchWalletBalances();
+
+      this.$patch((state) => {
+        state.tables.users = users;
+
+        state.walletBalances = walletBalances;
+      });
+
     },
     async withdraw(quantity) {
       await this.sendAction(this.getSmartActions.withdraw(quantity));

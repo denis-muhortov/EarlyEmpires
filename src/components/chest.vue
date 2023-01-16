@@ -1,36 +1,56 @@
 <script>
+import { useGameStore } from '../stores/game.js';
+export default {
+  name: "chest_shop",
+  emits: ['buy'],
+  props:{
+    chest:{
+        required: true,
+        type: Object,
+    }
+  },
+  data() {
+    let game = useGameStore();
+    return {
+        game: game,
+    };
+  },
+  computed:{
+    chestName(){
+        return this.chest.collectionTemplate?.immutable_data.name ?? 'Chest';
+    },
+    costMeat(){
+        return this.game.findBalance(this.chest.cost, 'MEAT');
+    },
+  }
 
+};
 </script>
 <template>
     <div class="item">
         <div class="name">
-            Chest name
+            {{chestName}}
         </div>
         <div class="nft">
-            <img src="/nft/chest.png" alt="nft"/>
+            <img :src="chest.image" alt="nft"/>
         </div>
         <div class="amount_container">
             <div class="cost">
                 <img src="../assets/shop/wax.png" alt="wax"/>
-                100
+                {{costMeat}}
             </div>
             <div class="amount">
-                100/1000
+                {{chest.left}}/{{chest.total}}
             </div>
         </div>
-        <div class="rarity">
-            common: 79%
+        <div class="rarity" 
+        v-for="string in chest.contains"
+        :key="string.name"
+        >
+            {{string.name}}: {{string.percent}}%
         </div>
-        <div class="rarity">
-            rare: 15%
-        </div>
-        <div class="rarity">
-            epic: 5%
-        </div>
-        <div class="rarity">
-            legendary: 1%
-        </div>
-        <div class="btn">
+
+        <div class="btn" @click="$emit('buy')">
             Buy
         </div>
     </div>

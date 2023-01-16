@@ -1,31 +1,64 @@
 <script>
+import { useGameStore } from '../stores/game.js';
+export default {
+  name: "chest_item",
+  props:{
+    chest:{
+        required: true,
+        type: Object,
+    }
+  },
+  data() {
+    let game = useGameStore();
+    return {
+        game: game,
+    };
+  },
+  computed:{
+    chestName(){
+        return this.chest.collectionTemplate?.immutable_data.name ?? 'Chest';
+    },
+    costMeat(){
+        return this.game.findBalance(this.chest.cost, 'MEAT');
+    },
+  },
+  methods:{
+    openBox() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.openBox([+chest.asset_id]); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+  }
 
+};
 </script>
 <template>
     <div class="item">
         <div class="nft">
-            <img src="/nft/chest.png" alt="nft"/>
+            <img :src="chest.image"  alt="nft"/>
         </div>
         <div class="info_container">
             <div class="helpblock">
                 <div class="info name">
-                    CARD NAME
+                    {{chestName}}
                 </div>
-                <div class="info rariry">
-                    common: 79%
+
+
+                <div class="info rarity" 
+                v-for="string in chest.contains"
+                :key="string.name"
+                >
+                    {{string.name}}: {{string.percent}}%
                 </div>
-                <div class="info rariry">
-                    rare: 15%
-                </div>
-                <div class="info rariry">
-                    epic: 5%
-                </div>
-                <div class="info rariry">
-                    legendary: 1%
-                </div>
+
+
             </div>
             <div>
-                <div class="btn">
+                <div class="btn" @click="openBox">
                     open
                 </div>
             </div>

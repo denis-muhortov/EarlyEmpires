@@ -1,25 +1,63 @@
 <script>
+import { useGameStore } from '../stores/game.js';
+export default {
+  name: "wax_item",
+  props:{
+    tool:{
+        required: true,
+        type: Object,
+    }
+  },
+  data() {
+    let game = useGameStore();
+    return {
+        game: game,
+    };
+  },
+  computed:{
+    toolName(){
+        return this.tool.collectionTemplate?.immutable_data.name ?? 'Tool';
+    },
+    toolLevel(){
+        return this.tool.data.level;
+    },
+    toolPower(){
+        return this.tool.data.power;
+    },
+  },
+  methods:{
+    stakeTool() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.addTool([+tool.asset_id]); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+  }
 
+};
 </script>
 <template>
     <div class="item">
         <div class="nft">
-            <img src="/nft/nft.png" alt="filter"/>
+            <img :src="tool.image" alt="filter"/>
         </div>
         <div class="info_container">
             <div class="helpblock">
                 <div class="info name">
-                    CARD NAME
+                    {{toolName}}
                 </div>
                 <div class="info lvl">
-                    LVL: 100
+                    LVL: {{toolLevel}}
                 </div>
                 <div class="info power">
-                    POWER: 99999999
+                    POWER: {{toolPower}}
                 </div>
             </div>
             <div>
-                <div class="btn">
+                <div class="btn" @click="stakeTool">
                     Stake
                 </div>
             </div>
