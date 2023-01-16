@@ -23,7 +23,6 @@ export default {
 };
 </script>
 <template>
-    
     <div class="block_game">
         <teleport to="body">
             <transition name="fade" mode="out-in">

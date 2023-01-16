@@ -1,5 +1,6 @@
 <script setup>
 import block_game from "../components/block_game.vue";
+import popup_deposit from "../components/popup_deposit.vue";
 </script>
 
 <script>
@@ -7,17 +8,26 @@ export default {
   name: "window_game",
   data() {
     return {
-      userLogged: false,
+        view: false,
     };
   },
   components: {
-    block_game,
+    popup_deposit,
   },
-
+  methods:{
+    vieposition(){
+        this.view = true;
+    }
+  },
 };
 </script>
 <template>
     <div class="MainContainer">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_deposit v-if="view" @close="view = false"/>
+            </transition>
+        </teleport>
         <div class="logo">
             <img src="../assets/login/logo.png" alt="logo"/>
         </div>
@@ -38,19 +48,19 @@ export default {
             </div>
             <div class="BlockTokens">
                 <div class="Token">
-                    <img src="../assets/pageGame/token.png" alt="logo"/>
+                    <img src="../assets/pageGame/token.png" alt="token"/>
                     999999
                 </div>
                 <div class="Token">
-                    <img src="../assets/pageGame/token.png" alt="logo"/>
+                    <img src="../assets/pageGame/token.png" alt="token"/>
                     999999
                 </div>
                 <div class="Token">
-                    <img src="../assets/pageGame/token.png" alt="logo"/>
+                    <img src="../assets/pageGame/token.png" alt="token"/>
                     999999
                 </div>
-                <div class="block_token_open">
-                    <img src="../assets/pageGame/add.png" alt="logo"/>
+                <div class="block_token_open" @click="vieposition">
+                    <img src="../assets/pageGame/add.png" alt="add"/>
                 </div>
             </div>
         </div>
@@ -58,6 +68,26 @@ export default {
     <block_game/>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
+
 img{
     width: 100%;
     display: flex;
