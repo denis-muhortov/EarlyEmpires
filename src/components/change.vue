@@ -16,7 +16,20 @@ export default {
     item_wax,
     item_chest,
   },
+  methods:{
 
+  },
+  computed:{
+    globalHashrate(){
+        return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+    },
+    userHashrate(){
+        return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
+    },
+    exchangerate(){
+    return +(this.globalHashrate)
+  },
+  }
 };
 </script>
 <template>
@@ -35,7 +48,7 @@ export default {
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            WAX
+                            {{'EAT'}}
                         </div>
                         <input type="text">
                         <div class="iconchange">
@@ -44,7 +57,7 @@ export default {
                     </div>
                 </div>
                 <div class="info_change">
-                    1 EET = 0.000008 GET
+                    1 {{'EAT'}} = {{exchangerate.toFixed(8)}} {{'EET'}}
                 </div>
                 <div class="container_change">
                     <div class="balance">
@@ -53,7 +66,7 @@ export default {
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            WAX
+                            {{'EET'}}
                         </div>
                         <input type="text">
                     </div>

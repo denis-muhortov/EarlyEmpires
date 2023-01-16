@@ -1,13 +1,15 @@
-<script setup>
-import chest from "../components/chest.vue";
-</script>
-
 <script>
+import chest from "../components/chest.vue";
+import { useGameStore } from '../stores/game.js';
+
+
+
 export default {
   name: "game",
   data() {
+    let game = useGameStore();
     return {
-      userLogged: false,
+        game: game,
     };
   },
   components: {
@@ -21,7 +23,7 @@ export default {
         <div class="element_control">
             <div class="container_change">
                 <div class="balance">
-                    Balance: 99999999
+                    Balance: {{game.walletBalanceEET.toFixed(2)}}
                 </div>
                 <div class="container_tokenChange">
                     <div class="token_block">
@@ -33,7 +35,7 @@ export default {
             </div>
             <div class="container_change">
                 <div class="balance">
-                    Balance: 99999999
+                    Balance: {{game.walletBalanceMEAT.toFixed(2)}}
                 </div>
                 <div class="container_tokenChange">
                     <div class="token_block">
