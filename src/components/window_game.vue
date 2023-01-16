@@ -49,6 +49,9 @@ export default {
                     <img src="../assets/pageGame/token.png" alt="logo"/>
                     999999
                 </div>
+                <div class="block_token_open">
+                    <img src="../assets/pageGame/add.png" alt="logo"/>
+                </div>
             </div>
         </div>
     </div>
@@ -98,14 +101,42 @@ img{
     width: 25px;
     margin: 0px 5px 0px 0px;
 }
+.block_token_open {
+    padding: 5px;
+    margin: 5px 10px 0px 0px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.block_token_open img{
+    width: 29px;
+}
+.block_token_open:hover{
+    background: rgba(255, 255, 255, 0.4);
+}
 
-@media (max-width: 1080px) {
+@media (max-width: 1110px) {
     .logo{
         width: 250px;
         height: 100px;
     }
     .ContainerTokens{
         margin: 0px 0px 0px 10px;
+    }
+}
+@media (max-width: 820px) {
+    .MainContainer{
+        flex-wrap: wrap;
+    }
+    .logo{
+        width: 400px;
+        height: 100px;
+    }
+    .ContainerHashrate{
+        margin: 10px 0px 10px 10px;
+    }
+    .BlockTokens{
+        margin: 5px 0px 20px 0px;
     }
 }
 </style>

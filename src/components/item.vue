@@ -1,9 +1,33 @@
-<script>
+<script setup>
+import popup_upgrade from "../components/popup_upgrade.vue";
+</script>
 
+<script>
+export default {
+  name: "item",
+  data() {
+    return {
+        view: false,
+    };
+  },
+  components: {
+    popup_upgrade,
+  },
+  methods:{
+    vieposition(){
+        this.view = true;
+    }
+  },
+};
 </script>
 <template>
     <div class="item">
-        <div class="nft">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_upgrade v-if="view" @close="view = false"/>
+            </transition>
+        </teleport>
+        <div class="nft" @click="vieposition">
             <img src="/nft/nft.png" alt="filter"/>
         </div>
         <div class="info_container">
@@ -33,6 +57,28 @@
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
+
+
+
 .item{
     margin: 10px;
     width: 370px;

@@ -1,4 +1,19 @@
 <script>
+export default {
+  name: "popup_filter",
+  emits: ['close'],
+  data() {
+    return {
+    };
+  },
+  components: {
+  },
+  methods:{
+    vieposition(){
+        this.$emit('close');
+    }
+  },
+};
 </script>
 <template>
     <div class="container_filter">
@@ -36,7 +51,7 @@
                 </div>
             </div>
         </div>
-            <div class="close">
+            <div class="close" @click="vieposition">
                 <img src="../assets/pageGame/close.png" alt="close"/>
             </div>
         </div>

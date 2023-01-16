@@ -1,30 +1,41 @@
 <script setup>
+import popup_filter from "../components/filter.vue";
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
 </script>
 
 <script>
 export default {
-  name: "game",
+  name: "inventory",
   data() {
     return {
-      userLogged: false,
+        view: false,
     };
   },
   components: {
     item_wax,
     item_chest,
+    popup_filter,
   },
-
+  methods:{
+    vieposition(){
+        this.view = true;
+    }
+  },
 };
 </script>
 <template>
     <div class="block_game">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_filter v-if="view" @close="view = false"/>
+            </transition>
+        </teleport>
         <div class="element_control">
             <div class="btnv2">
                 Stake all
             </div>
-            <div class="filter">
+            <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter"/>
             </div>
             <div class="reload">
@@ -38,6 +49,27 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
+
+
 .block_game{
     width: 95%;
     height: 800px;

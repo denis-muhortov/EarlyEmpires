@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "nft-filter",
+  name: "popup_filter",
   emits: ['close'],
   data() {
     return {

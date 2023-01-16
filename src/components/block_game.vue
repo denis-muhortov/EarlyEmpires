@@ -173,4 +173,38 @@ export default {
 .element_menu.leaderboard::after{
     content: "leaderboard";
 }
+
+
+@media (max-width: 640px) {
+    .GameContainer{
+        flex-direction: column-reverse;
+    }
+    .Block{
+        width: 100%;
+    }
+    .Menu{
+        display: none;
+    }
+    .Flat_Menu{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .element_menu{
+        margin: 10px 50px 60px 50px;
+    }
+    .element_menu::after{
+        top: unset;
+        bottom: -50px;
+        left: unset;
+        right: unset;
+        opacity: 1;
+    }
+    .element_menu:hover::after{
+        top: unset;
+        bottom: -50px;
+        left: unset;
+        right: unset;
+        opacity: 1;
+}
+}
 </style>
