@@ -115,4 +115,11 @@ option{
     transform: rotate(90deg);
     transition: all 0.35s;
 }
+
+
+@media (max-width: 600px) {
+    .block_filter{
+    width: 400px;
+    }   
+}
 </style>

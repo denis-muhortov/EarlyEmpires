@@ -165,4 +165,19 @@ export default {
     background: #F5A516;
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .block_filter{
+    width: 400px;
+    }   
+    .slider{
+        width: 150px;
+    }
+    .helpblockv2{
+        flex-direction: column;
+    }
+    .btn{
+        margin: 5px 0px;
+    }
+}
 </style>
