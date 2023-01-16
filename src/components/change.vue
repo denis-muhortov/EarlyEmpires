@@ -1,21 +1,35 @@
-<script setup>
+<script>
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
-</script>
+import { useGameStore } from '../stores/game.js';
 
-<script>
+
 export default {
   name: "game",
   data() {
+    let game = useGameStore();
     return {
-      userLogged: false,
+        game: game,
     };
   },
   components: {
     item_wax,
     item_chest,
   },
+  methods:{
 
+  },
+  computed:{
+    globalHashrate(){
+        return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+    },
+    userHashrate(){
+        return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
+    },
+    exchangerate(){
+    return +(this.globalHashrate)
+  },
+  }
 };
 </script>
 <template>
@@ -29,12 +43,12 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            WAX
+                            {{'EAT'}}
                         </div>
                         <input type="text">
                         <div class="iconchange">
@@ -43,16 +57,16 @@ export default {
                     </div>
                 </div>
                 <div class="info_change">
-                    1 EET = 0.000008 GET
+                    1 {{'EAT'}} = {{exchangerate.toFixed(8)}} {{'EET'}}
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEET.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            WAX
+                            {{'EET'}}
                         </div>
                         <input type="text">
                     </div>
@@ -67,7 +81,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: 99999999
+                        Balance: {{game.walletBalanceEAT.toFixed(2)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
