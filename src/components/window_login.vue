@@ -84,22 +84,7 @@ export default {
         this.$emit('login');
       } catch (e) {
         console.warn(e);
-        if (e.code && e.code == 1) {
-
-          let params = (new URL(document.location)).searchParams;
-          let ref = params.get("ref");
-          await this.game.registerPlayer(ref);
-          await this.game.sleep();
-          await this.game.loadstats();
-          this.game.saveToStorage({ walletType: wallet })
-          //this.game.$subscribe(()=>{this.game.saveToStorage({walletType: wallet})}, { detached: true });
-          this.$emit('login');
-        } else {
-          //showError(e);
-          console.warn(e);
-          throw (e);
-        }
-
+        throw (e);
       } finally {
         //endWaiting();
       }
@@ -129,11 +114,6 @@ export default {
     this.toastRestore();
   }
 };
-
-
-
-
-
 
 
 

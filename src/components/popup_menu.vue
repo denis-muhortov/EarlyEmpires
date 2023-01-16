@@ -1,8 +1,9 @@
 
 <script>
+import { useGameStore } from '../stores/game.js';
 export default {
     name: "popup_menu",
-    emits: ['selectTab'],
+    emits: ['selectTab', 'logout'],
     props: {
         selectedTab: {
             type: String,
@@ -10,7 +11,9 @@ export default {
         }
     },
     data() {
+        let game = useGameStore();
         return {
+            game: game,
             statuspopup: false,
         };
     },
@@ -25,6 +28,11 @@ export default {
             this.$emit('selectTab', page);
         }
     },
+    computed:{
+        username(){
+            return this.game.player.wallet ?? 'not logged in';
+        }
+    }
 };
 </script>
 <template>
@@ -33,9 +41,9 @@ export default {
             <div class="account_block">
                 <div class="account_name">
                     <img src="../assets/pageGame/player.png" alt="player" />
-                    xxxxxxxxx.wam
+                    {{ username }}
                 </div>
-                <div class="account_exit">
+                <div class="account_exit" @click="$emit('logout')">
                     exit
                 </div>
             </div>

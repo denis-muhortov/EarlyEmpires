@@ -1,21 +1,45 @@
-<script setup>
-import block_game from "../components/block_game.vue";
-</script>
 
 <script>
+import block_game from "../components/block_game.vue";
+import { useGameStore } from '../stores/game.js';
+import popup_deposit from "../components/popup_deposit.vue";
 export default {
   name: "window_game",
+  emits: ['logout'],
   data() {
+    let game = useGameStore();
     return {
+        game: game,
         view: false,
     };
   },
   components: {
+    popup_deposit,
+    block_game,
   },
+  methods:{
+    vieposition(){
+        this.view = true;
+    }
+  },
+  computed:{
+    globalHashrate(){
+        return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+    },
+    userHashrate(){
+        return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
+    },
+  }
+
 };
 </script>
 <template>
     <div class="MainContainer">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_deposit v-if="view" @close="view = false" @logout="$emit('logout')"/>
+            </transition>
+        </teleport>
         <div class="logo">
             <img src="../assets/login/logo.png" alt="logo"/>
         </div>
@@ -24,10 +48,10 @@ export default {
                 Hashrate: 
             </div>
             <div class="Global">
-                Global: 999999
+                Global: {{globalHashrate.toFixed(2)}}
             </div>
             <div class="Your">
-                Your: 999999
+                Your: {{userHashrate.toFixed(2)}}
             </div>
         </div>
         <div class="ContainerTokens">
@@ -37,15 +61,15 @@ export default {
             <div class="BlockTokens">
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    999999
+                    {{game.balanceEAT.toFixed(2)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    999999
+                    {{game.balanceEET.toFixed(2)}}
                 </div>
                 <div class="Token">
                     <img src="../assets/pageGame/token.png" alt="token"/>
-                    999999
+                    {{game.balanceMEAT.toFixed(2)}}
                 </div>
             </div>
         </div>

@@ -10,21 +10,21 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 // the first argument is a unique id of the store across your application
 export const useGameStore = defineStore("game", {
   state: () => ({
-    smartContract: String,
-    tokenSmart: String,
-    collectionName: String,
-    atomicExplorerApi: {},
-    waxjs: {},
-    anchorLink: {},
+    smartContract: "",
+    tokenSmart: "",
+    collectionName: "",
+    atomicExplorerApi: undefined,
+    waxjs: undefined,
+    anchorLink: undefined,
     sendAction: Promise,
-    userName: String,
-    userAuth: String,
-    historyEndpoint: String,
+    userName: "",
+    userAuth: [],
+    historyEndpoint: "",
 
     tables: {
       //configs
 
-      gamecfg: {},
+      gamecfg: undefined,
 
       shop: [],
       boxes: [],
@@ -32,7 +32,7 @@ export const useGameStore = defineStore("game", {
 
 
       // stats
-      stat: {},
+      stat: undefined,
 
       users: [],
       usertools: [],
@@ -59,7 +59,7 @@ export const useGameStore = defineStore("game", {
   }),
   getters: {
     gameConfig: (state) => state.tables.gamecfg,
-    gameStat: (state) => state.tables.gamecfg,
+    gameStat: (state) => state.tables.stat,
     player: (state) => {
 
       if(state.tables.users[0]){
@@ -70,7 +70,7 @@ export const useGameStore = defineStore("game", {
           balances: [],
           exchange_time: (new Date(0)).toISOString(),
           sum_rate: "0.00000000 EAT",
-          stakeidx: "0.00000000 MEAT"
+          stakeidx: "0.00000000 EET"
         }
       }
       
@@ -116,13 +116,13 @@ export const useGameStore = defineStore("game", {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "EAT");
     },
+    balanceEET: (state) => {
+      if (!state.player) return 0;
+      return state.findBalance(state.player.balances, "EET");
+    },
     balanceMEAT: (state) => {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "MEAT");
-    },
-    balanceGEM: (state) => {
-      if (!state.player) return 0;
-      return state.findBalance(state.player.balances, "GEM");
     },
 
     findBalance: (state) => {
@@ -139,11 +139,11 @@ export const useGameStore = defineStore("game", {
     walletBalanceEAT: (state) => {
       return state.findBalance(state.walletBalances, "EAT");
     },
+    walletBalanceEET: (state) => {
+      return state.findBalance(state.walletBalances, "EET");
+    },
     walletBalanceMEAT: (state) => {
       return state.findBalance(state.walletBalances, "MEAT");
-    },
-    walletBalanceGEM: (state) => {
-      return state.findBalance(state.walletBalances, "GEM");
     },
 
     getCurrentSeconds() {
@@ -397,7 +397,7 @@ export const useGameStore = defineStore("game", {
                 from: state.userName,
                 to: state.smartContract,
                 quantity: quantity,
-                memo: "buy gem",
+                memo: "buy meat",
               },
               authorization: state.userAuth,
             },
@@ -594,7 +594,7 @@ export const useGameStore = defineStore("game", {
 
       this.smartContract = smartContract ?? "empires";
       this.tokenSmart = tokenSmart ?? "empires";
-      this.collectionName = collectionName ?? "empires";
+      this.collectionName = collectionName ?? "earlyempires";
       this.historyEndpoint = historyEndpoint;
       this.atomicExplorerApi = new ExplorerApi(atomicEndpoint, "atomicassets", { fetch });
       this.waxjs = new waxjsLib.WaxJS({
@@ -737,13 +737,9 @@ export const useGameStore = defineStore("game", {
 
       if (confObj.expDate >= this.getCurrentSeconds()) {
         this.tables.gamecfg = confObj.tables.gamecfg;
-        this.tables.crafts = confObj.tables.crafts;
-        this.tables.packs = confObj.tables.packs;
-        this.tables.captains = confObj.tables.captains;
-        this.tables.stations = confObj.tables.stations;
-        this.tables.spaceships = confObj.tables.spaceships;
-        this.tables.boosts = confObj.tables.boosts;
-        this.tables.earlies = confObj.tables.earlies;
+        this.tables.boxes = confObj.tables.boxes;
+        this.tables.shop = confObj.tables.shop;
+        this.tables.tools = confObj.tables.tools;
 
         this.collectionTemplates = confObj.collectionTemplates;
       } else {
@@ -752,25 +748,19 @@ export const useGameStore = defineStore("game", {
 
       if (statObj.expDate >= this.getCurrentSeconds()) {
         this.tables.users = statObj.tables.users;
-        this.tables.usercrews = statObj.tables.usercrews;
-        this.tables.usercaptains = statObj.tables.usercaptains;
-        this.tables.userstationsbyowner = statObj.tables.userstationsbyowner;
-        this.tables.userstationsbyuser = statObj.tables.userstationsbyuser;
+        this.tables.usertools = statObj.tables.usertools;
+        this.tables.usersbyrate = statObj.tables.usersbyrate;
+        this.tables.usersbystake = statObj.tables.usersbystake;
 
-        this.tables.referralsbyreferral = statObj.tables.referralsbyreferral;
-        this.tables.referralsbyreferrer = statObj.tables.referralsbyreferrer;
 
-        this.tables.stationlogs = statObj.tables.stationlogs;
+        this.tables.stat = statObj.tables.stat;
 
-        this.tables.missions = statObj.tables.missions;
+
+
         this.inventoryAssets = statObj.inventoryAssets;
-
         this.walletAssets = statObj.walletAssets;
 
         this.walletBalances = statObj.walletBalances;
-
-        this.withdrawActions = statObj.withdrawActions;
-        this.depositActions = statObj.depositActions;
       } else {
         await this.loadstats();
       }
@@ -794,13 +784,9 @@ export const useGameStore = defineStore("game", {
           expDate: Date.now() / 1000 + confExpiration,
           tables: {
             gamecfg: this.tables.gamecfg,
-            crafts: this.tables.crafts,
-            packs: this.tables.packs,
-            captains: this.tables.captains,
-            stations: this.tables.stations,
-            spaceships: this.tables.spaceships,
-            boosts: this.tables.boosts,
-            earlies: this.tables.earlies,
+            shop: this.tables.shop,
+            tools: this.tables.tools,
+            boxes: this.tables.boxes,
           },
           collectionTemplates: this.collectionTemplates,
         },
@@ -808,20 +794,14 @@ export const useGameStore = defineStore("game", {
           expDate: Date.now() / 1000 + statExpiration,
           tables: {
             users: this.tables.users,
-            usercrews: this.tables.usercrews,
-            usercaptains: this.tables.usercaptains,
-            userstationsbyowner: this.tables.userstationsbyowner,
-            userstationsbyuser: this.tables.userstationsbyuser,
-            referralsbyreferral: this.tables.referralsbyreferral,
-            referralsbyreferrer: this.tables.referralsbyreferrer,
-            stationlogs: this.tables.stationlogs,
-            missions: this.tables.missions,
+            usertools: this.tables.usertools,
+            stat: this.tables.stat,
+            usersbyrate: this.tables.usersbyrate,
+            usersbystake: this.tables.usersbystake,
           },
           inventoryAssets: this.inventoryAssets,
           walletAssets: this.walletAssets,
           walletBalances: this.walletBalances,
-          withdrawActions: this.withdrawActions,
-          depositActions: this.depositActions,
         },
         restore: {
           wallet: walletType,
@@ -874,10 +854,6 @@ export const useGameStore = defineStore("game", {
       let usersbystake = await this.getSmartTables.usersbystake();
 
       let stat = await (this.getSmartTables.stat())[0];
-
-      // ??????????? let stake = await this.getSmartTables.stake();
-      
-
 
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools: usertools})
@@ -1110,6 +1086,7 @@ export const useGameStore = defineStore("game", {
       await this.sleep();
 
       let users = await this.getSmartTables.users();
+      let shop = await this.getSmartTables.shop();
 
       let newWalletAssets = await this.atomicExplorerApi.getAssets(
         {
@@ -1129,6 +1106,7 @@ export const useGameStore = defineStore("game", {
 
       this.$patch((state) => {
         state.tables.users = users;
+        state.tables.shop = shop;
 
         state.walletAssets = newWalletAssets;
       });
