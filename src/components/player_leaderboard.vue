@@ -1,18 +1,51 @@
 <script>
+import { useGameStore } from '../stores/game.js';
+export default {
+    name: "player_leaderboard",
+    data() {
+        let game = useGameStore();
+        return {
+            game: game,
+        };
+    },
+    components: {
+    },
+    methods: {
+    },
+    computed:{
+        leadersList(){
+            let list = this.game.leaderboardRate;
+            let globalSum = +this.game.gameStat?.global_rate.split(' ')[0] ?? 0;
+
+            let calculated = list.map((user, idx) => {
+                user.rate = +user.sum_rate.split(' ')[0];
+                let percent = user.rate / globalSum * 100;
+                user.percent = percent;
+                user.place = idx+1;
+                return user;
+            })
+
+            return calculated;
+        }
+    }
+};
 </script>
 <template>
-    <div class="item_leaderboard">
+    
+    <div class="item_leaderboard" 
+    v-for="leader in leadersList" :key="leader.wallet"
+    >
         <div class="elemet_items number">
-            #1
+            #{{leader.place}}
         </div>
         <div class="elemet_items name">
-            player
+            {{leader.wallet}}
         </div>
         <div class="elemet_items influence">
-            99.99%
+            {{leader.percent.toFixed(2)}}%
         </div>
         <div class="elemet_items potion">
-            999999
+            {{leader.rate.toFixed(2)}}
         </div>
     </div>
 </template>
