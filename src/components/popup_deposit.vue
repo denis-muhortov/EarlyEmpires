@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "popup_filter",
+  name: "popup_deposit",
   emits: ['close'],
   data() {
     return {
@@ -19,21 +19,33 @@ export default {
     <div class="container_filter" >
         <div class="block_filter">
             <div class="block_position">
-                <p>Rariry</p>
-                <select>
-                    <option>Иди нахуй</option>
-                    <option>Пошел на хуй</option> 
-                </select>
+                <div class="status_balance">
+                    Balance: 9999
+                </div>
+                <img src="../assets/pageGame/token.png" alt="token"/>
+                <input type="text">
             </div>
             <div class="block_position">
-                <p>Type</p>
-                <select>
-                    <option>Иди нахуй</option>
-                    <option>Пошел на хуй</option> 
-                </select>
+                <div class="status_balance">
+                    Balance: 9999
+                </div>
+                <img src="../assets/pageGame/token.png" alt="token"/>
+                <input type="text">
             </div>
-            <div class="btn">
-                Filter
+            <div class="block_position">
+                <div class="status_balance">
+                    Balance: 9999
+                </div>
+                <img src="../assets/pageGame/token.png" alt="token"/>
+                <input type="text">
+            </div>
+            <div class="helpblockv2">
+                <div class="btn">
+                    deposit
+                </div>
+                <div class="btn">
+                    withdrow
+                </div>
             </div>
             <div class="close" @click="vieposition">
                 <img src="../assets/pageGame/close.png" alt="close"/>
@@ -56,9 +68,14 @@ export default {
 }
 .block_filter{
     width: 550px;
-    height: 300px;
+    height: 350px;
     border: 1px solid #F5A516;
     background: #171B2890;
+}
+.status_balance{
+    position: absolute;
+    top: -30px;
+    left: 55px;
 }
 .block_position{
     margin: 20px 0px;
@@ -67,28 +84,24 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
 }
-.block_position p{
-    width: 100px;
+.block_position img{
+    width: 35px;
+    margin: 0px 20px 0px 0px;
 }
-select {
+input{
     outline:none;
     width: 280px;
     padding: 10px;
-    font-size: 18px;
     border: 1px solid #F5A516;
     background: #F5A51660;
-    color: var(--vt-c-white);
-    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
-}
-select:focus {
-    outline:none;
-}
-option{
-    cursor: pointer;
     font-size: 18px;
-    background: rgba(255, 255, 255, 0.0);
-    color: black;
-    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;       
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.helpblockv2{
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .btn{
     margin: 20px 0px 0px 0px;
