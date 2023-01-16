@@ -76,8 +76,8 @@ export const useGameStore = defineStore("game", {
       
     },
     playerUsedTools: (state) => state.tables.usertools,
-    leaderboardrate: (state) => state.tables.usersbyrate,
-    leaderboardstake: (state) => state.tables.usersbystake,
+    leaderboardRate: (state) => state.tables.usersbyrate,
+    leaderboardStake: (state) => state.tables.usersbystake,
 
     shopList: (state) => state.tables.shop,
     boxesList: (state) => state.tables.boxes,
@@ -289,7 +289,7 @@ export const useGameStore = defineStore("game", {
             state.smartContract,
             state.smartContract,
             "users",
-            50,
+            100,
             undefined,
             undefined,
             2,
@@ -1116,6 +1116,9 @@ export const useGameStore = defineStore("game", {
 
     async updateGlobalStat() {
       this.tables.stat = (await this.getSmartTables.stat())[0];
+    },
+    async updateRateLeaders() {
+      this.tables.usersbyrate = await this.getSmartTables.usersbyrate();
     },
 
     //calcs
