@@ -143,7 +143,10 @@ export default {
 }
 
 
-
+.block_game.active{
+    pointer-events: none;
+    filter: brightness(40%);
+}
 .block_game{
     width: 95%;
     height: 800px;
