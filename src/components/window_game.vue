@@ -10,6 +10,7 @@ export default {
     return {
         game: game,
         view: false,
+        status_chest: false,
         timerId: 0,
     };
   },
@@ -81,6 +82,11 @@ export default {
             </div>
         </div>
     </div>
+    <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_openitem v-if="status_chest" @close="status_chest = false"/>
+            </transition>
+        </teleport>
     <block_game  @logout="game.logout(), $emit('logout')"/>
 </template>
 <style scoped>

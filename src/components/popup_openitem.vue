@@ -1,9 +1,13 @@
 <script>
+import { useGameStore } from '../stores/game.js';
+
 export default {
   name: "popup_openitem",
   emits: ['close'],
   data() {
+    let game = useGameStore();
     return {
+        game: game,
     };
   },
   components: {
@@ -11,7 +15,7 @@ export default {
   methods:{
     vieposition(){
         this.$emit('close');
-    }
+    },
   },
 };
 </script>
@@ -46,6 +50,7 @@ export default {
     height: 100%;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     overflow-y: auto;
 }
 .drop_item{
@@ -54,6 +59,7 @@ export default {
 }
 .drop_item img{
     width: 100%;
+    z-index: 5;
 }
 .btn{
     margin: 20px 0px 0px 0px;
