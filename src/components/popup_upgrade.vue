@@ -84,6 +84,11 @@ export default {
 
         return {balance: fullCost, time: finalTime};
     },
+    toolExpectedUpgradeCost(){
+
+    return this.toolExpectedUpgradePaid.balance.toString();
+
+    },
     toolExpectedUpgradeTime(){
 
     let remainingSecs = this.toolExpectedUpgradePaid.time;
@@ -143,8 +148,8 @@ export default {
                     <div class="info time">
                         TIME: {{toolExpectedUpgradeTime}}
                     </div>
-                    <div class="info unclaimed">
-                        UNCLAIMED: {{unclaimed}}
+                    <div class="info cost">
+                        Cost: {{toolExpectedUpgradeCost}}
                     </div>
                 </div>
             <div class="helpblockv2">
@@ -181,6 +186,9 @@ export default {
     border: 1px solid #F5A516;
     background: #171B2890;
     flex-direction: row;
+}
+.nft img{
+    width: 90%;
 }
 .nft{
     height: 100%;

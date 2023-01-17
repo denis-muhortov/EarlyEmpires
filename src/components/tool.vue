@@ -234,7 +234,11 @@ export default {
 .btn:hover{
     background: rgba(255, 255, 255, 0.2);
 }
+.nft img{
+    width: 100%;
+}
 .nft{
+    width: 150px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.0);
     transition: all 0.25s;
