@@ -10,11 +10,11 @@ export default {
     let game = useGameStore();
     return {
         game: game,
+        sellTokenSymbol: 'EET',
+        sellQuantity: 0,
+        buyQuantity: 0,
+
     };
-  },
-  components: {
-    item_wax,
-    item_chest,
   },
   methods:{
     refresh() {
@@ -23,6 +23,103 @@ export default {
         onSuccessMessage: (res) => { return `.!.` },
       });
     },
+    exchange() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.exchange(this.sellExchangeQuantity); },
+            onSuccessMessage: (res) => { 
+                return `.!.`;
+             },
+        });
+    },
+    checkInputSell(inputEvent) {
+        let input = inputEvent.target;
+
+        let quantity = Number(input.value)
+        if (quantity < 0) {
+            quantity = 0;
+        }
+
+        let eatByEet = this.globalHashrate;
+
+        let result = 0;
+
+        if(this.sellTokenSymbol == 'EAT'){
+
+            // check(player_itr->exchange_time + game_config.get().exchange_lock < current_time_point_sec(), ERR_EXCHANGE_LOCKED);
+
+            let eet = quantity * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet
+
+            let exchangeFee = eet * (this.game.gameConfig.exchange_tax / 100000000.0);
+            let eetReceive = eet - exchangeFee;
+
+            result = eetReceive;
+        }else{
+
+            let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
+            result = eat;
+        }
+
+
+        this.buyQuantity = result;
+
+
+    },
+    checkInputBuy(inputEvent) {
+        let input = inputEvent.target;
+
+        let quantity = Number(input.value)
+        if (quantity < 0) {
+            quantity = 0;
+        }
+
+        let eatByEet = this.globalHashrate;
+
+        let result = 0;
+
+
+        if(this.sellTokenSymbol == 'EAT'){
+
+            // check(player_itr->exchange_time + game_config.get().exchange_lock < current_time_point_sec(), ERR_EXCHANGE_LOCKED);
+            let eetResult = quantity;
+            let eetNeed = eetResult / (1-(this.game.gameConfig.exchange_tax / 100000000.0));
+            let eetSell = eetNeed / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
+            result = eetSell;
+        }else{
+            let eetResult = quantity;
+            let eetSell = eetResult * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet;
+            result = eetSell;
+        }
+
+
+        this.sellQuantity = result;
+    },
+    changeSymbol(){
+
+        if(this.sellTokenSymbol == 'EET'){
+            this.sellTokenSymbol = 'EAT'
+        }else{
+            this.sellTokenSymbol = 'EET'
+        }
+
+        let quantity = this.buyQuantity;
+        this.sellQuantity = quantity;
+        let eatByEet = this.globalHashrate;
+
+        let result = 0;
+        if(this.sellTokenSymbol == 'EAT'){
+            let eet = quantity * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet
+            let exchangeFee = eet * (this.game.gameConfig.exchange_tax / 100000000.0);
+            let eetReceive = eet - exchangeFee;
+            result = eetReceive;
+        }else{
+            let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
+            result = eat;
+        }
+
+        this.buyQuantity = result;
+
+        
+    }
   },
   computed:{
     globalHashrate(){
@@ -37,6 +134,16 @@ export default {
   exchangerateEET(){
     return +(this.globalHashrate)
   },
+  sellExchangeQuantity(){
+    return `${this.sellQuantity.toFixed(8)} ${this.sellTokenSymbol}`;
+  },
+  buyTokenSymbol(){
+    if(this.sellTokenSymbol == 'EET'){
+        return 'EAT'
+    }else{
+        return 'EET'
+    }
+  }
   }
 };
 </script>
@@ -51,15 +158,15 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEAT.toFixed(8)}}
+                        Balance: {{game.findBalance(game.player.balances, sellTokenSymbol)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            {{'EAT'}}
+                            {{sellTokenSymbol}}
                         </div>
-                        <input type="text">
-                        <div class="iconchange">
+                        <input type="text"  v-model.number="sellQuantity" @input="checkInputSell($event)">
+                        <div class="iconchange" @click="changeSymbol()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange"/>
                         </div>
                     </div>
@@ -69,32 +176,32 @@ export default {
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEET.toFixed(8)}}
+                        Balance: {{game.findBalance(game.player.balances, buyTokenSymbol)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            {{'EET'}}
+                            {{buyTokenSymbol}}
                         </div>
-                        <input type="text">
+                        <input type="text" v-model.number="buyQuantity" @input="checkInputBuy($event)">
                     </div>
                 </div>
                 <div class="description">
                     text
                 </div>
-                <div class="btn">
+                <div class="btn" @click="exchange">
                     Confirm
                 </div>
             </div>
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEAT.toFixed(8)}}
+                        Balance: {{game.walletBalanceEET.toFixed(8)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="../assets/shop/wax.png" alt="token"/>
-                            WAX
+                            EET
                         </div>
                         <input type="text">
                     </div>

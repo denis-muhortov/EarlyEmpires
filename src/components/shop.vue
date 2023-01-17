@@ -17,6 +17,14 @@ export default {
   components: {
     chest,
   },
+  methods:{
+    refresh() {
+      this.$toast.show(`...---.-.--.-.-.-..-`, {
+        asyncFunction: async () => { await this.game.loadstats(); },
+        onSuccessMessage: (res) => { return `.!.` },
+      });
+    },
+  },
   computed:{
     computedShopList(){
 
@@ -122,7 +130,7 @@ return resultItems;
             <div class="btn" @click="buyMeat">
                 Confirm
             </div>
-            <div class="reload" @click="game.loadstats()">
+            <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>
