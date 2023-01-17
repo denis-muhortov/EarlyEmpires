@@ -1,6 +1,6 @@
 
 <script>
-import item from "./tool.vue";
+import tool from "./tool.vue";
 import popup_filter from "./filter_game.vue";
 import { useGameStore } from '../stores/game.js'
 export default {
@@ -15,7 +15,7 @@ export default {
     };
   },
   components: {
-    item,
+    tool,
     popup_filter,
   },
   methods:{
@@ -104,10 +104,11 @@ export default {
             </div>
         </div>
         <div class="content">
-            <item
+            <tool
             v-for="item in filterList"
             :key="item.asset_id"
             :tool="item"/>
+            <tool></tool>
         </div>
     </div>
 </template>

@@ -576,7 +576,82 @@ export const useGameStore = defineStore("game", {
 
       return result;
       }
-    }
+    },
+
+    calcAccumulateRate: (state) => {
+      return (configRow, level) => {
+
+        let rate = +configRow.base_rate.split(' ')[0];
+
+        for(let i = 1; i < level; i++){
+            let multiplier = state.calcUpdMultiplier(configRow.uprade_multipliers, i);
+
+            rate *= (multiplier.multiplier_rate / 100000000.0);
+        }
+
+
+        return rate;
+      }
+    },
+    calcUpdMultiplier: (state) => {
+      return (multipliers, level) => {
+        for(let multiplier of multipliers){
+            
+          if(level % multiplier.level == 0){
+              return multiplier;
+          }
+
+        }
+
+      }
+    },
+    calcUpgradePaid: (state) => {
+      return (configRow, oldLevel, newLevel) => {
+
+        let time = configRow.base_time;
+        let cost = +configRow.base_cost.split(' ')[0];
+
+        let fullCost = [];
+        let finalTime = 0;
+        let finalCost = 0;
+
+
+
+        for(let i = 1; i < oldLevel; i++){
+            let multiplier = state.calcUpdMultiplier(configRow.uprade_multipliers, i);
+
+            time *= (multiplier.multiplier_time / 100000000.0);
+            cost *= (multiplier.multiplier_cost / 100000000.0);
+        }
+
+
+        for(let i = oldLevel; i < newLevel; i++){
+            let multiplier = state.calcUpdMultiplier(configRow.uprade_multipliers, i);
+
+            time *= (multiplier.multiplier_time / 100000000.0);
+            finalTime += time;
+
+            cost *= (multiplier.multiplier_cost / 100000000.0);
+            finalCost += cost;
+
+            fullCost.push(...multiplier.additional_cost);
+        }
+
+
+        let finalAssetCost = `${finalCost.toFixed(8)} ${configRow.base_cost.split(' ')[1]}`;
+
+
+        fullCost.push(finalAssetCost);
+
+
+
+
+
+
+
+        return {fullCost, finalTime};
+      }
+    },
 
   },
   actions: {

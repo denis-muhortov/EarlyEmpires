@@ -1,56 +1,157 @@
 <script>
+import { useGameStore } from '../stores/game.js';
 export default {
   name: "popup_filter",
   emits: ['close'],
+  props:{
+    userTool:{
+        required: true,
+        type: Object
+    }
+  },
   data() {
+    let game = useGameStore();
     return {
+        view: false,
+        game: game,
+        currentSec: game.getCurrentSeconds(),
+        timerId: 0,
         lvl: 0,
     };
+  },
+  mounted(){
+    this.lvl = this.toolLevel;
+    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 2873);
+  },
+  beforeUnmount(){
+    clearInterval(this.timerId);
   },
   components: {
   },
   methods:{
     vieposition(){
         this.$emit('close');
+    },
+    upgradeTool() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { 
+                let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl);
+                this.vieposition();
+                return res;
+            },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+    speedUp() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { 
+                let res = await this.game.speedUp(+this.userTool.asset_id);
+                this.vieposition();
+                return res;
+            },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+  },
+  computed:{
+    toolName(){
+        return this.userTool.tool.data.name ?? 'Tool';
+    },
+    toolLevel(){
+        return this.userTool.level ?? 1;
+    },
+    toolGen(){
+        return this.userTool.tool.config.gen;
+    },
+    // toolPower(){
+    //     return this.userTool.tool.data.power;
+    // },
+    toolExpectedPower(){
+        let expRate = this.game.calcAccumulateRate(this.userTool.tool.config, this.lvl);
+        return expRate;
+    },
+    toolExpectedUpgradePaid(){
+
+
+        let {fullCost, finalTime} = this.game.calcUpgradePaid(this.userTool.tool.config, this.toolLevel, this.lvl);
+
+
+        return {balance: fullCost, time: finalTime};
+    },
+    toolExpectedUpgradeTime(){
+
+    let remainingSecs = this.toolExpectedUpgradePaid.time;
+
+    if(remainingSecs <= 0){
+      return "00:00:00";
     }
+
+    return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+    },
+    unclaimed(){
+        let accumulated = +this.userTool.accumulated.split(' ')[0];
+        let accumulateRate = +this.userTool.accumulate_rate.split(' ')[0];
+        let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.userTool.accumulate_point);
+
+        let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
+
+        let resultIncome = accumulated + accumulateRate * ticksCount;
+
+        return resultIncome;
+    },
+    toolImage(){
+
+        // TODO return `/nft/${this.tool.template.template_id}.png`;
+
+        return "/nft/nft.png";
+
+    },
   },
 };
+
 </script>
 <template>
     <div class="container_filter">
         <div class="block_filter">
             <div class="nft">
-                <img src="/nft/nft.png" alt="filter"/>
+                <img :src=toolImage alt="filter"/>
             </div>
             <div class="info_container">
                 <div class="helpblock">
                     <div class="info name">
-                        CARD NAME
+                        {{toolName}}
                     </div>
                     <div class="info lvl">
                         <div class="lvlbox"> LVL: {{ lvl }}</div>
                         <div class="slidecontainer">
-                            <input type="range" min="1" max="100" class="slider" id="myRange" v-model.number="lvl">
+                            <input type="range" :min="toolLevel" max="100" class="slider" id="myRange" v-model.number="lvl">
                         </div>
                     </div>
                     <div class="info gen">
-                        GEN: 1
+                        GEN: {{toolGen}}
                     </div>
                     <div class="info power">
-                        POWER: 99999999
+                        POWER: {{+toolExpectedPower.toFixed(2)}}
                     </div>
                     <div class="info time">
-                        TIME: 00:00:00
+                        TIME: {{toolExpectedUpgradeTime}}
                     </div>
                     <div class="info unclaimed">
-                        UNCLAIMED: 99999999
+                        UNCLAIMED: {{unclaimed}}
                     </div>
                 </div>
             <div class="helpblockv2">
-                <div class="btn">
+                <div class="btn" @click="upgradeTool">
                     Upgrade
                 </div>
-                <div class="btn">
+                <div class="btn" @click="speedUp">
                     Speed up
                 </div>
             </div>

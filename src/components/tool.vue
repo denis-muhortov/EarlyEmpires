@@ -1,14 +1,55 @@
-<script setup>
-import popup_upgrade from "./popup_upgrade.vue";
-</script>
-
 <script>
+import popup_upgrade from "./popup_upgrade.vue";
+import { useGameStore } from '../stores/game.js';
 export default {
   name: "tool",
+  props:{
+    tool:{
+        required: true,
+        type: Object,
+        default(){
+            return {
+                data:{
+                    name:"test",
+                    level: 72,
+                    power:11,
+                    
+
+                },
+                config:{
+                    gen:'A',
+                    base_rate: "1.0 EAT",
+                    base_cost: "1.0 EAT",
+                    base_time: 10,
+                    rarity: 1,
+                    uprade_multipliers: [
+                        {
+                        level: 1,
+                        multiplier_cost: 110000000,
+                        additional_cost: [],
+                        multiplier_rate: 110000000,
+                        multiplier_time: 110000000,
+                        }
+                    ]
+                }
+            }
+        }
+    }
+  },
   data() {
+    let game = useGameStore();
     return {
         view: false,
+        game: game,
+        currentSec: game.getCurrentSeconds(),
+        timerId: 0,
     };
+  },
+  mounted(){
+    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 2873);
+  },
+  beforeUnmount(){
+    clearInterval(this.timerId);
   },
   components: {
     popup_upgrade,
@@ -16,7 +57,70 @@ export default {
   methods:{
     vieposition(){
         this.view = true;
-    }
+    },
+    unstakeTool() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.removeTool(+this.tool.asset_id); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                return `.!.`;
+             },
+        });
+    },
+  },
+  computed:{
+    userTool(){
+        let usedtool = this.game.playerUsedTools.find(t => +t.asset_id == +this.tool.asset_id) ?? {
+            accumulated: "00 0",
+            accumulate_rate: "1 0",
+            accumulate_point: "2023-01-17T08:30:20",
+            upgrade_end: "2023-01-17T09:30:20",
+            level: 72,
+        };
+        usedtool.tool = this.tool;
+        return usedtool;
+    },
+    toolName(){
+        return this.tool.data.name ?? 'Tool';
+    },
+    toolLevel(){
+        return this.userTool.level ?? 1;
+    },
+    toolGen(){
+        return this.tool.config.gen;
+    },
+    toolPower(){
+        return this.tool.data.power;
+    },
+    unclaimed(){
+        let accumulated = +this.userTool.accumulated.split(' ')[0];
+        let accumulateRate = +this.userTool.accumulate_rate.split(' ')[0];
+        let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.userTool.accumulate_point);
+
+        let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
+
+        let resultIncome = accumulated + accumulateRate * ticksCount;
+
+        return resultIncome;
+    },
+    infoTime(){
+
+        let remainingSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec;
+
+        if(remainingSecs <= 0){
+          return false;
+        }
+
+        return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+    
+    },
+    toolImage(){
+
+        // TODO return `/nft/${this.tool.template.template_id}.png`;
+
+        return "/nft/nft.png";
+
+    },
   },
 };
 </script>
@@ -27,35 +131,35 @@ export default {
         </div>
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_upgrade v-if="view" @close="view = false"/>
+                <popup_upgrade v-if="view" @close="view = false" :userTool="userTool" />
             </transition>
         </teleport>
         <div class="nft" @click="vieposition">
-            <img src="/nft/nft.png" alt="filter"/>
+            <img :src=toolImage alt="filter"/>
         </div>
         <div class="info_container">
             <div class="helpblock">
                 <div class="info name">
-                    CARD NAME
+                    {{toolName}}
                 </div>
                 <div class="info lvl">
-                    LVL: 100
+                    LVL: {{toolLevel}}
                 </div>
                 <div class="info gen">
-                    GEN: 1
+                    GEN: {{toolGen}}
                 </div>
                 <div class="info power">
-                    POWER: 99999999
+                    POWER: {{toolPower}}
                 </div>
-                <div class="info time">
-                    time: 00:00:00
+                <div class="info time" v-if="Boolean(infoTime)">
+                    time: {{infoTime}}
                 </div>
                 <div class="info unclaimed">
-                    UNCLAIMED: 99999999
+                    UNCLAIMED: {{+unclaimed.toFixed(0)}}
                 </div>
             </div>
             <div>
-                <div class="btn">
+                <div class="btn" @click="unstakeTool">
                     Unstake
                 </div>
             </div>
