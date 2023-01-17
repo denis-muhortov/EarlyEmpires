@@ -16,13 +16,13 @@ export default {
   },
   computed:{
     toolName(){
-        return this.tool.collectionTemplate?.immutable_data.name ?? 'Tool';
+        return this.tool.data.name ?? 'Tool';
     },
     toolLevel(){
-        return this.tool.data.level;
+        return this.tool.data.Level;
     },
     toolPower(){
-        return this.tool.data.power;
+        return this.tool.data.Power;
     },
   },
   methods:{

@@ -13,8 +13,6 @@ export default {
                     name:"test",
                     level: 72,
                     power:11,
-                    
-
                 },
                 config:{
                     gen:'A',
@@ -70,6 +68,7 @@ export default {
   },
   computed:{
     userTool(){
+        debugger
         let usedtool = this.game.playerUsedTools.find(t => +t.asset_id == +this.tool.asset_id) ?? {
             accumulated: "00 0",
             accumulate_rate: "1 0",
