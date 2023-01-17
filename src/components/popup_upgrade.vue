@@ -136,6 +136,9 @@ export default {
         return `/nft/${this.userTool.tool.template.template_id}.png`;
 
     },
+    isUpgrading(){
+        return this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec > 0;
+    },
   },
 };
 
