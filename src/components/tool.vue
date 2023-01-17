@@ -88,7 +88,7 @@ export default {
         return this.tool.config.gen;
     },
     toolPower(){
-        return this.tool.data.Power;
+        return Number(this.tool.data.Power?.split(' ')[0] ?? '0.0003').toFixed(4);
     },
     unclaimed(){
         let accumulated = +this.userTool.accumulated.split(' ')[0];
