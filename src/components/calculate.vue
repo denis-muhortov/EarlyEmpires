@@ -1,74 +1,153 @@
-<script setup>
-import item_wax from "../components/item_wax.vue";
-import item_chest from "../components/item_chest.vue";
-</script>
-
 <script>
+import { useGameStore } from '../stores/game.js';
 export default {
-  name: "game",
+  name: "calculator",
   data() {
+    let game = useGameStore();
     return {
-      userLogged: false,
+        game: game,
+        selectedGen: 1,
+        selectedRarity: 1,
+        oldLevel: 1,
+        newLevel: 2
     };
   },
   components: {
-    item_wax,
-    item_chest,
   },
+  mounted(){
+    this.selectedGen = this.genList[0];
+    this.selectedRarity = this.rarityList[0];
+  },
+  computed:{
+    rarityList(){
+        let list = [0];
+
+        for(let config of this.game.toolsList){
+            if(!list.find(e => e == config.rarity)){
+                list.push(config.rarity);
+            }
+        }
+
+        return list;
+    },
+    rarityNamedList(){
+        let list = [];
+
+        for(let rarity of this.rarityList){
+           switch(rarity){
+            case 1: list.push({name:'Common', value: rarity}); break;
+            case 2: list.push({name:'Rare', value: rarity}); break;
+            case 3: list.push({name:'Epic', value: rarity}); break;
+            case 4: list.push({name:'Legendary', value: rarity}); break;
+            default: list.push({name:'Undef', value: rarity}); break;
+           }
+        }
+
+        return list;
+    },
+    genList(){
+        let list = [0];
+
+        for(let config of this.game.toolsList){
+            if(!list.find(e => e == config.gen)){
+                list.push(config.gen);
+            }
+        }
+
+        return list;
+    },
+    selectedToolConfig(){
+        let config = this.game.toolsList.find(t => t.gen == this.selectedGen &&  t.rarity == this.selectedRarity);
+        return config;
+    },
+    toolExpectedPower(){
+        let expRate = this.game.calcAccumulateRate(this.selectedToolConfig, this.newLevel);
+        return expRate;
+    },
+    toolExpectedUpgradePaid(){
+
+
+        let {fullCost, finalTime} = this.game.calcUpgradePaid(this.selectedToolConfig, this.oldLevel, this.newLevel);
+
+        return {balance: fullCost, time: finalTime};
+    },
+    toolExpectedUpgradeTime(){
+
+    let remainingSecs = this.toolExpectedUpgradePaid.time;
+
+    if(remainingSecs <= 0){
+      return "00:00:00";
+    }
+
+    return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+    },
+    toolExpectedUpgradeCost(){
+        return this.toolExpectedUpgradePaid.balance.toString();
+    },
+    toolExpectedSpeedUpCost(){
+
+        let remainingSecs = this.toolExpectedUpgradePaid.time;
+        let paidBySec = +this.game.gameConfig.skip_by_sec.split(' ')[0];
+
+        let value = remainingSecs * paidBySec;
+
+        return `${+value.toFixed(8)} ${this.game.gameConfig.skip_by_sec.split(' ')[1]}`;
+    },
+  }
 
 };
 </script>
 <template>
     <div class="block_game">
         <div class="element_control">
-            <div class="reload">
+            <div class="reload" @click="game.loadstats()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>
         <div class="content">
             <div class="position_container">
                 <div class="block_position">
-                    <p>Rariry</p>
-                    <select>
-                        <option>common</option>
-                        <option>rare</option> 
-                        <option>epic</option> 
-                        <option>legendary</option> 
+                    <p>Rarity</p>
+                    <select v-model="selectedRarity">
+                        <option
+                        v-for="rar in rarityNamedList"
+                        :key="rar.value"
+                        :value="rar.value"
+                        >{{rar.name}}</option>
                     </select>
                 </div>
                 <div class="block_position">
                     <p>Generation</p>
-                    <select>
-                        <option>F</option>
-                        <option>E</option> 
-                        <option>D</option> 
-                        <option>C</option> 
-                        <option>B</option> 
-                        <option>A</option>
-                        <option>S</option>
+                    <select  v-model="selectedGen">
+                        <option
+                        v-for="gen in genList"
+                        :key="gen"
+                        :value="gen"
+                        >{{gen}}</option>
                     </select>
                 </div>
                 <div class="block_position">
                     <p>Lvl</p>
-                    <input type="text">
+                    <input type="text" v-model.number="oldLevel">
                 </div>
                 <div class="block_position">
                     <p>Target lvl</p>
-                    <input type="text">
+                    <input type="text" v-model.number="newLevel">
                 </div>
             </div>
             <div class="description_container">
                 <div class="block_description">
-                    new power: text
+                    new power: {{toolExpectedPower}}
                 </div>
                 <div class="block_description">
-                    upgrade cost: text
+                    upgrade cost: {{toolExpectedUpgradeCost}}
                 </div>
                 <div class="block_description">
-                    upgrade time: text
+                    upgrade time: {{toolExpectedUpgradeTime}}
                 </div>
                 <div class="block_description">
-                    speedup cost: text
+                    speedup cost: {{toolExpectedSpeedUpCost}}
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@ export default defineConfig({
 		//global: "globalThis",
 	},
   build: {
-    outDir: '../game.lostincosmos.com',
+    outDir: '../game.empires.com',
     emptyOutDir: true,
     //publicDir : './public',
     //minify: false

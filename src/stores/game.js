@@ -326,6 +326,16 @@ export const useGameStore = defineStore("game", {
           return rows;
         },
 
+        async stat() {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            state.smartContract,
+            "globalstats",
+            1
+          );
+          return rows;
+        },
+
 
         // async userstake(user = state.userName) {
         //   let rows = await state.getTableRows(

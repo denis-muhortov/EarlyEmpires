@@ -10,7 +10,15 @@ export default {
     return {
         game: game,
         view: false,
+        timerId: 0,
     };
+  },
+  mounted(){
+    // TODO
+    // this.timerId = setInterval(()=>{this.game.updateGlobalStat()}, 10000);
+  },
+  beforeUnmount(){
+    clearInterval(this.timerId);
   },
   components: {
     popup_deposit,

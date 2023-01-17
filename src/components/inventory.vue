@@ -111,7 +111,7 @@ export default {
             <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter"/>
             </div>
-            <div class="reload">
+            <div class="reload" @click="game.loadstats()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

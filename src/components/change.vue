@@ -38,7 +38,7 @@ export default {
 <template>
     <div class="block_game">
         <div class="element_control">
-            <div class="reload">
+            <div class="reload" @click="game.loadstats()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

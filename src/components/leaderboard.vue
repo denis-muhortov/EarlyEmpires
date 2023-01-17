@@ -1,12 +1,12 @@
-<script setup>
-import player_leaderboard from "../components/player_leaderboard.vue";
-</script>
-
 <script>
+import player_leaderboard from "../components/player_leaderboard.vue";
+import { useGameStore } from '../stores/game.js';
 export default {
-  name: "game",
+  name: "leaderboard",
   data() {
+    let game = useGameStore();
     return {
+      game: game,
       userLogged: false,
     };
   },
@@ -22,7 +22,7 @@ export default {
             <div class="name_block">
                 leaderboard
             </div>
-            <div class="reload">
+            <div class="reload" @click="game.loadstats()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

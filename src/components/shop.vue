@@ -122,7 +122,7 @@ return resultItems;
             <div class="btn" @click="buyMeat">
                 Confirm
             </div>
-            <div class="reload">
+            <div class="reload" @click="game.loadstats()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>
