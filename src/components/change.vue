@@ -23,6 +23,14 @@ export default {
         onSuccessMessage: (res) => { return `.!.` },
       });
     },
+    buyEET() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.deposit(`${this.depositEET.toFixed(8)} EET`); },
+            onSuccessMessage: (res) => { 
+                return `.!.`;
+             },
+        });
+    },
   },
   computed:{
     globalHashrate(){
@@ -103,7 +111,7 @@ export default {
                     text
                 </div>
                 <div class="helpblockv2">
-                    <div class="btn">
+                    <div class="btn" @click="buyEET">
                         Deposit
                     </div>
                     <div class="btn">

@@ -84,9 +84,6 @@ export default {
     return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
 
     },
-    // toolExpectedUpgradeCost(){
-    //     return this.toolExpectedUpgradePaid.balance.toString();
-    // },
     toolExpectedSpeedUpCost(){
 
         let remainingSecs = this.toolExpectedUpgradePaid.time;
