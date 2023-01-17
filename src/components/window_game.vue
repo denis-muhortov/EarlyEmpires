@@ -44,7 +44,7 @@ export default {
     <div class="MainContainer">
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_deposit v-if="view" @close="view = false" @logout="$emit('logout')"/>
+                <popup_deposit v-if="view" @close="view = false"/>
             </transition>
         </teleport>
         <div class="logo">
@@ -81,7 +81,7 @@ export default {
             </div>
         </div>
     </div>
-    <block_game/>
+    <block_game  @logout="game.logout(), $emit('logout')"/>
 </template>
 <style scoped>
 .fade-enter-active {

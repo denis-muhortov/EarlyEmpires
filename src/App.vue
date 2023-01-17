@@ -3,7 +3,6 @@
 <script>
 import window_login from "./components/window_login.vue";
 import window_game from "./components/window_game.vue";
-
 export default {
   name: "App",
   data() {

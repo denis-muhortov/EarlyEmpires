@@ -11,6 +11,7 @@ import popup_menu from "../components/popup_menu.vue";
 <script>
 export default {
   name: "window_block",
+  emits: ['logout'],
   data() {
     return {
       userLogged: false,
@@ -37,7 +38,7 @@ export default {
 };
 </script>
 <template>
-    <popup_menu ref="windowmenu" @selectTab="openpage" :selectedTab="currentTab"/>
+    <popup_menu ref="windowmenu" @selectTab="openpage" :selectedTab="currentTab"  @logout="$emit('logout')"/>
     <div class="GameContainer">
         <div class="Menu" @click="openmenu">
             m<br>
