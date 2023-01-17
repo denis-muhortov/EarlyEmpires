@@ -1,7 +1,7 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 export default {
-  name: "popup_filter",
+  name: "popup_upgrade",
   emits: ['close'],
   props:{
     userTool:{
@@ -137,7 +137,7 @@ export default {
 
     },
     isUpgrading(){
-        return this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec > 0;
+        return this.game.ISOToSeconds(this.userTool.upgrade_end) > this.currentSec;
     },
   },
 };
