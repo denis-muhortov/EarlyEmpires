@@ -167,10 +167,13 @@ export default {
                         POWER: {{+toolExpectedPower.toFixed(2)}}
                     </div>
                     <div class="info time">
-                        TIME: {{toolExpectedUpgradeTime}}
+                        UPGRADE TIME: {{toolExpectedUpgradeTime}}
                     </div>
                     <div class="info cost">
                         Cost: {{toolExpectedUpgradeCost}}
+                    </div>
+                    <div class="info speedupcost" :class="{active: isUpgrading}">
+                        Speed up cost: душа твоей матери
                     </div>
                 </div>
             <div class="helpblockv2">
