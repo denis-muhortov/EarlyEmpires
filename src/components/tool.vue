@@ -116,9 +116,9 @@ export default {
     },
     toolImage(){
 
-        // TODO return `/nft/${this.tool.template.template_id}.png`;
+        return `/nft/${this.tool.template.template_id}.png`;
 
-        return "/nft/nft.png";
+        // return "/nft/free.png";
 
     },
   },
