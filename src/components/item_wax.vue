@@ -42,7 +42,7 @@ export default {
 <template>
     <div class="item">
         <div class="nft">
-            <img :src="tool.image" alt="filter"/>
+            <img :src="tool.image" alt="nft"/>
         </div>
         <div class="info_container">
             <div class="helpblock">
@@ -85,6 +85,14 @@ export default {
 .info_container .helpblock{
     justify-content: flex-start;
     align-items: flex-start;
+}
+.nft img{
+    width: 100%;
+}
+.nft{
+    width: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.0);
+    transition: all 0.25s;
 }
 .btn{
     padding: 2px 25px;
