@@ -15,7 +15,7 @@ export default {
     computed:{
         leadersList(){
             let list = this.game.leaderboardRate;
-            let globalSum = +this.game.gameStat?.global_rate.split(' ')[0] ?? 0;
+            let globalSum = +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
 
             let calculated = list.map((user, idx) => {
                 user.rate = +user.sum_rate.split(' ')[0];

@@ -69,7 +69,7 @@ return resultItems;
         }
 
         let token = quantity;
-        let multiplier = this.game.gameConfig?.meat_by_wax ?? 1;
+        let multiplier = +(this.game.gameConfig?.meat_by_wax.split(' ')[0] ?? 1);
         token *= multiplier;
 
         this.buyMeatQuantity = token;
@@ -83,7 +83,7 @@ return resultItems;
         }
 
         let token = quantity;
-        let multiplier = this.game.gameConfig?.meat_by_wax ?? 1;
+        let multiplier = +(this.game.gameConfig?.meat_by_wax.split(' ')[0] ?? 1);
         token /= multiplier;
 
         this.sellWaxQuantity = token;

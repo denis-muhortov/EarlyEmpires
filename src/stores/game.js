@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { markRaw } from "vue";
 import { ExplorerApi } from "atomicassets";
 import * as waxjsLib from "@waxio/waxjs/dist";
 import AnchorLink from 'anchor-link';
@@ -8,6 +9,11 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 // but it's best to use the name of the store and surround it with `use`
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
+
+
+
+const anchorTransport = new AnchorLinkBrowserTransport();
+
 export const useGameStore = defineStore("game", {
   state: () => ({
     smartContract: undefined,
@@ -687,26 +693,19 @@ export const useGameStore = defineStore("game", {
       this.tokenSmart = tokenSmart ?? "earlytokenss";
       this.collectionName = collectionName ?? "earlyempires";
       this.historyEndpoint = historyEndpoint;
-      this.atomicExplorerApi = new ExplorerApi(atomicEndpoint, "atomicassets", { fetch });
-      this.waxjs = new waxjsLib.WaxJS({
+      this.atomicExplorerApi = markRaw(new ExplorerApi(atomicEndpoint, "atomicassets", { fetch }));
+      this.waxjs = markRaw(new waxjsLib.WaxJS({
         rpcEndpoint: apiEndpoint,
         tryAutoLogin: false,
-      });
+      }));
 
-      
-      let transport = new AnchorLinkBrowserTransport();
-
-      let link = new AnchorLink({
-        transport: transport,
+      this.anchorLink = markRaw(new AnchorLink({
+        transport: anchorTransport,
         chains: [{
           chainId: chainId,
           nodeUrl: apiEndpoint,
         }]
-      });
-
-      
-
-      this.anchorLink = link;
+      }));
     },
 
     async login({
@@ -714,8 +713,7 @@ export const useGameStore = defineStore("game", {
       atomicEndpoint,
       historyEndpoint,
       chainId,
-      walletType,
-      anchorSession
+      walletType
     } = {}){
 
 
@@ -743,31 +741,23 @@ export const useGameStore = defineStore("game", {
         sendAction = sendActionWax;
       } else {
 
+        let res = await this.anchorLink.identify({scope:this.smartContract});
+        console.log(res);
+        debugger
 
-        if(!anchorSession){
-          let res = await this.anchorLink.login(this.smartContract);
-          anchorSession = res.session;
-        }
-
-        
-        walletName = anchorSession.auth.actor;
-        auth = [anchorSession.auth];
-
-        async function sendActionAnchor(actions) {
-          let res = await anchorSession.transact({ actions: actions });
+        walletName = res.signer.actor;
+        auth = [res.signer];
+        sendAction = async function(actions){
+          let res = await this.anchorLink.transact({ actions: actions });
           return res.processed.id;
         }
 
-        sendAction = sendActionAnchor;
-
-        
       }
 
       this.sendAction = sendAction;
       this.userName = walletName;
       this.userAuth = auth;
     },
-    
     async restoreFromStorage({
       apiEndpoint,
       atomicEndpoint,
@@ -802,6 +792,7 @@ export const useGameStore = defineStore("game", {
         this.sendAction = sendActionWax;
 
       } else {
+
 
         let ses = await this.anchorLink.restoreSession(this.smartContract);
 
@@ -953,7 +944,7 @@ export const useGameStore = defineStore("game", {
       let usersbyrate = await this.getSmartTables.usersbyrate();
       let usersbystake = await this.getSmartTables.usersbystake();
 
-      let stat = await (this.getSmartTables.stat())[0];
+      let stat = ( await this.getSmartTables.stat())[0];
 
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools: usertools})
