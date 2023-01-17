@@ -61,10 +61,12 @@ export default {
         return config;
     },
     toolExpectedPower(){
+        if(!this.selectedToolConfig) return 0;
         let expRate = this.game.calcAccumulateRate(this.selectedToolConfig, this.newLevel);
         return expRate;
     },
     toolExpectedUpgradePaid(){
+        if(!this.selectedToolConfig) return {balance: [], time: 0};
 
 
         let {fullCost, finalTime} = this.game.calcUpgradePaid(this.selectedToolConfig, this.oldLevel, this.newLevel);
@@ -88,11 +90,11 @@ export default {
     toolExpectedSpeedUpCost(){
 
         let remainingSecs = this.toolExpectedUpgradePaid.time;
-        let paidBySec = +this.game.gameConfig.skip_by_sec.split(' ')[0];
+        let paidBySec = +(this.game.gameConfig?.skip_by_sec.split(' ')[0] ?? 1);
 
         let value = remainingSecs * paidBySec;
 
-        return `${+value.toFixed(8)} ${this.game.gameConfig.skip_by_sec.split(' ')[1]}`;
+        return `${+value.toFixed(8)} ${this.game.gameConfig?.skip_by_sec.split(' ')[1] ?? 'EAT'}`;
     },
   }
 
