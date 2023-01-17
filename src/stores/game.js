@@ -423,14 +423,14 @@ export const useGameStore = defineStore("game", {
           ];
           return actions;
         },
-        withdraw(amount) {
+        withdraw(quantity) {
           let actions = [
             {
               account: state.smartContract,
               name: "withdraw",
               data: {
                 wallet: state.userName,
-                amount: amount,
+                quantity: quantity,
               },
               authorization: state.userAuth,
             },
@@ -1012,6 +1012,7 @@ export const useGameStore = defineStore("game", {
 
     },
     async withdraw(quantity) {
+      debugger
       await this.sendAction(this.getSmartActions.withdraw(quantity));
       await this.sleep();
 
