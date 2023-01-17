@@ -84,9 +84,9 @@ export default {
     return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
 
     },
-    toolExpectedUpgradeCost(){
-        return this.toolExpectedUpgradePaid.balance.toString();
-    },
+    // toolExpectedUpgradeCost(){
+    //     return this.toolExpectedUpgradePaid.balance.toString();
+    // },
     toolExpectedSpeedUpCost(){
 
         let remainingSecs = this.toolExpectedUpgradePaid.time;
@@ -95,6 +95,31 @@ export default {
         let value = remainingSecs * paidBySec;
 
         return `${+value.toFixed(8)} ${this.game.gameConfig?.skip_by_sec.split(' ')[1] ?? 'EAT'}`;
+    },
+    toolExpectedUpgradeCost(){
+
+    let couner = {};
+    let balance = this.toolExpectedUpgradePaid.balance;
+
+    for(let token of balance)
+    {
+        let amount = +token.split(' ')[0];
+        let symbol = token.split(' ')[1];
+        if(couner[symbol]){
+            couner[symbol] += amount;
+        }
+        else{
+            couner[symbol] = amount;
+        }
+    }
+    let list = "";
+    for(let prop in couner){
+        list +=(`${+couner[prop].toFixed(6)} ${prop} `)
+    }
+
+
+    return list;
+
     },
   },
   methods:{
