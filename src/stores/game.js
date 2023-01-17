@@ -361,7 +361,7 @@ export const useGameStore = defineStore("game", {
                 from: state.userName,
                 to: state.smartContract,
                 asset_ids: asset_ids,
-                memo: `add tool`,
+                memo: `stake tool`,
               },
               authorization: state.userAuth,
             },
@@ -590,7 +590,6 @@ export const useGameStore = defineStore("game", {
 
     calcAccumulateRate: (state) => {
       return (configRow, level) => {
-
         let rate = +configRow.base_rate.split(' ')[0];
 
         for(let i = 1; i < level; i++){
@@ -804,10 +803,10 @@ export const useGameStore = defineStore("game", {
 
       } else {
 
-        let res = await this.anchorLink.restoreSession(this.smartContract);
+        let ses = await this.anchorLink.restoreSession(this.smartContract);
 
-        if(res){
-          let anchorSession = res.session;
+        if(ses){
+          let anchorSession = ses;
           this.sendAction = async function(actions){
             let res = await anchorSession.transact({ actions: actions });
             return res.processed.id;
@@ -1144,7 +1143,7 @@ export const useGameStore = defineStore("game", {
 
       for(let tool of this.playerUsedTools){
         if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
-          actions.push(this.getSmartActions.retrievetool(tool.asset_id));
+          actions.push(...this.getSmartActions.retrievetool(tool.asset_id));
         }
 
       }
@@ -1239,7 +1238,7 @@ export const useGameStore = defineStore("game", {
 
       for(let tool of this.playerUsedTools){
         if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
-          actions.push(this.getSmartActions.claim(tool.asset_id));
+          actions.push(...this.getSmartActions.claim(tool.asset_id));
         }
 
       }

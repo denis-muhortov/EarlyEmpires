@@ -21,7 +21,7 @@ export default {
   },
   mounted(){
     this.lvl = this.toolLevel;
-    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 2873);
+    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 1000);
   },
   beforeUnmount(){
     clearInterval(this.timerId);
@@ -113,9 +113,7 @@ export default {
     },
     toolImage(){
 
-        // TODO return `/nft/${this.tool.template.template_id}.png`;
-
-        return "/nft/nft.png";
+        return `/nft/${this.userTool.tool.template.template_id}.png`;
 
     },
   },

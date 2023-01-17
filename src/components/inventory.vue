@@ -46,13 +46,11 @@ export default {
         let resultItems = [];
 
         for (let asset of assets) {
-                let collectionTemplate = this.game.collectionTemplates.find(t => +t.template_id == +asset.template_id);
-                let imgPath = `/inventory/${asset.template_id}.png`;
+                let collectionTemplate = this.game.collectionTemplates.find(t => +t.template_id == +asset.template.template_id);
+                let imgPath = `/nft/${asset.template.template_id}.png`;
                 let resultItem = {
                     asset_id: +asset.asset_id,
-                    image: imgPath,
                     type: '',
-                    collectionTemplate: collectionTemplate,
                     rarity: 0,
                     component: null,
                     tool: null,
@@ -63,6 +61,8 @@ export default {
                 if (tool) {
                     resultItem.component = `item_wax`;
                     resultItem.tool = tool;
+                    resultItem.tool.image = imgPath;
+                    resultItem.tool.collectionTemplate = collectionTemplate;
                     resultItem.rarity = tool.config.rarity;
                     resultItem.type = 'tool';
 
@@ -74,6 +74,8 @@ export default {
                 if (box) {
                     resultItem.component = `item_chest`;
                     resultItem.chest = box;
+                    resultItem.chest.image = imgPath;
+                    resultItem.chest.collectionTemplate = collectionTemplate;
                     resultItem.type = 'chest';
                     resultItems.push(resultItem);
                     continue;

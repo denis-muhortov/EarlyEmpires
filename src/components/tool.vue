@@ -44,7 +44,7 @@ export default {
     };
   },
   mounted(){
-    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 2873);
+    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 1000);
   },
   beforeUnmount(){
     clearInterval(this.timerId);
@@ -68,7 +68,6 @@ export default {
   },
   computed:{
     userTool(){
-        debugger
         let usedtool = this.game.playerUsedTools.find(t => +t.asset_id == +this.tool.asset_id) ?? {
             accumulated: "00 0",
             accumulate_rate: "1 0",
@@ -89,7 +88,7 @@ export default {
         return this.tool.config.gen;
     },
     toolPower(){
-        return this.tool.data.power;
+        return this.tool.data.Power;
     },
     unclaimed(){
         let accumulated = +this.userTool.accumulated.split(' ')[0];

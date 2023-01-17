@@ -28,7 +28,7 @@ export default {
   methods:{
     stakeTool() {
         this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.addTool([+tool.asset_id]); },
+            asyncFunction: async () => { return await this.game.addTool([+this.tool.asset_id]); },
             onSuccessMessage: (res) => { 
                 console.log(res);
                 return `.!.`;

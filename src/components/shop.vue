@@ -24,7 +24,7 @@ export default {
     let resultItems = [];
 
     for (let product of products) {
-        let imgPath = `/product/${product.template_id}.png`;
+        let imgPath = `/nft/${product.template_id}.png`;
         let collectionTemplate = this.game.collectionTemplates.find(t => +t.template_id == product.template_id);
         let resultItem = Object.assign({description: [], image: imgPath, collectionTemplate: collectionTemplate}, product);
 
