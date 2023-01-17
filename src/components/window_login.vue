@@ -58,31 +58,8 @@ export default {
 
       //startWaiting();
       try {
-
-        this.game.init({});
-        
-        
-        let anchorSession;
-
-        if(wallet != 'wax'){
-          let transport = new AnchorLinkBrowserTransport();
-
-          let anchorLink = new AnchorLink({
-            transport: transport,
-            chains: [{
-              chainId: this.chainId,
-              nodeUrl: this.selectedApiEndpoint,
-            }]
-          });
-
-
-          let res = await anchorLink.login(this.game.smartContract);
-          anchorSession = res.session;
-        }
-
         await this.game.login({
           walletType: wallet,
-          anchorSession: anchorSession
         });
 
         await this.game.loadconfigs();
