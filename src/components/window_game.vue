@@ -1,7 +1,7 @@
 <script>
 import block_game from "../components/block_game.vue";
 import { useGameStore } from '../stores/game.js';
-import popup_deposit from "../components/popup_deposit.vue";
+import popup_openitem from "../components/popup_openitem.vue";
 export default {
   name: "window_game",
   emits: ['logout'],
@@ -21,7 +21,7 @@ export default {
     clearInterval(this.timerId);
   },
   components: {
-    popup_deposit,
+    popup_openitem,
     block_game,
   },
   methods:{
