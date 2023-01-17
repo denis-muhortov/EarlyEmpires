@@ -47,9 +47,15 @@ export default {
       
     },
     loginAnchor() {
+      var alphabet = ["Wellcom to the hall boy","Привет игрок","Опять этот еблан защел","Если тебя зовут не Дима, то мне не о чем с тобой говорить"
+      ,"Ну давай поиграем... С ОГНЕЕЕЕЕМ","Дорова ущерб","Опять ты? Ты снова испытываешь мое терпение","Овощь на связи","Клуб анальных шалунов приветствует тебя"
+      ,"С возвращением мой господин","Сер вы снова с нами","Пиздый фармить токены заебал... КЛОУН!!!","А тебе в школу не пора?"];
+        var randomIndex = Math.floor(Math.random() * alphabet.length);
+
+        var randomLetter = alphabet[randomIndex];
       this.$toast.show(`Loading...`, {
           asyncFunction: async () => { await this.startGame('anchor');},
-          onSuccessMessage: (res) => { return `Success!` },
+          onSuccessMessage: (res) => { return `Success! `+ randomLetter },
       });
     },
     async startGame(wallet) {
