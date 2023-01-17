@@ -533,13 +533,13 @@ export const useGameStore = defineStore("game", {
     fetchWalletBalances: (state) => {
       return async () => {
         let balance = [
-          ...(await this.waxjs.rpc.get_currency_balance(
-            this.tokenSmart,
-            this.userName
+          ...(await state.waxjs.rpc.get_currency_balance(
+            state.tokenSmart,
+            state.userName
           )),
-          ...(await this.waxjs.rpc.get_currency_balance(
+          ...(await state.waxjs.rpc.get_currency_balance(
             'eosio.token',
-            this.userName
+            state.userName
           )),
         ];
         return balance;
@@ -551,7 +551,7 @@ export const useGameStore = defineStore("game", {
         if (assetIds.length < 1) {
           return [];
         }
-        let atomicItems = await this.atomicExplorerApi.getAssets(
+        let atomicItems = await state.atomicExplorerApi.getAssets(
           {
             ids: assetIds,
           },
@@ -684,8 +684,8 @@ export const useGameStore = defineStore("game", {
 
 
 
-      this.smartContract = smartContract ?? "empires";
-      this.tokenSmart = tokenSmart ?? "empires";
+      this.smartContract = smartContract ?? "earlygamesss";
+      this.tokenSmart = tokenSmart ?? "earlytokenss";
       this.collectionName = collectionName ?? "earlyempires";
       this.historyEndpoint = historyEndpoint;
       this.atomicExplorerApi = new ExplorerApi(atomicEndpoint, "atomicassets", { fetch });
@@ -766,7 +766,7 @@ export const useGameStore = defineStore("game", {
       historyEndpoint,
       chainId,
       name = "game",
-    }) {
+    } = {}) {
 
       let storageData = localStorage.getItem(name);
 
@@ -962,9 +962,6 @@ export const useGameStore = defineStore("game", {
 
       let walletBalances = await this.fetchWalletBalances();
 
-      let withdrawActions = await this.fetchWithdraws();
-      let depositActions = await this.fetchDeposits();
-
 
       this.$patch((state) => {
         state.tables.usertools = usertools;
@@ -975,8 +972,6 @@ export const useGameStore = defineStore("game", {
         state.inventoryAssets = inventoryAssets;
         state.walletAssets = walletAssets;
         state.walletBalances = walletBalances;
-        state.withdrawActions = withdrawActions;
-        state.depositActions = depositActions;
       });
 
 
