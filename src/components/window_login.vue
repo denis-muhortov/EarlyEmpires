@@ -99,8 +99,8 @@ export default {
 
       //startWaiting();
       try {
-        await this.game.restoreFromStorage({});
-
+        await this.game.restoreFromStorage();
+        this.$emit('login');
       } catch (e) {
         //showError(e);
         console.warn(e);

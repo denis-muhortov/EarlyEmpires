@@ -19,10 +19,10 @@ export default {
 };
 </script>
 <template>
-  <!-- <window_login v-if="!userLogged" @login="userLogged = true"/>
-  <window_game v-else @logout="userLogged = false"/> -->
+  <window_login v-if="!userLogged" @login="userLogged = true"/>
+  <window_game v-else @logout="userLogged = false"/>
 
-  <window_game/>
+  <!-- <window_game/> -->
 
 </template>
 
