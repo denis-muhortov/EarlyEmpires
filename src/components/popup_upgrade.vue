@@ -101,9 +101,6 @@ export default {
             }
         }
         let list = "";
-        // for(let prop in couner){
-        //     list.push(`${+couner[prop].toFixed(2)} ${prop}`)
-        // }
         for(let prop in couner){
              list +=(`${+couner[prop].toFixed(6)} ${prop} `)
          }

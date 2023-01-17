@@ -10,6 +10,7 @@ export default {
     let game = useGameStore();
     return {
         game: game,
+        amountEET: 0,
         sellTokenSymbol: 'EET',
         sellQuantity: 0,
         buyQuantity: 0,
@@ -22,6 +23,22 @@ export default {
         asyncFunction: async () => { await this.game.loadstats(); },
         onSuccessMessage: (res) => { return `.!.` },
       });
+    },
+    depositToken() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
+            onSuccessMessage: (res) => { 
+                return `нужно больше золота`;
+             },
+        });
+    },
+    withdrawToken() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
+            onSuccessMessage: (res) => { 
+                return `вы успешно пополнили казну`;
+             },
+        });
     },
     exchange() {
         this.$toast.show(`...`, {
@@ -203,17 +220,17 @@ export default {
                             <img src="../assets/shop/wax.png" alt="token"/>
                             EET
                         </div>
-                        <input type="text">
+                        <input type="text" v-model.number="amountEET">
                     </div>
                 </div>
                 <div class="description">
                     text
                 </div>
                 <div class="helpblockv2">
-                    <div class="btn">
+                    <div class="btn" @click="depositToken">
                         Deposit
                     </div>
-                    <div class="btn">
+                    <div class="btn" @click="withdrawToken">
                         Withdraw
                     </div>
                 </div>
