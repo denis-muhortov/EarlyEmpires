@@ -191,7 +191,7 @@ export default {
 .timer{
     position: absolute;
     top: 5px;
-    right: 5px;
+    left: 5px;
     opacity: 0;
     transition: all 0.25s ease;
 }

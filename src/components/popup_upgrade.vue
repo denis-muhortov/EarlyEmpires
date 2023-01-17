@@ -86,7 +86,30 @@ export default {
     },
     toolExpectedUpgradeCost(){
 
-    return this.toolExpectedUpgradePaid.balance.toString();
+        let couner = {};
+        let balance = this.toolExpectedUpgradePaid.balance;
+        
+        for(let token of balance)
+        {
+            let amount = +token.split(' ')[0];
+            let symbol = token.split(' ')[1];
+            if(couner[symbol]){
+                couner[symbol] += amount;
+            }
+            else{
+                couner[symbol] = amount;
+            }
+        }
+        let list = "";
+        // for(let prop in couner){
+        //     list.push(`${+couner[prop].toFixed(2)} ${prop}`)
+        // }
+        for(let prop in couner){
+             list +=(`${+couner[prop].toFixed(6)} ${prop} `)
+         }
+
+
+        return list;
 
     },
     toolExpectedUpgradeTime(){
@@ -154,7 +177,7 @@ export default {
                 <div class="btn" @click="upgradeTool">
                     Upgrade
                 </div>
-                <div class="btn" @click="speedUp">
+                <div class="btn active" @click="speedUp">
                     Speed up
                 </div>
             </div>
@@ -179,8 +202,8 @@ export default {
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .block_filter{
-    width: 550px;
-    height: 300px;
+    width: 650px;
+    height: 350px;
     border: 1px solid #F5A516;
     background: #171B2890;
     flex-direction: row;
@@ -219,6 +242,14 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     width: 70px;
+}
+.btn.active{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: auto;
+}
+.btn.active:hover{
+    background: rgba(255, 255, 255, 0.0);
 }
 .btn{
     padding: 2px 25px;
@@ -282,7 +313,7 @@ export default {
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
     .block_filter{
     width: 400px;
     }   
