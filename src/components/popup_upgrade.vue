@@ -121,7 +121,7 @@ export default {
     <div class="container_filter">
         <div class="block_filter">
             <div class="nft">
-                <img :src=toolImage alt="filter"/>
+                <img :src=toolImage alt="nft"/>
             </div>
             <div class="info_container">
                 <div class="helpblock">
