@@ -10,6 +10,7 @@ export default {
     let game = useGameStore();
     return {
         game: game,
+        amountEET: 0,
     };
   },
   components: {
@@ -23,9 +24,17 @@ export default {
         onSuccessMessage: (res) => { return `.!.` },
       });
     },
-    buyEET() {
+    depositToken() {
         this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.deposit(`${this.depositEET.toFixed(8)} EET`); },
+            asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
+            onSuccessMessage: (res) => { 
+                return `.!.`;
+             },
+        });
+    },
+    depositToken() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => { 
                 return `.!.`;
              },
@@ -104,17 +113,17 @@ export default {
                             <img src="../assets/shop/wax.png" alt="token"/>
                             WAX
                         </div>
-                        <input type="text">
+                        <input type="text" v-model.number="sellWaxQuantity">
                     </div>
                 </div>
                 <div class="description">
                     text
                 </div>
                 <div class="helpblockv2">
-                    <div class="btn" @click="buyEET">
+                    <div class="btn" @click="depositToken">
                         Deposit
                     </div>
-                    <div class="btn">
+                    <div class="btn" @click="withdrowToken">
                         Withdraw
                     </div>
                 </div>
