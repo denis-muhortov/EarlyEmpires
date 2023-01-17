@@ -177,7 +177,7 @@ export default {
                 <div class="btn" @click="upgradeTool">
                     Upgrade
                 </div>
-                <div class="btn active" @click="speedUp">
+                <div class="btn" :class="{active: !isUpgrading}" @click="speedUp">
                     Speed up
                 </div>
             </div>
