@@ -113,7 +113,7 @@ export default {
                             <img src="../assets/shop/wax.png" alt="token"/>
                             WAX
                         </div>
-                        <input type="text" v-model.number="sellWaxQuantity">
+                        <input type="text" v-model.number="amountEET">
                     </div>
                 </div>
                 <div class="description">
