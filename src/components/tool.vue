@@ -135,7 +135,7 @@ export default {
             </transition>
         </teleport>
         <div class="nft" @click="vieposition">
-            <img :src=toolImage alt="filter"/>
+            <img :src=toolImage alt="nft"/>
         </div>
         <div class="info_container">
             <div class="helpblock">
