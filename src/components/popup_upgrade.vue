@@ -177,7 +177,7 @@ export default {
                 <div class="btn" @click="upgradeTool">
                     Upgrade
                 </div>
-                <div class="btn" :class="{active: !isUpgrading}" @click="speedUp">
+                <div class="btn speed" :class="{active: isUpgrading}" @click="speedUp">
                     Speed up
                 </div>
             </div>
@@ -243,13 +243,18 @@ export default {
     align-items: flex-start;
     width: 70px;
 }
-.btn.active{
+.btn.speed{
     opacity: 0.5;
     pointer-events: none;
     cursor: auto;
 }
-.btn.active:hover{
-    background: rgba(255, 255, 255, 0.0);
+.btn.speed.active{
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.btn.speed.active:hover{
+    background: rgba(255, 255, 255, 0.2);
 }
 .btn{
     padding: 2px 25px;
