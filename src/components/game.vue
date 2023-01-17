@@ -50,11 +50,14 @@ export default {
   computed:{
     toolsList() {
         let tools = this.game.playerTools;
+
+        tools = tools.filter(t => this.game.inventoryAssets.some(a => +a.asset_id == +t.asset_id));
+
         let resultItems = [];
 
         for (let tool of tools) {
                 let resultItem = {
-                    asset_id: +asset.asset_id,
+                    asset_id: +tool.asset_id,
                     rarity: tool.config.rarity,
                     gen: tool.config.gen,
                 }

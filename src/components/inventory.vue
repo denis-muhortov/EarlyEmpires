@@ -46,9 +46,13 @@ export default {
         let resultItems = [];
 
         for (let asset of assets) {
+                let collectionTemplate = this.game.collectionTemplates.find(t => +t.template_id == +asset.template_id);
+                let imgPath = `/inventory/${asset.template_id}.png`;
                 let resultItem = {
                     asset_id: +asset.asset_id,
+                    image: imgPath,
                     type: '',
+                    collectionTemplate: collectionTemplate,
                     rarity: 0,
                     component: null,
                     tool: null,
@@ -87,7 +91,7 @@ export default {
             });
         }
 
-        if(this.filterType == ''){
+        if(this.filterType != ''){
             list = list.filter((item)=> {
                 return item.type == this.filterType;
             });
