@@ -32,7 +32,7 @@ export default {
              },
         });
     },
-    depositToken() {
+    withdrawToken() {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => { 
@@ -123,7 +123,7 @@ export default {
                     <div class="btn" @click="depositToken">
                         Deposit
                     </div>
-                    <div class="btn" @click="withdrowToken">
+                    <div class="btn" @click="withdrawToken">
                         Withdraw
                     </div>
                 </div>
