@@ -1012,7 +1012,6 @@ export const useGameStore = defineStore("game", {
 
     },
     async withdraw(quantity) {
-      debugger
       await this.sendAction(this.getSmartActions.withdraw(quantity));
       await this.sleep();
 
