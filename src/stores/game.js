@@ -694,15 +694,18 @@ export const useGameStore = defineStore("game", {
         tryAutoLogin: false,
       });
 
+      
       let transport = new AnchorLinkBrowserTransport();
 
       let link = new AnchorLink({
-        transport,
+        transport: transport,
         chains: [{
           chainId: chainId,
           nodeUrl: apiEndpoint,
         }]
       });
+
+      
 
       this.anchorLink = link;
     },
@@ -712,7 +715,8 @@ export const useGameStore = defineStore("game", {
       atomicEndpoint,
       historyEndpoint,
       chainId,
-      walletType
+      walletType,
+      anchorSession
     } = {}){
 
 
@@ -740,8 +744,13 @@ export const useGameStore = defineStore("game", {
         sendAction = sendActionWax;
       } else {
 
-        let res = await this.anchorLink.login(this.smartContract);
-        let anchorSession = res.session;
+
+        if(!anchorSession){
+          let res = await this.anchorLink.login(this.smartContract);
+          anchorSession = res.session;
+        }
+
+        
         walletName = anchorSession.auth.actor;
         auth = [anchorSession.auth];
 
@@ -771,7 +780,7 @@ export const useGameStore = defineStore("game", {
       let storageData = localStorage.getItem(name);
 
       if (!storageData) {
-        throw "autologin failed"
+        throw {message:"autologin failed"}
       }
       storageData = JSON.parse(storageData);
 
@@ -903,7 +912,7 @@ export const useGameStore = defineStore("game", {
       let jsonData = JSON.stringify(data);
       localStorage.setItem(itemName, jsonData);
     },
-    logout({ itemName = "game" }) {
+    logout({ itemName = "game" }={}) {
       this.$reset();
       localStorage.removeItem(itemName);
     },

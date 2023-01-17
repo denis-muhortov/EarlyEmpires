@@ -108,7 +108,6 @@ export default {
             v-for="item in filterList"
             :key="item.asset_id"
             :tool="item"/>
-            <tool></tool>
         </div>
     </div>
 </template>

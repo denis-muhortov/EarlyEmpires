@@ -1,26 +1,11 @@
 <script>
 import { useGameStore } from '../stores/game.js'
+import AnchorLink from 'anchor-link';
+import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 
 export default {
   name: "blockLogin",
   emits: ['login'],
-  props: {
-    'game-smart': {
-      type: String,
-      default: 'playincosmos'
-    },
-    'collection-name': {
-      type: String,
-      default: 'lostincosmos'
-    },
-    'token-smart': {
-      type: String,
-      default: 'cosmostokens'
-    },
-  },
-  // components: {
-  //   button_control,
-  // },
   data() {
     const game = useGameStore();
     let apiEndpoints = [
@@ -73,8 +58,31 @@ export default {
 
       //startWaiting();
       try {
+
+        this.game.init({});
+        
+        
+        let anchorSession;
+
+        if(wallet != 'wax'){
+          let transport = new AnchorLinkBrowserTransport();
+
+          let anchorLink = new AnchorLink({
+            transport: transport,
+            chains: [{
+              chainId: this.chainId,
+              nodeUrl: this.selectedApiEndpoint,
+            }]
+          });
+
+
+          let res = await anchorLink.login(this.game.smartContract);
+          anchorSession = res.session;
+        }
+
         await this.game.login({
-          walletType: wallet
+          walletType: wallet,
+          anchorSession: anchorSession
         });
 
         await this.game.loadconfigs();
