@@ -12,6 +12,7 @@ export default {
         view: false,
         filterRarity: -1,
         filterGen: -1,
+        status: true,
     };
   },
   components: {
@@ -86,7 +87,7 @@ export default {
 };
 </script>
 <template>
-    <div class="block_game">
+    <div class="block_game" :class="{active: !status}">
         <teleport to="body">
             <transition name="fade" mode="out-in">
                 <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setGenFilter="setGenFilter"/>
@@ -136,7 +137,10 @@ export default {
 }
 
 
-
+.block_game.active{
+    pointer-events: none;
+    filter: brightness(40%);
+}
 .block_game{
     width: 95%;
     height: 800px;
