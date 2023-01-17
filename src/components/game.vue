@@ -46,6 +46,13 @@ export default {
              },
         });
     },
+    refresh() {
+      this.$toast.show(`...---.-.--.-.-.-..-`, {
+        asyncFunction: async () => { await this.game.loadstats(); },
+        onSuccessMessage: (res) => { return `.!.` },
+      });
+    },
+  
   },
   computed:{
     toolsList() {
@@ -102,7 +109,7 @@ export default {
             <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter"/>
             </div>
-            <div class="reload" @click="game.loadstats()">
+            <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

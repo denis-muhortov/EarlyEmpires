@@ -17,7 +17,12 @@ export default {
     item_chest,
   },
   methods:{
-
+    refresh() {
+      this.$toast.show(`...---.-.--.-.-.-..-`, {
+        asyncFunction: async () => { await this.game.loadstats(); },
+        onSuccessMessage: (res) => { return `.!.` },
+      });
+    },
   },
   computed:{
     globalHashrate(){
@@ -38,7 +43,7 @@ export default {
 <template>
     <div class="block_game">
         <div class="element_control">
-            <div class="reload" @click="game.loadstats()">
+            <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

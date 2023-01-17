@@ -13,6 +13,14 @@ export default {
   components: {
     player_leaderboard,
   },
+  methods:{
+    refresh() {
+      this.$toast.show(`...---.-.--.-.-.-..-`, {
+        asyncFunction: async () => { await this.game.loadstats(); },
+        onSuccessMessage: (res) => { return `.!.` },
+      });
+    },
+  }
 
 };
 </script>
@@ -22,7 +30,7 @@ export default {
             <div class="name_block">
                 leaderboard
             </div>
-            <div class="reload" @click="game.loadstats()">
+            <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>

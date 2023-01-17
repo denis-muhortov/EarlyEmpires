@@ -15,8 +15,7 @@ export default {
     };
   },
   mounted(){
-    // TODO
-    // this.timerId = setInterval(()=>{this.game.updateGlobalStat()}, 10000);
+    this.timerId = setInterval(()=>{this.game.updateGlobalStat()}, 10000);
   },
   beforeUnmount(){
     clearInterval(this.timerId);
@@ -43,11 +42,6 @@ export default {
 </script>
 <template>
     <div class="MainContainer">
-        <teleport to="body">
-            <transition name="fade" mode="out-in">
-                <popup_deposit v-if="view" @close="view = false"/>
-            </transition>
-        </teleport>
         <div class="logo">
             <img src="../assets/login/logo.png" alt="logo"/>
         </div>

@@ -96,6 +96,14 @@ export default {
 
         return `${+value.toFixed(8)} ${this.game.gameConfig?.skip_by_sec.split(' ')[1] ?? 'EAT'}`;
     },
+  },
+  methods:{
+    refresh() {
+      this.$toast.show(`...---.-.--.-.-.-..-`, {
+        asyncFunction: async () => { await this.game.loadstats(); },
+        onSuccessMessage: (res) => { return `.!.` },
+      });
+    },
   }
 
 };
@@ -103,7 +111,7 @@ export default {
 <template>
     <div class="block_game">
         <div class="element_control">
-            <div class="reload" @click="game.loadstats()">
+            <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
         </div>
