@@ -220,7 +220,7 @@ export default {
     width: 650px;
     height: 350px;
     border: 1px solid #F5A516;
-    background: #171B2890;
+    background: #171B28;
     flex-direction: row;
 }
 .nft img{

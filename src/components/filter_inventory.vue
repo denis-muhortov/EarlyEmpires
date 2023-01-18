@@ -87,7 +87,7 @@ export default {
     width: 550px;
     height: 300px;
     border: 1px solid #F5A516;
-    background: #171B2890;
+    background: #171B28;
 }
 .block_position{
     margin: 20px 0px;

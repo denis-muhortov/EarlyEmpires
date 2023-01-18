@@ -61,6 +61,16 @@ export default {
                     >{{item.view}}</option>
                 </select>
             </div>
+            <div class="block_position">
+                <p>Lvl</p>
+                <select v-model="genFilter">
+                    <option
+                    v-for="item in gensList"
+                    :key="item.value"
+                    :value="item.value"
+                    >{{item.view}}</option>
+                </select>
+            </div>
             <div class="btn" @click="selectFilter">
                 Filter
             </div>
@@ -85,9 +95,9 @@ export default {
 }
 .block_filter{
     width: 550px;
-    height: 300px;
+    height: 350px;
     border: 1px solid #F5A516;
-    background: #171B2890;
+    background: #171B28;
 }
 .block_position{
     margin: 20px 0px;
