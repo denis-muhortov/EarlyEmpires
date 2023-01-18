@@ -142,10 +142,12 @@ export default {
 
             let multiplier = leftSecs/totalSecs;
 
-            return (+this.userTool.speedup_cost.split(' ')[0]) * multiplier;
+            let value = (+this.userTool.speedup_cost.split(' ')[0]) * multiplier
+
+            return `${+value.toFixed(8)} ${this.userTool.speedup_cost.split(' ')[1]}`;
 
         }else{
-            return +this.toolExpectedUpgradePaid.speedup.split(' ')[0];
+            return this.toolExpectedUpgradePaid.speedup;
         }
         return 1
     }
