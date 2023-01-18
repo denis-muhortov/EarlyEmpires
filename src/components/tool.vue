@@ -153,7 +153,7 @@ export default {
                     time: {{infoTime}}
                 </div>
                 <div class="info unclaimed">
-                    UNCLAIMED: {{+unclaimed.toFixed(0)}}
+                    UNCLAIMED: {{+unclaimed.toFixed(6)}}
                 </div>
             </div>
             <div>
@@ -208,6 +208,7 @@ export default {
     justify-content: space-around;
 }
 .info_container{
+    width: 210px;
     height: 100%;
     text-transform: uppercase;
     font-size: 18px;
@@ -216,6 +217,7 @@ export default {
     justify-content: space-around;
 }
 .info_container .helpblock{
+    width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
 }
