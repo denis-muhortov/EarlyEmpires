@@ -65,9 +65,40 @@ export default {
 .elemet_items{
     width: 25%;
 }
-@media (max-width: 1080px) {
+@media (max-width: 1440px) {
     .item_leaderboard{
         width: 100%;
+    }
+}
+@media (max-width: 960px) {
+    .item_leaderboard{
+        justify-content: flex-start;
+    }
+    .elemet_items{
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .elemet_items.number{
+        width: 10%;
+    }
+    .elemet_items.name{
+        width: 35%;
+    }
+    .elemet_items.influence{
+        width: 25%;
+    }
+    .elemet_items.potion{
+        width: 30%;
+    }
+}
+@media (max-width: 740px) {
+    .item_leaderboard{
+        justify-content: flex-start;
+    }
+    .elemet_items{
+        align-items: flex-start;
+        justify-content: flex-start;
+        font-size: 16px;
     }
 }
 </style>

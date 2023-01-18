@@ -64,8 +64,8 @@ export default {
 <style scoped>
 .item{
     margin: 10px 10px 50px 10px;
-    width: 350px;
-    height: 420px;
+    width: 400px;
+    height: 520px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
     justify-content: space-around;

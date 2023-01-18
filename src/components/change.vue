@@ -143,6 +143,12 @@ export default {
     editBalanceGame(amount){
         this.amountEET = this.game.balanceEET*(amount/100);
     },
+    editBalance_mergUp(amount){
+        this.sellQuantity = this.game.balanceEAT*(amount/100);
+    },
+    editBalance_mergDown(amount){
+        this.buyQuantity = this.game.balanceEET*(amount/100);
+    }
   },
   computed:{
     globalHashrate(){
@@ -182,6 +188,20 @@ export default {
                 <div class="container_change">
                     <div class="balance">
                         Balance: {{game.findBalance(game.player.balances, sellTokenSymbol)}}
+                        <div class="helperblock_eat">
+                            <div class="btn" @click="editBalance_mergUp(25)">
+                                25%
+                            </div>
+                            <div class="btn" @click="editBalance_mergUp(50)">
+                                50%
+                            </div>
+                            <div class="btn" @click="editBalance_mergUp(75)">
+                                75%
+                            </div>
+                            <div class="btn" @click="editBalance_mergUp(100)">
+                                100%
+                            </div>
+                        </div>
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -200,6 +220,20 @@ export default {
                 <div class="container_change">
                     <div class="balance">
                         Balance: {{game.findBalance(game.player.balances, buyTokenSymbol)}}
+                        <div class="helperblock_eat">
+                            <div class="btn" @click="editBalance_mergDown(25)">
+                                25%
+                            </div>
+                            <div class="btn" @click="editBalance_mergDown(50)">
+                                50%
+                            </div>
+                            <div class="btn" @click="editBalance_mergDown(75)">
+                                75%
+                            </div>
+                            <div class="btn" @click="editBalance_mergDown(100)">
+                                100%
+                            </div>
+                        </div>
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -209,10 +243,7 @@ export default {
                         <input type="text" v-model.number="buyQuantity" @input="checkInputBuy($event)">
                     </div>
                 </div>
-                <div class="description">
-                    text
-                </div>
-                <div class="btn" @click="exchange">
+                <div class="btn confirm" @click="exchange">
                     Confirm
                 </div>
             </div>
@@ -228,9 +259,6 @@ export default {
                         </div>
                         <input type="text" v-model.number="amountEET">
                     </div>
-                </div>
-                <div class="description">
-                    text
                 </div>
                 <div class="helpblockv2">
                     <div class="helpercolumn_btnContainer">
@@ -316,10 +344,14 @@ export default {
 
 
 .info_change{
+    flex-direction: row;
     margin: 30px 0px;
     font-size: 28px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
+}
+.info_change .btn{
+    margin: 0px 0px 0px 20px;
 }
 .container_change{
     font-size: 34px;
@@ -328,15 +360,18 @@ export default {
 }
 .balance{
     width: 100%;
-    font-size: 18px;
-    flex-direction: row;
+    font-size: 20px;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
 }
 .container_tokenChange{
     flex-direction: row;
 }
 .token_block{
+    width: 100px;
     flex-direction: row;
+    justify-content: flex-start;
     margin: 0px 25px 0px 0px;
 }
 .token_block img{
@@ -374,6 +409,7 @@ input{
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;    
 }
 .helpblockv2{
+    margin: 20px 0px 0px 0px;
     width: 90%;
     flex-direction: row;
     justify-content: space-around;
@@ -404,9 +440,26 @@ input{
     align-items: center;
     flex-direction: row;
 }
-.helperblock .btn{
-    margin: 0px 2px;
+.btn.confirm{
+    margin: 30px 0px 0px 0px;
+}
+.helpercolumn_btnContainer .helperblock .btn{
+    width: fit-content;
+    margin: 0px 3px;
     padding: 0px 5px;
+}
+.helpercolumn_btnContainer .btn{
+    width: 200px;
+}
+.helperblock_eat{
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.helperblock_eat .btn{
+    width: fit-content;
+    margin: 0px 10px 0px 0px;
+    padding: 0px 10px;
 }
 @media (max-width: 1440px) {
     .block_change{
