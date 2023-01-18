@@ -6,6 +6,12 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 export default {
   name: "blockLogin",
   emits: ['login'],
+  props:{
+    restore:{
+      type: Boolean,
+      default: true,
+    }
+  },
   data() {
     const game = useGameStore();
     let apiEndpoints = [
@@ -109,7 +115,9 @@ export default {
     },
   },
   mounted() {
-    this.toastRestore();
+    if(this.restore){
+      this.toastRestore();
+    }
   }
 };
 

@@ -44,7 +44,7 @@ export default {
             </div>
         </div>
         <div class="rarity" 
-        v-for="string in chest.contains"
+        v-for="string in chest.description"
         :key="string.name"
         >
             {{string.name}}: {{string.percent}}%

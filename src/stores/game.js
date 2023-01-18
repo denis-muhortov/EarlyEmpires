@@ -742,8 +742,6 @@ export const useGameStore = defineStore("game", {
       } else {
 
         let res = await this.anchorLink.identify({scope:this.smartContract});
-        console.log(res);
-        debugger
 
         walletName = res.signer.actor;
         auth = [res.signer];

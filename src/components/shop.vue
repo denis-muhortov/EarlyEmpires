@@ -39,9 +39,8 @@ export default {
 
         let box = this.game.boxesList.find(t => +t.template_id == +product.template_id);
         if (box) {
-
-            let contains = JSON.parse(box.contains)
-            resultItem.description = contains;
+            let contains = box.contains.replaceAll("'", '"');
+            resultItem.description = JSON.parse(contains);
             resultItems.push(resultItem);
             continue;
     }

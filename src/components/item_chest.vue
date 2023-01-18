@@ -25,7 +25,7 @@ export default {
   methods:{
     openBox() {
         this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.openBox([+chest.asset_id]); },
+            asyncFunction: async () => { return await this.game.openBox([+this.chest.asset_id]); },
             onSuccessMessage: (res) => { 
                 console.log(res);
                 return `.!.`;
