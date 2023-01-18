@@ -21,6 +21,10 @@ export default {
     costMeat(){
         return this.game.findBalance(this.chest.cost, 'MEAT');
     },
+    chestContains(){
+        let contains = this.chest.config.contains.replaceAll("'", '"');
+        return JSON.parse(contains);
+    },
   },
   methods:{
     openBox() {
@@ -49,7 +53,7 @@ export default {
 
 
                 <div class="info rarity" 
-                v-for="string in chest.description"
+                v-for="string in chestContains"
                 :key="string.name"
                 >
                     {{string.name}}: {{string.percent}}%
