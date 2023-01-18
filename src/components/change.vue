@@ -136,7 +136,13 @@ export default {
         this.buyQuantity = result;
 
         
-    }
+    },
+    editBalance(amount){
+        this.amountEET = this.game.walletBalanceEET*(amount/100);
+    },
+    editBalanceGame(amount){
+        this.amountEET = this.game.balanceEET*(amount/100);
+    },
   },
   computed:{
     globalHashrate(){
@@ -213,7 +219,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{game.walletBalanceEET.toFixed(8)}}
+                        Balance: {{game.walletBalanceEET.toFixed(4)}}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -227,11 +233,43 @@ export default {
                     text
                 </div>
                 <div class="helpblockv2">
-                    <div class="btn" @click="depositToken">
-                        Deposit
+                    <div class="helpercolumn_btnContainer">
+                        <div class="btn" @click="depositToken">
+                            Deposit
+                        </div>
+                        <div class="helperblock">
+                            <div class="btn" @click="editBalance(25)">
+                                25%
+                            </div>
+                            <div class="btn" @click="editBalance(50)">
+                                50%
+                            </div>
+                            <div class="btn" @click="editBalance(75)">
+                                75%
+                            </div>
+                            <div class="btn" @click="editBalance(100)">
+                                100%
+                            </div>
+                        </div>
                     </div>
-                    <div class="btn" @click="withdrawToken">
-                        Withdraw
+                    <div class="helpercolumn_btnContainer">
+                        <div class="btn" @click="withdrawToken">
+                            Withdraw
+                        </div>
+                        <div class="helperblock">
+                            <div class="btn" @click="editBalanceGame(25)">
+                                25%
+                            </div>
+                            <div class="btn" @click="editBalanceGame(50)">
+                                50%
+                            </div>
+                            <div class="btn" @click="editBalanceGame(75)">
+                                75%
+                            </div>
+                            <div class="btn" @click="editBalanceGame(100)">
+                                100%
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -359,6 +397,16 @@ input{
 .block_change{
     width: calc(40% - 10px);
     margin: 0px 10px;
+}
+
+.helperblock{
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+}
+.helperblock .btn{
+    margin: 0px 2px;
+    padding: 0px 5px;
 }
 @media (max-width: 1440px) {
     .block_change{

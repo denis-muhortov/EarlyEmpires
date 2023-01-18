@@ -201,7 +201,6 @@ export default {
 .item{
     margin: 10px;
     width: 500px;
-    width: 100%;
     height: 240px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
