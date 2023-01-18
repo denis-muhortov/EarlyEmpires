@@ -35,7 +35,7 @@ export default {
     upgradeTool() {
         this.$toast.show(`...`, {
             asyncFunction: async () => { 
-                let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl);
+                let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl - this.toolLevel);
                 this.vieposition();
                 return res;
             },
@@ -64,7 +64,7 @@ export default {
         return this.userTool.tool.data.name ?? 'Tool';
     },
     toolLevel(){
-        return this.userTool.level ?? 1;
+        return this.userTool.level ?? 0;
     },
     toolGen(){
         return this.userTool.tool.config.gen;
@@ -134,6 +134,21 @@ export default {
     isUpgrading(){
         return this.game.ISOToSeconds(this.userTool.upgrade_end) > this.currentSec;
     },
+    speedupCost(){
+        if(this.isUpgrading){
+
+            let totalSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.game.ISOToSeconds(this.userTool.upgrade_start);
+            let leftSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec;
+
+            let multiplier = leftSecs/totalSecs;
+
+            return (+this.userTool.speedup_cost.split(' ')[0]) * multiplier;
+
+        }else{
+            return +this.toolExpectedUpgradePaid.speedup.split(' ')[0];
+        }
+        return 1
+    }
   },
 };
 
@@ -159,7 +174,7 @@ export default {
                         GEN: {{toolGen}}
                     </div>
                     <div class="info power">
-                        POWER: {{+toolExpectedPower.toFixed(2)}}
+                        POWER: {{+toolExpectedPower.toFixed(6)}}
                     </div>
                     <div class="info time">
                         UPGRADE TIME: {{toolExpectedUpgradeTime}}
@@ -168,7 +183,7 @@ export default {
                         Cost: {{toolExpectedUpgradeCost}}
                     </div>
                     <div class="info speedupcost" :class="{active: isUpgrading}">
-                        Speed up cost: душа твоей матери
+                        Speed up cost: {{speedupCost}}
                     </div>
                 </div>
             <div class="helpblockv2">

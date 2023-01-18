@@ -11,7 +11,7 @@ export default {
     return {
         game: game,
         amountEET: 0,
-        sellTokenSymbol: 'EET',
+        sellTokenSymbol: 'EAT',
         sellQuantity: 0,
         buyQuantity: 0,
 

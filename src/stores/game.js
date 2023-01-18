@@ -599,7 +599,7 @@ export const useGameStore = defineStore("game", {
         let rate = +configRow.base_rate.split(' ')[0];
 
         for(let i = 0; i < level; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.uprade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
 
             rate *= (multiplier.multiplier_rate / 100000000.0);
         }
@@ -631,7 +631,7 @@ export const useGameStore = defineStore("game", {
 
 
         for(let i = 0; i < oldLevel; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.uprade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
 
             time *= (multiplier.multiplier_time / 100000000.0);
             cost *= (multiplier.multiplier_cost / 100000000.0);
@@ -640,7 +640,7 @@ export const useGameStore = defineStore("game", {
 
 
         for(let i = oldLevel; i < newLevel; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.uprade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
 
             time *= (multiplier.multiplier_time / 100000000.0);
             finalTime += time;
