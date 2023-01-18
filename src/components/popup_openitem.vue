@@ -19,9 +19,6 @@ export default {
   components: {
   },
   methods:{
-    vieposition(){
-        this.$emit('close');
-    },
   },
 };
 </script>
@@ -32,9 +29,6 @@ export default {
             v-for="item in resultItems"
             :key="item.asset_id">
                 <img :src="`/nft/${item.template.template_id}.png`" alt="nft"/>
-            </div>
-            <div class="close" @click="vieposition">
-                <img src="../assets/pageGame/close.png" alt="close"/>
             </div>
         </div>
     </div>
@@ -47,7 +41,7 @@ export default {
 }
 
 .fade-leave-active {
-  transform: translate(00%, 0%);
+  transform: translate(0%, 0%);
   opacity: 0;
 }
 

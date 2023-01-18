@@ -168,7 +168,7 @@ export default {
 }
 
 .fade-leave-active {
-  transform: translate(00%, 0%);
+  transform: translate(0%, 0%);
   opacity: 0;
 }
 
