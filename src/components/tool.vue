@@ -208,7 +208,7 @@ export default {
     justify-content: space-around;
 }
 .info_container{
-    width: 210px;
+    width: 270px;
     height: 100%;
     text-transform: uppercase;
     font-size: 18px;
