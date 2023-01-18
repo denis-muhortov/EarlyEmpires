@@ -66,12 +66,9 @@ export default {
         return expRate;
     },
     toolExpectedUpgradePaid(){
-        if(!this.selectedToolConfig) return {balance: [], time: 0};
+        if(!this.selectedToolConfig) return {balance: [], time: 0, speedup: "0 EAT"}; 
 
-
-        let {fullCost, finalTime} = this.game.calcUpgradePaid(this.selectedToolConfig, this.oldLevel, this.newLevel);
-
-        return {balance: fullCost, time: finalTime};
+        return this.game.calcUpgradePaid(this.selectedToolConfig, this.oldLevel, this.newLevel);
     },
     toolExpectedUpgradeTime(){
 
@@ -85,13 +82,7 @@ export default {
 
     },
     toolExpectedSpeedUpCost(){
-
-        let remainingSecs = this.toolExpectedUpgradePaid.time;
-        let paidBySec = +(this.game.gameConfig?.skip_by_sec.split(' ')[0] ?? 1);
-
-        let value = remainingSecs * paidBySec;
-
-        return `${+value.toFixed(8)} ${this.game.gameConfig?.skip_by_sec.split(' ')[1] ?? 'EAT'}`;
+        return this.toolExpectedUpgradePaid.speedup;
     },
     toolExpectedUpgradeCost(){
 

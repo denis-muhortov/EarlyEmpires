@@ -77,12 +77,7 @@ export default {
         return expRate;
     },
     toolExpectedUpgradePaid(){
-
-
-        let {fullCost, finalTime} = this.game.calcUpgradePaid(this.userTool.tool.config, this.toolLevel, this.lvl);
-
-
-        return {balance: fullCost, time: finalTime};
+        return this.game.calcUpgradePaid(this.userTool.tool.config, this.toolLevel, this.lvl);
     },
     toolExpectedUpgradeCost(){
 
