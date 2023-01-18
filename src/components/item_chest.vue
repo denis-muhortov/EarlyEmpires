@@ -1,5 +1,6 @@
 <script>
 import { useGameStore } from '../stores/game.js';
+import popup_openitem from "./popup_openitem.vue";
 export default {
   name: "chest_item",
   props:{
@@ -13,6 +14,9 @@ export default {
     return {
         game: game,
     };
+  },
+  components: {
+    popup_openitem,
   },
   computed:{
     chestName(){
@@ -42,6 +46,11 @@ export default {
 </script>
 <template>
     <div class="item">
+        <teleport to="body">
+            <transition name="fade" mode="out-in">
+                <popup_openitem v-if="view" @close="view = false" :userTool="userTool" />
+            </transition>
+        </teleport>
         <div class="nft">
             <img :src="chest.image"  alt="nft"/>
         </div>
