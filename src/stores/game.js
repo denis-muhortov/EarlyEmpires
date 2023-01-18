@@ -603,8 +603,6 @@ export const useGameStore = defineStore("game", {
 
             rate *= (multiplier.multiplier_rate / 100000000.0);
         }
-
-
         return rate;
       }
     },
