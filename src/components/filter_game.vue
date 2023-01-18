@@ -63,13 +63,7 @@ export default {
             </div>
             <div class="block_position">
                 <p>Lvl</p>
-                <select v-model="genFilter">
-                    <option
-                    v-for="item in gensList"
-                    :key="item.value"
-                    :value="item.value"
-                    >{{item.view}}</option>
-                </select>
+                <input type="text">
             </div>
             <div class="btn" @click="selectFilter">
                 Filter
@@ -154,7 +148,16 @@ option{
     transform: rotate(90deg);
     transition: all 0.35s;
 }
-
+input{
+    outline:none;
+    width: 280px;
+    padding: 10px;
+    border: 1px solid #F5A516;
+    background: #F5A51660;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
 @media (max-width: 600px) {
     .block_filter{
