@@ -9,7 +9,7 @@ export default {
         type: Object,
     }
   },
-  emits:["chest_open"],
+  emits:["openChest"],
   data() {
     let game = useGameStore();
     return {
@@ -17,7 +17,6 @@ export default {
     };
   },
   components: {
-    popup_openitem,
   },
   computed:{
     chestName(){
@@ -32,16 +31,6 @@ export default {
     },
   },
   methods:{
-    openBox() {
-        this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.openBox([+this.chest.asset_id]); },
-            onSuccessMessage: (res) => { 
-                console.log(res);
-                this.$emit('chest_open', res);
-                return `.!.`;
-             },
-        });
-    },
   }
 
 };
@@ -65,10 +54,9 @@ export default {
                     {{string.name}}: {{string.percent}}%
                 </div>
 
-
             </div>
             <div>
-                <div class="btn" @click="openBox">
+                <div class="btn" @click="this.$emit('chestOpen', chest.asset_id)">
                     open
                 </div>
             </div>

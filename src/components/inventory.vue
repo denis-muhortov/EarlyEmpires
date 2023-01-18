@@ -12,7 +12,7 @@ export default {
     return {
         game: game,
         view: false,
-        view_chest: false,
+        viewChest: false,
         resultChestItems: [],
         filterRarity: -1,
         filterType: '',
@@ -27,7 +27,7 @@ export default {
   methods:{
     viewResultChest(res){
         this.resultChestItems = res;
-        this.view_chest = true;
+        this.viewChest = true;
     },
     vieposition(){
         this.view = true;
@@ -52,6 +52,16 @@ export default {
         asyncFunction: async () => { await this.game.loadstats(); },
         onSuccessMessage: (res) => { return `.!.` },
       });
+    },
+    openBox(assetId) {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.openBox([assetId]); },
+            onSuccessMessage: (res) => { 
+                console.log(res);
+                this.viewResultChest(res);
+                return `.!.`;
+             },
+        });
     },
   
   },
@@ -125,7 +135,7 @@ export default {
                 <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setTypeFilter="setTypeFilter"/>
             </transition>
             <transition name="fade" mode="out-in">
-                <popup_openitem v-if="view_chest" :resultItems="resultChestItems" @click="view_chest = false"/>
+                <popup_openitem v-if="viewChest" :resultItems="resultChestItems" @click="viewChest = false"/>
             </transition>
         </teleport>
         <div class="element_control">
@@ -146,7 +156,7 @@ export default {
             :tool="item.tool"
             :chest="item.chest"
             :is="item.component"
-            @chest_open = "viewResultChest" />
+            @chestOpen = "openBox" />
         </div>
     </div>
 </template>
