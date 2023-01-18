@@ -35,7 +35,7 @@ export default {
     upgradeTool() {
         this.$toast.show(`...`, {
             asyncFunction: async () => { 
-                let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl);
+                let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl - this.toolLevel);
                 this.vieposition();
                 return res;
             },
@@ -64,7 +64,7 @@ export default {
         return this.userTool.tool.data.name ?? 'Tool';
     },
     toolLevel(){
-        return this.userTool.level ?? 1;
+        return this.userTool.level ?? 0;
     },
     toolGen(){
         return this.userTool.tool.config.gen;
