@@ -9,6 +9,7 @@ export default {
         type: Object,
     }
   },
+  emits:["chest_open"],
   data() {
     let game = useGameStore();
     return {
@@ -36,6 +37,7 @@ export default {
             asyncFunction: async () => { return await this.game.openBox([+this.chest.asset_id]); },
             onSuccessMessage: (res) => { 
                 console.log(res);
+                this.$emit('chest_open', res);
                 return `.!.`;
              },
         });
@@ -46,11 +48,6 @@ export default {
 </script>
 <template>
     <div class="item">
-        <teleport to="body">
-            <transition name="fade" mode="out-in">
-                <popup_openitem v-if="view" @close="view = false" :userTool="userTool" />
-            </transition>
-        </teleport>
         <div class="nft">
             <img :src="chest.image"  alt="nft"/>
         </div>
@@ -79,6 +76,27 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
+
+
 .item{
     margin: 10px;
     width: 370px;

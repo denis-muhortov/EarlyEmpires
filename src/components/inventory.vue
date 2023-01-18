@@ -3,6 +3,7 @@
 import popup_filter from "./filter_inventory.vue";
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
+import popup_openitem from "./popup_openitem.vue";
 import { useGameStore } from '../stores/game.js'
 export default {
   name: "inventory",
@@ -11,6 +12,8 @@ export default {
     return {
         game: game,
         view: false,
+        view_chest: false,
+        resultChestItems: [],
         filterRarity: -1,
         filterType: '',
     };
@@ -19,8 +22,13 @@ export default {
     item_wax,
     item_chest,
     popup_filter,
+    popup_openitem,
   },
   methods:{
+    viewResultChest(res){
+        this.resultChestItems = res;
+        this.view_chest = true;
+    },
     vieposition(){
         this.view = true;
     },
@@ -116,6 +124,9 @@ export default {
             <transition name="fade" mode="out-in">
                 <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setTypeFilter="setTypeFilter"/>
             </transition>
+            <transition name="fade" mode="out-in">
+                <popup_openitem v-if="view_chest" :resultItems="resultChestItems" @click="view_chest = false"/>
+            </transition>
         </teleport>
         <div class="element_control">
             <div class="btnv2" @click="stakeAll">
@@ -134,7 +145,8 @@ export default {
             :key="item.asset_id"
             :tool="item.tool"
             :chest="item.chest"
-            :is="item.component" />
+            :is="item.component"
+            @chest_open = "viewResultChest" />
         </div>
     </div>
 </template>

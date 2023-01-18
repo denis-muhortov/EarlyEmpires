@@ -4,6 +4,12 @@ import { useGameStore } from '../stores/game.js';
 export default {
   name: "popup_openitem",
   emits: ['close'],
+  props:{
+    resultItems:{
+        required: true,
+        type: Array,
+    }
+  },
   data() {
     let game = useGameStore();
     return {
@@ -22,8 +28,10 @@ export default {
 <template>
     <div class="container_filter" >
         <div class="block_filter">
-            <div class="drop_item">
-                <img src="/nft/605343.png" alt="nft"/>
+            <div class="drop_item" 
+            v-for="item in resultItems"
+            :key="item.asset_id">
+                <img :src="`/nft/${item.template.template_id}.png`" alt="nft"/>
             </div>
             <div class="close" @click="vieposition">
                 <img src="../assets/pageGame/close.png" alt="close"/>
@@ -32,6 +40,25 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+  transform: translate(0%, 0%);
+  opacity: 1;
+  transition: all 0.25s 1s ease;
+}
+
+.fade-leave-active {
+  transform: translate(00%, 0%);
+  opacity: 0;
+}
+
+.fade-enter-from {
+  transform: translate(0%, 0%);
+  opacity: 0;
+}
+
+.fade-leave-to {
+  transform: translate(0%, 0%);
+}
 .container_filter{
     position: fixed;
     top: 0;
