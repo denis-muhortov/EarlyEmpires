@@ -15,8 +15,8 @@ export default defineConfig({
 		//global: "globalThis",
 	},
   build: {
-    outDir: '../game.empires.com',
-    emptyOutDir: true,
+    //outDir: '../game.empires.com',
+    //emptyOutDir: true,
     //publicDir : './public',
     //minify: false
   },
