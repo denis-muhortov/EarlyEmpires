@@ -22,6 +22,12 @@ export default {
     costMeat(){
         return this.game.findBalance(this.chest.cost, 'MEAT');
     },
+    costEat(){
+        return this.game.findBalance(this.chest.cost, 'EAT');
+    },
+    costEet(){
+        return this.game.findBalance(this.chest.cost, 'EET');
+    },
   }
 
 };
@@ -37,7 +43,7 @@ export default {
         <div class="amount_container">
             <div class="cost">
                 <img src="../assets/shop/wax.png" alt="wax"/>
-                {{costMeat}}
+                {{costMeat > 0 ?  `${costMeat} MEAT ` : ``}}{{costEat > 0 ?  `${costEat} EAT ` : ``}}{{costEet > 0 ?  `${costEet} EET ` : ``}}
             </div>
             <div class="amount">
                 {{chest.left}}/{{chest.total}}

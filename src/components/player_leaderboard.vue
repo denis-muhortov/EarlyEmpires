@@ -45,7 +45,7 @@ export default {
             {{leader.percent.toFixed(2)}}%
         </div>
         <div class="elemet_items potion">
-            {{leader.rate.toFixed(2)}}
+            {{leader.rate.toFixed(6)}}
         </div>
     </div>
 </template>

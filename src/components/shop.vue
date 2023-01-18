@@ -2,8 +2,6 @@
 import chest from "../components/chest.vue";
 import { useGameStore } from '../stores/game.js';
 
-
-
 export default {
   name: "window_shop",
   data() {

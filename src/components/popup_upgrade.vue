@@ -134,6 +134,21 @@ export default {
     isUpgrading(){
         return this.game.ISOToSeconds(this.userTool.upgrade_end) > this.currentSec;
     },
+    speedupCost(){
+        if(this.isUpgrading){
+
+            let totalSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.game.ISOToSeconds(this.userTool.upgrade_start);
+            let leftSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec;
+
+            let multiplier = leftSecs/totalSecs;
+
+            return (+this.userTool.speedup_cost.split(' ')[0]) * multiplier;
+
+        }else{
+            return +this.toolExpectedUpgradePaid.speedup.split(' ')[0];
+        }
+        return 1
+    }
   },
 };
 
@@ -159,7 +174,7 @@ export default {
                         GEN: {{toolGen}}
                     </div>
                     <div class="info power">
-                        POWER: {{+toolExpectedPower.toFixed(2)}}
+                        POWER: {{+toolExpectedPower.toFixed(6)}}
                     </div>
                     <div class="info time">
                         UPGRADE TIME: {{toolExpectedUpgradeTime}}
@@ -168,7 +183,7 @@ export default {
                         Cost: {{toolExpectedUpgradeCost}}
                     </div>
                     <div class="info speedupcost" :class="{active: isUpgrading}">
-                        Speed up cost: душа твоей матери
+                        Speed up cost: {{speedupCost}}
                     </div>
                 </div>
             <div class="helpblockv2">
