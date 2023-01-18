@@ -42,8 +42,15 @@ export default {
         </div>
         <div class="amount_container">
             <div class="cost">
-                <img src="../assets/shop/wax.png" alt="wax"/>
-                {{costMeat > 0 ?  `${costMeat} MEAT ` : ``}}{{costEat > 0 ?  `${costEat} EAT ` : ``}}{{costEet > 0 ?  `${costEet} EET ` : ``}}
+                <div class="cost_block">
+                    {{costMeat > 0 ?  `${costMeat}` : ``}}
+                    <img src="/EAT.png" alt="MEAT"/>
+                </div>
+                <div class="cost_block">
+                <!-- {{costMeat > 0 ?  `${costMeat} MEAT ` : ``}}{{costEat > 0 ?  `${costEat} EAT ` : ``}}{{costEet > 0 ?  `${costEet} EET ` : ``}} -->
+                    {{costEet > 0 ?  `${costEet}` : ``}}
+                    <img src="/EET.png" alt="EET"/>
+                </div>
             </div>
             <div class="amount">
                 {{chest.left}}/{{chest.total}}
@@ -91,7 +98,7 @@ export default {
     height: 15%;
     flex-direction: row;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 24px;
     color: #F5A516;
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     justify-content: space-around;       
@@ -100,11 +107,16 @@ export default {
     flex-direction: row;
 }
 .cost img{
-    width: 25px;
-    margin: 0px 10px 0px 0px;
+    width: 35px;
+    margin: 0px 0px 0px 5px;
+}
+.cost_block{
+    margin: 0px 10px;
+    flex-direction: row;
 }
 .rarity{
     width: 70%;
+    margin: 0px 0px 10px 0px;
     justify-content: flex-start;
     align-items: flex-start;
     text-transform: uppercase;

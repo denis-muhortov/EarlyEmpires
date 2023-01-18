@@ -205,7 +205,7 @@ export default {
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="../assets/shop/wax.png" alt="token"/>
+                            <img src="/EAT.png" alt="EAT"/>
                             {{sellTokenSymbol}}
                         </div>
                         <input type="text"  v-model.number="sellQuantity" @input="checkInputSell($event)">
@@ -237,7 +237,7 @@ export default {
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="../assets/shop/wax.png" alt="token"/>
+                            <img src="/EET.png" alt="EET"/>
                             {{buyTokenSymbol}}
                         </div>
                         <input type="text" v-model.number="buyQuantity" @input="checkInputBuy($event)">
@@ -254,7 +254,7 @@ export default {
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="../assets/shop/wax.png" alt="token"/>
+                            <img src="/EET.png" alt="EET"/>
                             EET
                         </div>
                         <input type="text" v-model.number="amountEET">
@@ -375,7 +375,7 @@ export default {
     margin: 0px 25px 0px 0px;
 }
 .token_block img{
-    width: 35px;
+    width: 45px;
     margin: 0px 5px 0px 0px;
 }
 input{

@@ -62,15 +62,15 @@ export default {
             </div>
             <div class="BlockTokens">
                 <div class="Token EAT">
-                    <img src="../assets/pageGame/token.png" alt="token"/>
+                    <img src="/EAT.png" alt="EAT"/>
                     {{game.balanceEAT.toFixed(4)}}
                 </div>
                 <div class="Token EET">
-                    <img src="../assets/pageGame/token.png" alt="token"/>
+                    <img src="/EET.png" alt="EET"/>
                     {{game.balanceEET.toFixed(4)}}
                 </div>
                 <div class="Token MEAT">
-                    <img src="../assets/pageGame/token.png" alt="token"/>
+                    <img src="/MEAT.png" alt="MEAT"/>
                     {{game.balanceMEAT.toFixed(4)}}
                 </div>
             </div>
@@ -173,7 +173,7 @@ img{
     border: 1px solid var(--vt-c-white);
 }
 .Token img{
-    width: 25px;
+    width: 35px;
     margin: 0px 5px 0px 0px;
 }
 .block_token_open {
@@ -212,6 +212,11 @@ img{
     }
     .BlockTokens{
         margin: 5px 0px 20px 0px;
+    }
+}
+@media (max-width: 640px) {
+    .BlockTokens{
+        flex-wrap: wrap;
     }
 }
 </style>

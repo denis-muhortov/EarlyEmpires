@@ -112,7 +112,7 @@ return resultItems;
                 </div>
                 <div class="container_tokenChange">
                     <div class="token_block">
-                        <img src="../assets/shop/wax.png" alt="token"/>
+                        <img src="../assets/shop/wax.png" alt="WAX"/>
                         WAX
                     </div>
                     <input type="text" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
@@ -124,7 +124,7 @@ return resultItems;
                 </div>
                 <div class="container_tokenChange">
                     <div class="token_block">
-                        <img src="../assets/shop/wax.png" alt="token"/>
+                        <img src="/MEAT.png" alt="MEAT"/>
                         MEAT
                     </div>
                     <input type="text" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
