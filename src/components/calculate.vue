@@ -169,7 +169,7 @@ export default {
                         v-for="token in toolExpectedUpgradeCost"
                         :key="token"
                         >
-                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <p>{{+(+token.split(' ')[0]).toFixed(2)}}</p> 
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
                         </div>
                 </div>
@@ -181,7 +181,7 @@ export default {
                         v-for="token in toolExpectedSpeedUpCost"
                         :key="token"
                         >
-                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <p>{{+(+token.split(' ')[0]).toFixed(2)}}</p> 
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
                         </div>
                 </div>
@@ -277,9 +277,19 @@ option{
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;       
 }
 .block_description{
+    flex-direction: row;
     margin: 10px 0px;
     font-size: 24px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;      
+}
+.cost_block{
+    flex-direction: row;
+}
+.cost_block p{
+    margin: 0px 5px 0px 15px;
+}
+.cost_block img{
+    width: 30px;
 }
 </style>
