@@ -172,6 +172,35 @@ export default {
 <template>
     <div class="block_game">
         <div class="element_control">
+            <div class="container_waxChange">
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{game.walletBalanceWAX.toFixed(2)}}
+                        </div>
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img src="../assets/shop/wax.png" alt="WAX"/>
+                                WAX
+                            </div>
+                            <input type="text" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
+                        </div>
+                    </div>
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{game.balanceMEAT.toFixed(2)}}
+                        </div>
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img src="/MEAT.png" alt="MEAT"/>
+                                MEAT
+                            </div>
+                            <input type="text" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
+                        </div>
+                    </div>
+                    <div class="btn wax_chage" @click="buyMeat">
+                        Confirm
+                    </div>
+                </div>
             <div class="reload" @click="refresh()">
                 <img src="../assets/pageGame/reload.png" alt="reload"/>
             </div>
@@ -454,11 +483,54 @@ input{
     margin: 0px 10px 0px 0px;
     padding: 0px 10px;
 }
+.container_waxChange{
+    flex-direction: row;
+}
+.container_waxChange .container_change{
+    margin: 5px 15px;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.container_waxChange .container_change:first-child{
+    margin: 5px 50px 5px 15px;
+}
+.container_waxChange .container_change:first-child::before{
+    content: '\2192';
+    position: absolute;
+    right: 0;
+    transform: translate(225%, 50%);
+}
+.btn.wax_chage{
+    padding: 6px 30px;
+    margin: 32px 0px 0px 0px;
+}
 @media (max-width: 1440px) {
     .block_change{
     width: calc(50% - 10px);
     margin: 0px 10px;
-}   
+    }
+    .element_control{
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .container_waxChange{
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column; 
+    }
+    .container_waxChange .container_change:first-child{
+        margin: 5px 5px 10px 15px;
+    }
+    .container_waxChange .container_change:first-child::before{
+        right: unset;
+        bottom: 0;
+        transform: translate(0%, 150%) rotate(90deg);
+    }
+    .btn.wax_chage{
+        margin: 10px 0px 5px 100px;
+    }   
 }
 @media (max-width: 1300px) {
     .block_change{
@@ -495,4 +567,5 @@ input{
         width: 120px;
     }
 }
+
 </style>
