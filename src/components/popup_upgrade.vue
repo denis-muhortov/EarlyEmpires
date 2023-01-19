@@ -188,7 +188,7 @@ export default {
                         v-for="token in toolExpectedUpgradeCost"
                         :key="token"
                         >
-                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <p>{{+(+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
                         </div>
                         
@@ -200,7 +200,7 @@ export default {
                         v-for="token in speedupCost"
                         :key="token"
                         >
-                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <p>{{+(+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
                         </div>
                     </div>
@@ -268,6 +268,7 @@ export default {
     justify-content: space-around;
 }
 .info{
+    margin: 5px 0px;
     flex-direction: row;
 }
 .lvlbox{
@@ -365,6 +366,15 @@ export default {
     border: 1px solid #F5A516;
     background: #F5A516;
     cursor: pointer;
+}
+.cost_block{
+    flex-direction: row;
+}
+.cost_block p{
+    margin: 0px 5px 0px 15px;
+}
+.cost_block img{
+    width: 30px;
 }
 
 @media (max-width: 640px) {
