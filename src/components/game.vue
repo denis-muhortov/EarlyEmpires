@@ -115,7 +115,6 @@ export default {
         
         return list;
     },
-
     sortedList() {
 
         let list = this.filterList.slice();

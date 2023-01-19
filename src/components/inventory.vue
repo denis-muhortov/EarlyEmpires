@@ -132,6 +132,16 @@ export default {
         }
         return list;
     },
+    sortedList() {
+
+        let list = this.filterList.slice();
+
+        list.sort((a, b) => {
+            return b.rarity - a.rarity;
+        });
+        return list;
+    },
+    
   },
 };
 </script>
@@ -158,7 +168,7 @@ export default {
         </div>
         <div class="content">
             <component
-            v-for="item in filterList"
+            v-for="item in sortedList"
             :key="item.asset_id"
             :tool="item.tool"
             :chest="item.chest"
