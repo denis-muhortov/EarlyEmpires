@@ -44,7 +44,7 @@ export default {
             <div class="cost">
                 <div class="cost_block">
                     {{costMeat > 0 ?  `${costMeat}` : ``}}
-                    <img src="/EAT.png" alt="MEAT"/>
+                    <img src="/MEAT.png" alt="MEAT"/>
                 </div>
                 <div class="cost_block">
                 <!-- {{costMeat > 0 ?  `${costMeat} MEAT ` : ``}}{{costEat > 0 ?  `${costEat} EAT ` : ``}}{{costEet > 0 ?  `${costEet} EET ` : ``}} -->
