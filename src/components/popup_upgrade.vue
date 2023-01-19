@@ -168,8 +168,9 @@ export default {
                     </div>
                     <div class="info lvl">
                         <div class="lvlbox"> LVL: {{ lvl }}</div>
-                        <div class="slidecontainer">
-                            <input type="range" :min="toolLevel" max="100" class="slider" id="myRange" v-model.number="lvl">
+                        <div class="slidecontainer" :class="{active: isUpgrading}">
+                            <input type="range" :min="toolLevel" max="100" class="slider" id="myRange"
+                            v-model.number="lvl">
                         </div>
                     </div>
                     <div class="info gen">
@@ -206,7 +207,7 @@ export default {
                     </div>
                 </div>
             <div class="helpblockv2">
-                <div class="btn" @click="upgradeTool">
+                <div class="btn upgrade" :class="{active: !isUpgrading}" @click="upgradeTool">
                     Upgrade
                 </div>
                 <div class="btn speed" :class="{active: isUpgrading}" @click="speedUp">
@@ -280,6 +281,19 @@ export default {
     pointer-events: none;
     cursor: auto;
 }
+.btn.upgrade{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: auto;    
+}
+.btn.upgrade.active{
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.btn.upgrade.active:hover{
+    background: rgba(255, 255, 255, 0.2);
+}
 .btn.speed.active{
     opacity: 1;
     pointer-events: auto;
@@ -312,7 +326,11 @@ export default {
     transform: rotate(90deg);
     transition: all 0.35s;
 }
-
+.slidecontainer.active{
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: auto;
+}
 .slidecontainer{
     justify-content: center;
     align-items: center;
