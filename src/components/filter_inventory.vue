@@ -41,7 +41,7 @@ export default {
 };
 </script>
 <template>
-    <div class="container_filter" >
+    <div class="container_filter">
         <div class="block_filter">
             <div class="block_position">
                 <p>Rarity</p>

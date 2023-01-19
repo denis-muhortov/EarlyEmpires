@@ -70,7 +70,7 @@ export default {
 };
 </script>
 <template>
-    <div class="container_filter" >
+    <div class="container_filter">
         <div class="block_filter">
             <div class="block_position">
                 <p>Rarity</p>
@@ -94,7 +94,7 @@ export default {
             </div>
             <div class="block_position">
                 <p>Lvl</p>
-                <div ref="slider"></div>
+                <div ref="slider" class="slider"></div>
             </div>
             <div class="btn" @click="selectFilter">
                 Filter
@@ -108,6 +108,18 @@ export default {
 
 
 <style scoped>
+.slider{
+    margin: 20px 0px 0px 0px;
+    width: 280px;
+}
+.noUi-target{
+    border: 1px solid #F5A516;
+    background: #F5A51660;
+    box-shadow: none;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 .container_filter{
     position: fixed;
     top: 0;
