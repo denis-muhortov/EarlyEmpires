@@ -95,9 +95,9 @@ export default {
                 couner[symbol] = amount;
             }
         }
-        let list = "";
+        let list = [];
         for(let prop in couner){
-             list +=(`${+couner[prop].toFixed(6)} ${prop} `)
+             list.push(`${couner[prop].toFixed(8)} ${prop}`)
          }
 
 
@@ -144,10 +144,10 @@ export default {
 
             let value = (+this.userTool.speedup_cost.split(' ')[0]) * multiplier
 
-            return `${+value.toFixed(8)} ${this.userTool.speedup_cost.split(' ')[1]}`;
+            return [`${+value.toFixed(8)} ${this.userTool.speedup_cost.split(' ')[1]}`];
 
         }else{
-            return this.toolExpectedUpgradePaid.speedup;
+            return [this.toolExpectedUpgradePaid.speedup];
         }
         return 1
     }
@@ -182,10 +182,27 @@ export default {
                         UPGRADE TIME: {{toolExpectedUpgradeTime}}
                     </div>
                     <div class="info cost">
-                        Cost: {{toolExpectedUpgradeCost}}
+                        Cost: 
+
+                        <div class="cost_block"
+                        v-for="token in toolExpectedUpgradeCost"
+                        :key="token"
+                        >
+                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
+                        </div>
+                        
                     </div>
                     <div class="info speedupcost" :class="{active: isUpgrading}">
-                        Speed up cost: {{speedupCost}}
+                        Speed up cost: 
+                        
+                        <div class="cost_block"
+                        v-for="token in speedupCost"
+                        :key="token"
+                        >
+                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
+                        </div>
                     </div>
                 </div>
             <div class="helpblockv2">

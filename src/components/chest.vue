@@ -18,16 +18,7 @@ export default {
   computed:{
     chestName(){
         return this.chest.collectionTemplate?.immutable_data.name ?? 'Chest';
-    },
-    costMeat(){
-        return this.game.findBalance(this.chest.cost, 'MEAT');
-    },
-    costEat(){
-        return this.game.findBalance(this.chest.cost, 'EAT');
-    },
-    costEet(){
-        return this.game.findBalance(this.chest.cost, 'EET');
-    },
+    }
   }
 
 };
@@ -42,14 +33,12 @@ export default {
         </div>
         <div class="amount_container">
             <div class="cost">
-                <div class="cost_block">
-                    {{costMeat > 0 ?  `${costMeat}` : ``}}
-                    <img src="/EAT.png" alt="MEAT"/>
-                </div>
-                <div class="cost_block">
-                <!-- {{costMeat > 0 ?  `${costMeat} MEAT ` : ``}}{{costEat > 0 ?  `${costEat} EAT ` : ``}}{{costEet > 0 ?  `${costEet} EET ` : ``}} -->
-                    {{costEet > 0 ?  `${costEet}` : ``}}
-                    <img src="/EET.png" alt="EET"/>
+                <div class="cost_block"
+                v-for="token in chest.cost"
+                :key="token"
+                >
+                    {{+(+token.split(' ')[0]).toFixed(2)}} 
+                    <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
                 </div>
             </div>
             <div class="amount">

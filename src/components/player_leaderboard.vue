@@ -34,6 +34,7 @@ export default {
     
     <div class="item_leaderboard" 
     v-for="leader in leadersList" :key="leader.wallet"
+    :class="{active: leader.wallet == game.player.wallet}"
     >
         <div class="elemet_items number">
             #{{leader.place}}
