@@ -149,7 +149,6 @@ export default {
         }else{
             return [this.toolExpectedUpgradePaid.speedup];
         }
-        return 1
     }
   },
 };
