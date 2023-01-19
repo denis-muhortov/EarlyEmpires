@@ -82,7 +82,7 @@ export default {
 
     },
     toolExpectedSpeedUpCost(){
-        return this.toolExpectedUpgradePaid.speedup;
+        return [this.toolExpectedUpgradePaid.speedup];
     },
     toolExpectedUpgradeCost(){
 
@@ -100,10 +100,10 @@ export default {
             couner[symbol] = amount;
         }
     }
-    let list = "";
+    let list = [];
     for(let prop in couner){
-        list +=(`${+couner[prop].toFixed(6)} ${prop} `)
-    }
+         list.push(`${couner[prop].toFixed(8)} ${prop}`)
+     }
 
 
     return list;
@@ -164,13 +164,26 @@ export default {
                     new power: {{toolExpectedPower}}
                 </div>
                 <div class="block_description">
-                    upgrade cost: {{toolExpectedUpgradeCost}}
+                    upgrade cost: 
+                        <div class="cost_block"
+                        v-for="token in toolExpectedUpgradeCost"
+                        :key="token"
+                        >
+                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
+                        </div>
                 </div>
                 <div class="block_description">
                     upgrade time: {{toolExpectedUpgradeTime}}
                 </div>
                 <div class="block_description">
-                    speedup cost: {{toolExpectedSpeedUpCost}}
+                    speedup cost: <div class="cost_block"
+                        v-for="token in toolExpectedSpeedUpCost"
+                        :key="token"
+                        >
+                            {{+(+token.split(' ')[0]).toFixed(2)}} 
+                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]"/>
+                        </div>
                 </div>
             </div>
         </div>

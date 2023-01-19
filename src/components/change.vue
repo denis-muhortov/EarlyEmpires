@@ -198,7 +198,7 @@ export default {
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EAT.png" alt="EAT"/>
+                            <img :src="`/${sellTokenSymbol}.png`" :alt="sellTokenSymbol"/>
                             {{sellTokenSymbol}}
                         </div>
                         <input type="text"  v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
@@ -230,7 +230,7 @@ export default {
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EET.png" alt="EET"/>
+                            <img :src="`/${buyTokenSymbol}.png`" :alt="buyTokenSymbol"/>
                             {{buyTokenSymbol}}
                         </div>
                         <input type="text" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
