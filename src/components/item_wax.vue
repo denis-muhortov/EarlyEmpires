@@ -19,10 +19,11 @@ export default {
         return this.tool.data.name ?? 'Tool';
     },
     toolLevel(){
-        return this.tool.data.Level;
+        return this.tool.data.Level ?? 0;
     },
     toolPower(){
-        return this.tool.data.Power;
+        return +this.game.calcAccumulateRate(this.tool.config, this.toolLevel).toFixed(6);
+        //return +Number(this.tool.data.Power?.split(' ')[0] ?? this.tool.config.base_rate.split(' ')[0]).toFixed(6);
     },
   },
   methods:{

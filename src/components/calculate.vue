@@ -177,7 +177,8 @@ export default {
                     upgrade time: {{toolExpectedUpgradeTime}}
                 </div>
                 <div class="block_description">
-                    speedup cost: <div class="cost_block"
+                    speedup cost: 
+                    <div class="cost_block"
                         v-for="token in toolExpectedSpeedUpCost"
                         :key="token"
                         >
