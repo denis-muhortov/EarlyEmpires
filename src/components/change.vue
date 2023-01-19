@@ -14,6 +14,8 @@ export default {
         sellTokenSymbol: 'EAT',
         sellQuantity: 0,
         buyQuantity: 0,
+        buyMeatQuantity: 0,
+        sellWaxQuantity: 0,
 
     };
   },
@@ -149,7 +151,35 @@ export default {
         
         this.buyQuantity = this.game.findBalance(this.game.player.balances, this.buyTokenSymbol)*(amount/100);
         setTimeout(this.checkInputBuy, 0);
-    }
+    },
+    checkInputWAX(inputEvent) {
+        let input = inputEvent.target;
+
+        let quantity = Number(input.value)
+        if (quantity < 0) {
+            quantity = 0;
+        }
+
+        let token = quantity;
+        let multiplier = +(this.game.gameConfig?.meat_by_wax.split(' ')[0] ?? 1);
+        token *= multiplier;
+
+        this.buyMeatQuantity = token;
+    },
+    checkInputMEAT(inputEvent) {
+        let input = inputEvent.target;
+
+        let quantity = Number(input.value)
+        if (quantity < 0) {
+            quantity = 0;
+        }
+
+        let token = quantity;
+        let multiplier = +(this.game.gameConfig?.meat_by_wax.split(' ')[0] ?? 1);
+        token /= multiplier;
+
+        this.sellWaxQuantity = token;
+    },
   },
   computed:{
     globalHashrate(){
