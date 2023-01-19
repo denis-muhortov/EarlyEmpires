@@ -1231,7 +1231,7 @@ export const useGameStore = defineStore("game", {
       await this.sleep();
 
       async function check(game) {
-        let returnedAssets = await game.assetIdsToAtomicAssets(assetIds[0]);
+        let returnedAssets = await game.assetIdsToAtomicAssets([assetIds[0]]);
         let checkAsset = returnedAssets[0];
         return Boolean(checkAsset && checkAsset["owner"]);
       }
