@@ -190,6 +190,8 @@ input{
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+
+
 @media (max-width: 600px) {
     .block_filter{
     width: 400px;
