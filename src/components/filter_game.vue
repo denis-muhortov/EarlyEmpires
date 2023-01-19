@@ -1,5 +1,6 @@
 <script>
 import { useGameStore } from '../stores/game.js';
+import noUiSlider from 'nouislider';
 export default {
   name: "popup_game_filter",
   emits: ['close', 'setRarityFilter', 'setGenFilter', 'setLevelFilter'],
@@ -15,6 +16,15 @@ export default {
   },
   mounted(){
     this.rarityFilter = this.rarityList[0].value;
+    
+    noUiSlider.create(this.$refs.slider, {
+    start: [0, 100],
+    connect: true,
+    range: {
+        min: 0,
+        max: 100
+    }
+});
   },
   components: {
   },
@@ -70,7 +80,7 @@ export default {
             </div>
             <div class="block_position">
                 <p>Lvl</p>
-                <input type="text">
+                <div ref="slider"></div>
             </div>
             <div class="btn" @click="selectFilter">
                 Filter

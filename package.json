@@ -13,6 +13,7 @@
     "anchor-link": "^3.5.1",
     "anchor-link-browser-transport": "^3.5.1",
     "atomicassets": "^1.5.1",
+    "nouislider": "^15.6.1",
     "pinia": "^2.0.28",
     "vue": "^3.2.45"
   },
@@ -23,8 +24,8 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "prettier": "^2.7.1",
-    "vite": "^3.2.4",
     "stylus": "~0.54.8",
-    "stylus-loader": "~3.0.2"
+    "stylus-loader": "~3.0.2",
+    "vite": "^3.2.4"
   }
 }
