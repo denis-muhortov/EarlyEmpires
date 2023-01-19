@@ -17,8 +17,10 @@ export default {
   },
   mounted(){
     this.rarityFilter = this.rarityList[0].value;
+
+    let slider = this.$refs.slider;
     
-    noUiSlider.create(this.$refs.slider, {
+    noUiSlider.create(slider, {
     start: [0, 100],
     connect: true,
     range: {
