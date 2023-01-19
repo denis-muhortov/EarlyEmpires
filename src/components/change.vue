@@ -183,7 +183,7 @@ export default {
             <div class="container_waxChange">
                     <div class="container_change">
                         <div class="balance">
-                            Balance: {{game.walletBalanceWAX.toFixed(2)}}
+                            Balance: {{game.walletBalanceWAX.toFixed(8)}}
                         </div>
                         <div class="container_tokenChange">
                             <div class="token_block">
@@ -195,7 +195,7 @@ export default {
                     </div>
                     <div class="container_change">
                         <div class="balance">
-                            Balance: {{game.balanceMEAT.toFixed(2)}}
+                            Balance: {{game.balanceMEAT.toFixed(8)}}
                         </div>
                         <div class="container_tokenChange">
                             <div class="token_block">
