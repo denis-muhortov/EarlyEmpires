@@ -32,8 +32,7 @@ body {
   justify-content: center;
   align-items: center;
   place-items: center;
-  cursor: url("./normal.png"), auto;
-  font-family: "Fauna", sans-serif;
+  font-family: "TheAncient", sans-serif;
 }
 body div{
   display: flex;
@@ -47,7 +46,6 @@ body::-webkit-scrollbar {
 }
 a{
   text-decoration: none;
-  cursor: url("./link.png"), auto;
 }
 img{
   object-fit: contain;
