@@ -58,7 +58,7 @@ export default {
 .item {
     margin: 10px 10px 50px 10px;
     width: 400px;
-    height: 520px;
+    height: 580px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
     justify-content: space-around;
@@ -124,7 +124,7 @@ export default {
     position: absolute;
     bottom: 0%;
     transform: translate(0%, 150%);
-    padding: 2px 25px;
+    padding: 5px 55px;
     border: 1px solid var(--vt-c-white);
     font-size: 18px;
     color: var(--vt-c-white);
