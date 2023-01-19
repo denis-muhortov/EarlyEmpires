@@ -229,7 +229,7 @@ return resultItems;
     margin: 0px 5px 0px 0px;
 }
 .token_block img{
-    width: 25px;
+    width: 35px;
     margin: 0px 5px 0px 0px;
 }
 input{
