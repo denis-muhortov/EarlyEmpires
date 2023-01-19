@@ -1,7 +1,7 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 import noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css';
+import '../css/nouislider.css';
 export default {
   name: "popup_game_filter",
   emits: ['close', 'setRarityFilter', 'setGenFilter', 'setLevelFilter'],
