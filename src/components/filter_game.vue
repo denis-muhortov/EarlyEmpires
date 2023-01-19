@@ -1,6 +1,7 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 export default {
   name: "popup_game_filter",
   emits: ['close', 'setRarityFilter', 'setGenFilter', 'setLevelFilter'],
@@ -56,7 +57,7 @@ export default {
 };
 </script>
 <template>
-    <div class="container_filter" >
+    <div class="container_filter">
         <div class="block_filter">
             <div class="block_position">
                 <p>Rarity</p>
@@ -80,7 +81,7 @@ export default {
             </div>
             <div class="block_position">
                 <p>Lvl</p>
-                <div ref="slider"></div>
+                <div ref="slider" class="slider"></div>
             </div>
             <div class="btn" @click="selectFilter">
                 Filter
@@ -92,6 +93,17 @@ export default {
     </div>
 </template>
 <style scoped>
+.slider{
+    width: 280px;
+}
+.noUi-target{
+    border: 1px solid #F5A516;
+    background: #F5A51660;
+    box-shadow: none;
+}
+.noUi-state-tap{
+    background: #F5A51680;
+}
 .container_filter{
     position: fixed;
     top: 0;
