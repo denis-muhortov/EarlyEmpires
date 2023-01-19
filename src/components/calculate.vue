@@ -15,38 +15,29 @@ export default {
   components: {
   },
   mounted(){
-    this.selectedGen = this.genList[0];
-    this.selectedRarity = this.rarityList[0];
+    this.selectedGen = this.genList[0] ?? 1;
+    this.selectedRarity = this.rarityNamedList[0]?.value ?? 1;
   },
   computed:{
-    rarityList(){
-        let list = [0];
+    rarityNamedList(){
+        let list = [];
+
+        let rarityExampels = this.game.collectionTemplates.filter(t => t.immutable_data.Rarity);
 
         for(let config of this.game.toolsList){
-            if(!list.find(e => e == config.rarity)){
-                list.push(config.rarity);
+            if(!list.find(e => e.value == config.rarity)){
+
+                let exampleTemplate = rarityExampels.find((templ) => {
+                    return templ.template_id == config.template_id;
+                })
+                list.push({name:exampleTemplate.immutable_data.Rarity, value: config.rarity});
             }
         }
 
         return list;
     },
-    rarityNamedList(){
-        let list = [];
-
-        for(let rarity of this.rarityList){
-           switch(rarity){
-            case 1: list.push({name:'Common', value: rarity}); break;
-            case 2: list.push({name:'Rare', value: rarity}); break;
-            case 3: list.push({name:'Epic', value: rarity}); break;
-            case 4: list.push({name:'Legendary', value: rarity}); break;
-            default: list.push({name:'Undef', value: rarity}); break;
-           }
-        }
-
-        return list;
-    },
     genList(){
-        let list = [0];
+        let list = [];
 
         for(let config of this.game.toolsList){
             if(!list.find(e => e == config.gen)){
@@ -152,16 +143,16 @@ export default {
                 </div>
                 <div class="block_position">
                     <p>Lvl</p>
-                    <input type="text" v-model.number="oldLevel">
+                    <input type="number" step="1" min="0" :max="newLevel" v-model.number="oldLevel">
                 </div>
                 <div class="block_position">
                     <p>Target lvl</p>
-                    <input type="text" v-model.number="newLevel">
+                    <input type="number"  :min="oldLevel" max="100" v-model.number="newLevel">
                 </div>
             </div>
             <div class="description_container">
                 <div class="block_description">
-                    new power: {{toolExpectedPower}}
+                    new power: {{+toolExpectedPower.toFixed(8)}}
                 </div>
                 <div class="block_description">
                     upgrade cost: 

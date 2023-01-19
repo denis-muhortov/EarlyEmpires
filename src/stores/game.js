@@ -822,7 +822,13 @@ export const useGameStore = defineStore("game", {
       let confObj = storageData.conf;
       let statObj = storageData.stat;
 
-      if (confObj.expDate >= this.getCurrentSeconds()) {
+      let statExpiration = undefined;
+      let confExpiration = undefined;
+
+      let curSecs = this.getCurrentSeconds();
+
+      if (confObj.expDate >= curSecs) {
+        confExpiration = confObj.expDate - curSecs;
         this.tables.gamecfg = confObj.tables.gamecfg;
         this.tables.boxes = confObj.tables.boxes;
         this.tables.shop = confObj.tables.shop;
@@ -833,7 +839,8 @@ export const useGameStore = defineStore("game", {
         await this.loadconfigs();
       }
 
-      if (statObj.expDate >= this.getCurrentSeconds()) {
+      if (statObj.expDate >= curSecs) {
+        statExpiration = statObj.expDate - curSecs;
         this.tables.users = statObj.tables.users;
         this.tables.usertools = statObj.tables.usertools;
         this.tables.usersbyrate = statObj.tables.usersbyrate;
@@ -851,6 +858,12 @@ export const useGameStore = defineStore("game", {
       } else {
         await this.loadstats();
       }
+
+      this.saveToStorage({
+        walletType: walletType,
+        confExpiration: confExpiration,
+        statExpiration: statExpiration
+      })
     },
     saveToStorage({
       confExpiration = 600,
