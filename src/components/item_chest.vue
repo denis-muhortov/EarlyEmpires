@@ -1,6 +1,5 @@
 <script>
 import { useGameStore } from '../stores/game.js';
-import popup_openitem from "./popup_openitem.vue";
 export default {
   name: "chest_item",
   props:{

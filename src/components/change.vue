@@ -48,8 +48,8 @@ export default {
              },
         });
     },
-    checkInputSell(inputEvent) {
-        let input = inputEvent.target;
+    checkInputSell() {
+        let input = this.$refs.inputsell;
 
         let quantity = Number(input.value)
         if (quantity < 0) {
@@ -81,8 +81,8 @@ export default {
 
 
     },
-    checkInputBuy(inputEvent) {
-        let input = inputEvent.target;
+    checkInputBuy() {
+        let input = this.$refs.inputbuy;
 
         let quantity = Number(input.value)
         if (quantity < 0) {
@@ -120,34 +120,27 @@ export default {
 
         let quantity = this.buyQuantity;
         this.sellQuantity = quantity;
-        let eatByEet = this.globalHashrate;
+    
 
-        let result = 0;
-        if(this.sellTokenSymbol == 'EAT'){
-            let eet = quantity * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet
-            let exchangeFee = eet * (this.game.gameConfig.exchange_tax / 100000000.0);
-            let eetReceive = eet - exchangeFee;
-            result = eetReceive;
-        }else{
-            let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
-            result = eat;
-        }
-
-        this.buyQuantity = result;
+        this.checkInputSell();
 
         
     },
-    editBalance(amount){
-        this.amountEET = this.game.walletBalanceEET*(amount/100);
-    },
-    editBalanceGame(amount){
+    editBalanceWithdraw(amount){
         this.amountEET = this.game.balanceEET*(amount/100);
     },
-    editBalance_mergUp(amount){
-        this.sellQuantity = this.game.balanceEAT*(amount/100);
+    editBalanceDeposit(amount){
+        this.amountEET = this.game.walletBalanceEET*(amount/100);
     },
-    editBalance_mergDown(amount){
-        this.buyQuantity = this.game.balanceEET*(amount/100);
+
+    editBalanceSell(amount){
+        this.sellQuantity = this.game.findBalance(this.game.player.balances, this.sellTokenSymbol)*(amount/100);
+        setTimeout(this.checkInputSell, 0);
+    },
+    editBalanceBuy(amount){
+        
+        this.buyQuantity = this.game.findBalance(this.game.player.balances, this.buyTokenSymbol)*(amount/100);
+        setTimeout(this.checkInputBuy, 0);
     }
   },
   computed:{
@@ -189,16 +182,16 @@ export default {
                     <div class="balance">
                         Balance: {{game.findBalance(game.player.balances, sellTokenSymbol)}}
                         <div class="helperblock_eat">
-                            <div class="btn" @click="editBalance_mergUp(25)">
+                            <div class="btn" @click="editBalanceSell(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalance_mergUp(50)">
+                            <div class="btn" @click="editBalanceSell(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalance_mergUp(75)">
+                            <div class="btn" @click="editBalanceSell(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalance_mergUp(100)">
+                            <div class="btn" @click="editBalanceSell(100)">
                                 100%
                             </div>
                         </div>
@@ -208,7 +201,7 @@ export default {
                             <img src="/EAT.png" alt="EAT"/>
                             {{sellTokenSymbol}}
                         </div>
-                        <input type="text"  v-model.number="sellQuantity" @input="checkInputSell($event)">
+                        <input type="text"  v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
                         <div class="iconchange" @click="changeSymbol()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange"/>
                         </div>
@@ -221,16 +214,16 @@ export default {
                     <div class="balance">
                         Balance: {{game.findBalance(game.player.balances, buyTokenSymbol)}}
                         <div class="helperblock_eat">
-                            <div class="btn" @click="editBalance_mergDown(25)">
+                            <div class="btn" @click="editBalanceBuy(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalance_mergDown(50)">
+                            <div class="btn" @click="editBalanceBuy(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalance_mergDown(75)">
+                            <div class="btn" @click="editBalanceBuy(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalance_mergDown(100)">
+                            <div class="btn" @click="editBalanceBuy(100)">
                                 100%
                             </div>
                         </div>
@@ -240,7 +233,7 @@ export default {
                             <img src="/EET.png" alt="EET"/>
                             {{buyTokenSymbol}}
                         </div>
-                        <input type="text" v-model.number="buyQuantity" @input="checkInputBuy($event)">
+                        <input type="text" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
                     </div>
                 </div>
                 <div class="btn confirm" @click="exchange">
@@ -266,16 +259,16 @@ export default {
                             Deposit
                         </div>
                         <div class="helperblock">
-                            <div class="btn" @click="editBalance(25)">
+                            <div class="btn" @click="editBalanceDeposit(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalance(50)">
+                            <div class="btn" @click="editBalanceDeposit(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalance(75)">
+                            <div class="btn" @click="editBalanceDeposit(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalance(100)">
+                            <div class="btn" @click="editBalanceDeposit(100)">
                                 100%
                             </div>
                         </div>
@@ -285,16 +278,16 @@ export default {
                             Withdraw
                         </div>
                         <div class="helperblock">
-                            <div class="btn" @click="editBalanceGame(25)">
+                            <div class="btn" @click="editBalanceWithdraw(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalanceGame(50)">
+                            <div class="btn" @click="editBalanceWithdraw(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalanceGame(75)">
+                            <div class="btn" @click="editBalanceWithdraw(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalanceGame(100)">
+                            <div class="btn" @click="editBalanceWithdraw(100)">
                                 100%
                             </div>
                         </div>
