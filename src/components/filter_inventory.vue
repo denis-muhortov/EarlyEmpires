@@ -1,28 +1,25 @@
 <script>
+import { useGameStore } from '../stores/game.js';
 export default {
   name: "popup_inventory_filter",
   emits: ['close', 'setRarityFilter', 'setTypeFilter'],
   data() {
-    let rarityList = [
-        {view:"All", value:-1},
-        {view:"1", value:1},
-        {view:"2", value:2},
-        {view:"3", value:3},
-        {view:"4", value:4},
-        {view:"5", value:5},
-    ]
     let typeList = [
         {view:"All", value:''},
         {view:"Tools", value:'tool'},
         {view:"Chest", value:'chest'},
     ]
 
+    let game = useGameStore();
     return {
-        rarityList: rarityList,
+        game: game,
         typeList: typeList,
-        rarityFilter: rarityList[0].value,
+        rarityFilter: -1,
         typeFilter: typeList[0].value
     };
+  },
+  mounted(){
+    this.rarityFilter = this.rarityList[0].value;
   },
   components: {
   },
@@ -36,6 +33,11 @@ export default {
         this.$emit('close');
     }
   },
+  computed:{
+    rarityList(){
+        return [{name: "All", value: -1 }, ...this.game.rarityNamedList];
+    },
+  }
 };
 </script>
 <template>
@@ -48,7 +50,7 @@ export default {
                     v-for="rar in rarityList"
                     :key="rar.value"
                     :value="rar.value"
-                    >{{rar.view}}</option>
+                    >{{rar.name}}</option>
                 </select>
             </div>
             <div class="block_position">

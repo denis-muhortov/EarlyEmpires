@@ -101,6 +101,24 @@ export const useGameStore = defineStore("game", {
         ...state.walletAssets,
       ]),
 
+    rarityNamedList: (state) => {
+        let list = [];
+
+        let rarityExamples = state.collectionTemplates.filter(t => t.immutable_data.Rarity);
+
+        for(let config of state.toolsList){
+            if(!list.find(e => e.value == config.rarity)){
+
+                let exampleTemplate = rarityExamples.find((templ) => {
+                    return templ.template_id == config.template_id;
+                })
+                list.push({name:exampleTemplate.immutable_data.Rarity, value: config.rarity});
+            }
+        }
+
+        return list;
+    },
+
     gameAssetsIds: (state) => {
       let gameAssetIds = [];
 

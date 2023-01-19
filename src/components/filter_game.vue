@@ -1,28 +1,20 @@
 <script>
+import { useGameStore } from '../stores/game.js';
 export default {
   name: "popup_game_filter",
-  emits: ['close', 'setRarityFilter', 'setGenFilter'],
+  emits: ['close', 'setRarityFilter', 'setGenFilter', 'setLevelFilter'],
   data() {
-    let rarityList = [
-        {view:"All", value:-1},
-        {view:"1", value:1},
-        {view:"2", value:2},
-        {view:"3", value:3},
-        {view:"4", value:4},
-        {view:"5", value:5},
-    ]
-    let gensList = [
-        {view:"All", value:-1},
-        {view:"1", value:1},
-        {view:"2", value:2},
-    ]
-
+    let game = useGameStore();
     return {
-        rarityList: rarityList,
-        gensList: gensList,
-        rarityFilter: rarityList[0].value,
-        genFilter: gensList[0].value
+        game: game,
+        rarityFilter: -1,
+        genFilter: -1,
+        levelFilter: {min: 0, max: 100},
+
     };
+  },
+  mounted(){
+    this.rarityFilter = this.rarityList[0].value;
   },
   components: {
   },
@@ -33,9 +25,24 @@ export default {
     selectFilter(){
         this.$emit('setRarityFilter', this.rarityFilter);
         this.$emit('setGenFilter', this.genFilter);
+        this.$emit('setLevelFilter', this.levelFilter);
         this.$emit('close');
     }
   },
+  computed:{
+    rarityList(){
+        return [{name: "All", value: -1 }, ...this.game.rarityNamedList];
+    },
+    gensList(){
+        let list = [];
+        for(let config of this.game.toolsList){
+            if(!list.find(e => e.value == config.gen)){
+                list.push({name: config.gen, value: config.gen });
+            }
+        }
+        return [{name: "All", value: -1 }, ...list];
+    },
+  }
 };
 </script>
 <template>
@@ -48,7 +55,7 @@ export default {
                     v-for="rar in rarityList"
                     :key="rar.value"
                     :value="rar.value"
-                    >{{rar.view}}</option>
+                    >{{rar.name}}</option>
                 </select>
             </div>
             <div class="block_position">
@@ -58,7 +65,7 @@ export default {
                     v-for="item in gensList"
                     :key="item.value"
                     :value="item.value"
-                    >{{item.view}}</option>
+                    >{{item.name}}</option>
                 </select>
             </div>
             <div class="block_position">

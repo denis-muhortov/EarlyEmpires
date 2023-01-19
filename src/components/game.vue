@@ -12,6 +12,7 @@ export default {
         view: false,
         filterRarity: -1,
         filterGen: -1,
+        filterLevel: {min: 0, max: 100},
     };
   },
   components: {
@@ -27,6 +28,9 @@ export default {
     },
     setGenFilter(gen){
         this.filterGen = gen;
+    },
+    setLevelFilter(levels){
+        this.filterLevel = levels;
     },
     unstakeAll() {
         this.$toast.show(`мы осуждаем данный поступок`, {
@@ -69,19 +73,23 @@ export default {
   },
   computed:{
     toolsList() {
+
+        let usedTools = this.game.playerUsedTools;
         let tools = this.game.playerTools;
 
         tools = tools.filter(t => this.game.inventoryAssets.some(a => +a.asset_id == +t.asset_id));
 
         let resultItems = [];
 
-        for (let tool of tools) {
+        for (let usedTool of usedTools) {
+                let tool = tools.find(t => +t.asset_id == +usedTool.asset_id);
                 let resultItem = {
-                    asset_id: +tool.asset_id,
+                    //asset_id: +tool.asset_id,
                     rarity: tool.config.rarity,
                     gen: tool.config.gen,
+                    tool: tool
                 }
-                resultItems.push(Object.assign({}, tool, resultItem));
+                resultItems.push(Object.assign({}, usedTool, resultItem));
         }
 
         return resultItems;
@@ -89,17 +97,32 @@ export default {
     filterList() {
         let list = this.toolsList;
 
-        if(this.filterRarity > 0){
+        if(this.filterRarity >= 0){
             list = list.filter((item)=> {
                 return item.rarity == this.filterRarity;
             });
         }
 
-        if(this.filterGen > 0){
+        if(this.filterGen >= 0){
             list = list.filter((item)=> {
                 return item.gen == this.filterGen;
             });
         }
+
+        list = list.filter((item)=> {
+            return item.level >= this.filterLevel.min && item.level <= this.filterLevel.max;
+        });
+        
+        return list;
+    },
+
+    sortedList() {
+
+        let list = this.filterList.slice();
+
+        list.sort((a, b) => {
+            return b.rarity - a.rarity;
+        });
         return list;
     },
   }
@@ -109,7 +132,7 @@ export default {
     <div class="block_game">
         <teleport to="body">
             <transition name="fade" mode="out-in">
-                <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setGenFilter="setGenFilter"/>
+                <popup_filter v-if="view" @close="view = false" @setRarityFilter="setRarityFilter"  @setGenFilter="setGenFilter" @setLevelFilter="setLevelFilter"/>
             </transition>
         </teleport>
         <div class="element_control">
@@ -128,9 +151,9 @@ export default {
         </div>
         <div class="content">
             <tool
-            v-for="item in filterList"
+            v-for="item in sortedList"
             :key="item.asset_id"
-            :tool="item"/>
+            :userTool="item"/>
             <div class="view_box" v-if="toolsList.length == 0">
                 You don't have an nft at the moment
                 <a href="">buy</a>

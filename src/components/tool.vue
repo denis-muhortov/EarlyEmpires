@@ -4,34 +4,9 @@ import { useGameStore } from '../stores/game.js';
 export default {
   name: "tool",
   props:{
-    tool:{
+    userTool:{
         required: true,
-        type: Object,
-        default(){
-            return {
-                data:{
-                    name:"test",
-                    level: 72,
-                    power:11,
-                },
-                config:{
-                    gen:'A',
-                    base_rate: "1.0 EAT",
-                    base_cost: "1.0 EAT",
-                    base_time: 10,
-                    rarity: 1,
-                    uprade_multipliers: [
-                        {
-                        level: 1,
-                        multiplier_cost: 110000000,
-                        additional_cost: [],
-                        multiplier_rate: 110000000,
-                        multiplier_time: 110000000,
-                        }
-                    ]
-                }
-            }
-        }
+        type: Object
     }
   },
   data() {
@@ -58,7 +33,7 @@ export default {
     },
     unstakeTool() {
         this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.removeTool(+this.tool.asset_id); },
+            asyncFunction: async () => { return await this.game.removeTool(+this.userTool.asset_id); },
             onSuccessMessage: (res) => { 
                 console.log(res);
                 return `.!.`;
@@ -67,30 +42,17 @@ export default {
     },
   },
   computed:{
-    userTool(){
-        let usedtool = this.game.playerUsedTools.find(t => +t.asset_id == +this.tool.asset_id) ?? {
-            accumulated: "00 0",
-            accumulate_rate: "1 0",
-            accumulate_point: "2023-01-17T08:30:20",
-            upgrade_end: "2023-01-17T09:30:20",
-            level: 72,
-        };
-        usedtool.tool = this.tool;
-        return usedtool;
-    },
     toolName(){
-        return this.tool.data.name ?? 'Tool';
+        return this.userTool.tool.data.name ?? 'Tool';
     },
     toolLevel(){
         return this.userTool.level ?? 0;
     },
     toolGen(){
-        return this.tool.config.gen;
+        return this.userTool.tool.config.gen;
     },
     toolPower(){
-        return +this.game.calcAccumulateRate(this.tool.config, this.toolLevel).toFixed(6);
-        
-        //+Number(this.tool.data.Power?.split(' ')[0] ?? this.tool.config.base_rate.split(' ')[0]).toFixed(6);
+        return +this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel).toFixed(6);
     },
     unclaimed(){
         let accumulated = +this.userTool.accumulated.split(' ')[0];
@@ -116,7 +78,7 @@ export default {
     },
     toolImage(){
 
-        return `/nft/${this.tool.template.template_id}.png`;
+        return `/nft/${this.userTool.tool.template.template_id}.png`;
 
         // return "/nft/free.png";
 
