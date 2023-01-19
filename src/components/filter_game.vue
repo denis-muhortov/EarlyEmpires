@@ -17,15 +17,28 @@ export default {
   },
   mounted(){
     this.rarityFilter = this.rarityList[0].value;
+
+    let slider = this.$refs.slider;
     
-    noUiSlider.create(this.$refs.slider, {
+    noUiSlider.create(slider, {
     start: [0, 100],
     connect: true,
     range: {
         min: 0,
         max: 100
-    }
-});
+    },
+    step: 1,
+    tooltips: {
+        to: v => +v,
+        from: v => +v
+    },
+    });
+
+    slider.noUiSlider.on('change', (values) => {
+        this.levelFilter = {min: values[0], max: values[1]};
+     });
+
+
   },
   components: {
   },
@@ -92,6 +105,8 @@ export default {
         </div>
     </div>
 </template>
+
+
 <style scoped>
 .slider{
     width: 280px;
