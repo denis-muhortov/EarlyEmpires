@@ -45,9 +45,11 @@ export default {
                     {{chestName}}
                 </div>
 
-
+                <div class="info rarity">
+                    Contain: {{chestContains.count}} items
+                </div>
                 <div class="info rarity" 
-                v-for="string in chestContains"
+                v-for="string in chestContains.chances"
                 :key="string.name"
                 >
                     {{string.name}}: {{string.percent}}%

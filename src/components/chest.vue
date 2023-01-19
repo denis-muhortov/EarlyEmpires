@@ -45,8 +45,11 @@ export default {
                 {{chest.left}}/{{chest.total}}
             </div>
         </div>
+        <div class="rarity">
+                    Contain: {{chest.description.count}} items
+                </div>
         <div class="rarity" 
-        v-for="string in chest.description"
+        v-for="string in chest.description.chances"
         :key="string.name"
         >
             {{string.name}}: {{string.percent}}%
