@@ -82,13 +82,15 @@ export default {
         return this.tool.data.name ?? 'Tool';
     },
     toolLevel(){
-        return this.userTool.level ?? 1;
+        return this.userTool.level ?? 0;
     },
     toolGen(){
         return this.tool.config.gen;
     },
     toolPower(){
-        return Number(this.tool.data.Power?.split(' ')[0] ?? this.tool.config.base_rate.split(' ')[0]).toFixed(6);
+        return +this.game.calcAccumulateRate(this.tool.config, this.toolLevel).toFixed(6);
+        
+        //+Number(this.tool.data.Power?.split(' ')[0] ?? this.tool.config.base_rate.split(' ')[0]).toFixed(6);
     },
     unclaimed(){
         let accumulated = +this.userTool.accumulated.split(' ')[0];
