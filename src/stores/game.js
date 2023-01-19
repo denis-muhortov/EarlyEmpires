@@ -575,21 +575,69 @@ export const useGameStore = defineStore("game", {
         if (assetIds.length < 1) {
           return [];
         }
-        let atomicItems = await state.atomicExplorerApi.getAssets(
-          {
-            ids: assetIds,
-          },
-          1,
-          1000
-        );
-        return atomicItems;
+
+
+        let pages = [];
+        let all = assetIds;
+
+        while(all.length > 0){
+
+          let part = all.splice(0, 100);
+
+          pages.push(part);
+        }
+
+
+
+        let allItems = [];
+        for(let page of pages){
+          let atomicItems = await state.atomicExplorerApi.getAssets(
+            {
+              ids: page.join(','),
+            },
+            1,
+            100
+          );
+
+          allItems.push(...atomicItems);
+
+        }
+        
+
+        
+        return allItems;
+      }
+    },
+
+    fetchWalletAssets: (state) => {
+      return async () => {
+
+        let allAssets = []
+
+        for(let page = 1;true; page++){
+
+          let atomicItems = await state.atomicExplorerApi.getAssets(
+            {
+              owner: state.userName,
+              collection_name: state.collectionName,
+            },
+            page,
+            100
+          );
+
+          if(atomicItems.length == 0) break;
+
+          allAssets.push(...atomicItems);
+
+        }
+        
+        return allAssets;
       }
     },
 
     getAssetsByTemplateConfigTable: (state) => {
       return (configTable, inventoryAssets) => {
         let result = [];
-
         let configTemplates = configTable.map((tableRow) => {
           return +tableRow["template_id"];
         });
@@ -706,7 +754,7 @@ export const useGameStore = defineStore("game", {
 
       apiEndpoint = apiEndpoint ?? "https://wax-public-testnet.neftyblocks.com";
       historyEndpoint = historyEndpoint ?? "https://wax-testnet-hyperion.neftyblocks.com";
-      atomicEndpoint = atomicEndpoint ?? "https://testatomic.3dkrender.com";
+      atomicEndpoint = atomicEndpoint ?? "https://test.wax.eosusa.io";
       chainId = chainId ?? "f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12";
 
 
@@ -953,7 +1001,7 @@ export const useGameStore = defineStore("game", {
           collection_name: this.collectionName,
         },
         1,
-        1000
+        500
       );
 
       this.$patch((state) => {
@@ -983,14 +1031,7 @@ export const useGameStore = defineStore("game", {
         this.gameAssetsIdsFromState({usertools: usertools})
       );
 
-      let walletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let walletAssets = await this.fetchWalletAssets();
 
       let walletBalances = await this.fetchWalletBalances();
 
@@ -1077,14 +1118,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let usertools = await this.getSmartTables.usertools();
 
-      let walletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let walletAssets = await this.fetchWalletAssets();
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools:usertools})
       );
@@ -1104,14 +1138,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let usertools = await this.getSmartTables.usertools();
 
-      let walletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let walletAssets = await this.fetchWalletAssets();
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools: usertools})
       );
@@ -1165,11 +1192,16 @@ export const useGameStore = defineStore("game", {
 
       let curSecs = this.getCurrentSeconds();
 
-      for(let tool of this.playerUsedTools){
-        if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
-          actions.push(...this.getSmartActions.retrievetool(tool.asset_id));
-        }
+      let tools = this.playerUsedTools.slice();
 
+      tools = tools.filter((tool)=>{
+        return this.ISOToSeconds(tool.upgrade_end) < curSecs;
+      })
+
+
+
+      for(let tool of tools.splice(0,50)){
+          actions.push(...this.getSmartActions.retrievetool(tool.asset_id));
       }
 
 
@@ -1179,14 +1211,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let usertools = await this.getSmartTables.usertools();
 
-      let walletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let walletAssets = await this.fetchWalletAssets();
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools: usertools})
       );
@@ -1217,14 +1242,7 @@ export const useGameStore = defineStore("game", {
         checkChange = await check(this);
       }
 
-      let newWalletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let newWalletAssets = await this.fetchWalletAssets();
 
       let addedAssets = newWalletAssets.filter((itemRow) => {
         return !this.walletAssets.some(
@@ -1260,11 +1278,26 @@ export const useGameStore = defineStore("game", {
 
       let curSecs = this.getCurrentSeconds();
 
-      for(let tool of this.playerUsedTools){
-        if(this.ISOToSeconds(tool.upgrade_end) < curSecs){
-          actions.push(...this.getSmartActions.claim(tool.asset_id));
-        }
+      let tools = this.playerUsedTools.slice();
 
+
+      let secs = this.getCurrentSeconds();
+
+      tools = tools.filter((tool)=>{
+        return this.ISOToSeconds(tool.upgrade_end) < curSecs;
+      })
+
+      tools.sort((a, b)=>{
+        let aVal = calcUnclaimed(a, secs, this);
+        let bVal = calcUnclaimed(b, secs, this);
+
+        return bVal - aVal;
+      });
+
+
+
+      for(let tool of tools.splice(0,50)){
+          actions.push(...this.getSmartActions.claim(tool.asset_id));
       }
 
       await this.sendAction(actions);
@@ -1278,6 +1311,18 @@ export const useGameStore = defineStore("game", {
         state.tables.users = users;
         state.tables.usertools = usertools;
       });
+
+      function calcUnclaimed(tool, secs, state){
+        let accumulated = +tool.accumulated.split(' ')[0];
+          let accumulateRate = +tool.accumulate_rate.split(' ')[0];
+          let elastedSeconds = secs - state.ISOToSeconds(tool.accumulate_point);
+
+          let ticksCount = elastedSeconds / (state.gameConfig?.accumulate_tick ?? 1);
+
+          let resultIncome = accumulated + accumulateRate * ticksCount;
+
+          return resultIncome;
+    }
     },
 
     async buy(id) {
@@ -1287,14 +1332,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let shop = await this.getSmartTables.shop();
 
-      let newWalletAssets = await this.atomicExplorerApi.getAssets(
-        {
-          owner: this.userName,
-          collection_name: this.collectionName,
-        },
-        1,
-        1000
-      );
+      let newWalletAssets = await this.fetchWalletAssets();
       
       let addedAssets = newWalletAssets.filter((itemRow) => {
         return !this.walletAssets.some(

@@ -35,7 +35,7 @@ export default {
         stakeAll() {
             let allTools = this.game.playerTools.filter(t => this.game.walletAssets.some(a => +a.asset_id == t.asset_id));
             this.$toast.show(`...`, {
-                asyncFunction: async () => { return await this.game.addTool(allTools.map(t => t.asset_id)); },
+                asyncFunction: async () => { return await this.game.addTool(allTools.splice(0,50).map(t => t.asset_id)); },
                 onSuccessMessage: (res) => {
                     return `.!.`;
                 },
