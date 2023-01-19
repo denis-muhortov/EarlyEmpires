@@ -24,6 +24,14 @@ export default {
         onSuccessMessage: (res) => { return `.!.` },
       });
     },
+    buyMeat() {
+        this.$toast.show(`...`, {
+            asyncFunction: async () => { return await this.game.depositWax(`${this.sellWaxQuantity.toFixed(8)} WAX`); },
+            onSuccessMessage: (res) => { 
+                return `.!.`;
+             },
+        });
+    },
     depositToken() {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
