@@ -36,6 +36,7 @@ export default {
 };
 </script>
 <template>
+    <div class="background_phone" :class="{ active: statuspopup }" @click="togglepopup"></div>
     <div class="Container_menu" :class="{ active: statuspopup }">
         <div class="block_menu">
             <div class="account_block">
@@ -84,7 +85,21 @@ export default {
     transform: rotate(90deg);
     transition: all 0.35s;
 }
-
+.background_phone.active{
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
+}
+.background_phone{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.0);
+    z-index: 9;
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
+}
 .Container_menu.active {
     left: 0;
     opacity: 1;
