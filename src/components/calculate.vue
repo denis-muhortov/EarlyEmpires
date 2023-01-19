@@ -66,7 +66,7 @@ export default {
         return expRate;
     },
     toolExpectedUpgradePaid(){
-        if(!this.selectedToolConfig) return {balance: [], time: 0, speedup: "0 EAT"}; 
+        if(!this.selectedToolConfig) return {balance: ["0 EAT"], time: 0, speedup: "0 EAT"}; 
 
         return this.game.calcUpgradePaid(this.selectedToolConfig, this.oldLevel, this.newLevel);
     },
