@@ -131,6 +131,10 @@ export default {
             v-for="item in filterList"
             :key="item.asset_id"
             :tool="item"/>
+            <div class="view_box" v-if="toolsList.length == 0">
+                You don't have an nft at the moment
+                <a href="">buy</a>
+            </div>
         </div>
     </div>
 </template>
@@ -223,6 +227,28 @@ export default {
     align-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
+}
+.view_box{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 24px;
+    color: var(--vt-c-text-dark-2);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
+}
+.view_box a{
+    padding: 0px 0px 0px 0px;
+    color: var(--game-color-yellow-lite);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.view_box a:hover{
+    background: none;
+    color: var(--scroll-color-dark-orange);
+    text-decoration: underline;
+    transition: all 0.1s ease;
 }
 @media (max-width: 1080px) {
     .element_control{
