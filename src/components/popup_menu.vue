@@ -28,8 +28,8 @@ export default {
             this.$emit('selectTab', page);
         }
     },
-    computed:{
-        username(){
+    computed: {
+        username() {
             return this.game.player.wallet ?? 'not logged in';
         }
     }
@@ -49,12 +49,16 @@ export default {
                 </div>
             </div>
             <div class="part_manu">
-                <div class="elemetn" @click="changepage('game')" :class="{active : selectedTab=='game'}">game</div>
-                <div class="elemetn" @click="changepage('inventory')" :class="{active : selectedTab=='inventory'}">inventory</div>
-                <div class="elemetn" @click="changepage('shop')" :class="{active : selectedTab=='shop'}">shop</div>
-                <div class="elemetn" @click="changepage('change')" :class="{active : selectedTab=='change'}">exchange</div>
-                <div class="elemetn" @click="changepage('calculate')" :class="{active : selectedTab=='calculate'}">calculator</div>
-                <div class="elemetn" @click="changepage('leaderboard')" :class="{active : selectedTab=='leaderboard'}">leaderboard</div>
+                <div class="elemetn" @click="changepage('game')" :class="{ active: selectedTab == 'game' }">game</div>
+                <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">
+                    inventory</div>
+                <div class="elemetn" @click="changepage('shop')" :class="{ active: selectedTab == 'shop' }">shop</div>
+                <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange
+                </div>
+                <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">
+                    calculator</div>
+                <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">
+                    leaderboard</div>
             </div>
             <div class="link_game">
                 <a href="">whitepapper</a>
@@ -85,11 +89,13 @@ export default {
     transform: rotate(90deg);
     transition: all 0.35s;
 }
-.background_phone.active{
+
+.background_phone.active {
     background: rgba(0, 0, 0, 0.8);
     pointer-events: auto;
 }
-.background_phone{
+
+.background_phone {
     position: fixed;
     top: 0;
     left: 0;
@@ -100,6 +106,7 @@ export default {
     transition: all 0.5s ease-in-out;
     pointer-events: none;
 }
+
 .Container_menu.active {
     left: 0;
     opacity: 1;

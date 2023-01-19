@@ -1,58 +1,55 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 export default {
-  name: "chest_item",
-  props:{
-    chest:{
-        required: true,
-        type: Object,
+    name: "chest_item",
+    props: {
+        chest: {
+            required: true,
+            type: Object,
+        }
+    },
+    emits: ["openChest"],
+    data() {
+        let game = useGameStore();
+        return {
+            game: game,
+        };
+    },
+    components: {
+    },
+    computed: {
+        chestName() {
+            return this.chest.collectionTemplate?.immutable_data.name ?? 'Chest';
+        },
+        costMeat() {
+            return this.game.findBalance(this.chest.cost, 'MEAT');
+        },
+        chestContains() {
+            let contains = this.chest.config.contains.replaceAll("'", '"');
+            return JSON.parse(contains);
+        },
+    },
+    methods: {
     }
-  },
-  emits:["openChest"],
-  data() {
-    let game = useGameStore();
-    return {
-        game: game,
-    };
-  },
-  components: {
-  },
-  computed:{
-    chestName(){
-        return this.chest.collectionTemplate?.immutable_data.name ?? 'Chest';
-    },
-    costMeat(){
-        return this.game.findBalance(this.chest.cost, 'MEAT');
-    },
-    chestContains(){
-        let contains = this.chest.config.contains.replaceAll("'", '"');
-        return JSON.parse(contains);
-    },
-  },
-  methods:{
-  }
 
 };
 </script>
 <template>
     <div class="item">
         <div class="nft">
-            <img :src="chest.image"  alt="nft"/>
+            <img :src="chest.image" alt="nft" />
         </div>
         <div class="info_container">
             <div class="helpblock">
                 <div class="info name">
-                    {{chestName}}
+                    {{ chestName }}
                 </div>
 
                 <div class="info rarity">
-                    Contain: {{chestContains.count}} items
+                    Contain: {{ chestContains.count }} items
                 </div>
-                <div class="info rarity" 
-                v-for="string in chestContains.chances"
-                :key="string.name"
-                >
-                    {{string.name}}: {{string.percent}}%
+                <div class="info rarity" v-for="string in chestContains.chances" :key="string.name">
+                    {{ string.name }}: {{ string.percent }}%
                 </div>
 
             </div>
@@ -66,27 +63,27 @@ export default {
 </template>
 <style scoped>
 .fade-enter-active {
-  transform: translate(0%, 0%);
-  opacity: 1;
-  transition: all 0.25s ease;
+    transform: translate(0%, 0%);
+    opacity: 1;
+    transition: all 0.25s ease;
 }
 
 .fade-leave-active {
-  transform: translate(00%, 0%);
-  opacity: 0;
+    transform: translate(00%, 0%);
+    opacity: 0;
 }
 
 .fade-enter-from {
-  transform: translate(0%, 0%);
-  opacity: 0;
+    transform: translate(0%, 0%);
+    opacity: 0;
 }
 
 .fade-leave-to {
-  transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
 }
 
 
-.item{
+.item {
     margin: 10px;
     width: 370px;
     height: 220px;
@@ -95,10 +92,12 @@ export default {
     flex-direction: row;
     justify-content: space-around;
 }
-.nft img{
+
+.nft img {
     width: 180px;
 }
-.info_container{
+
+.info_container {
     height: 100%;
     text-transform: uppercase;
     font-size: 18px;
@@ -106,11 +105,13 @@ export default {
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     justify-content: space-around;
 }
-.info_container .helpblock{
+
+.info_container .helpblock {
     justify-content: flex-start;
     align-items: flex-start;
 }
-.btn{
+
+.btn {
     padding: 2px 25px;
     border: 1px solid var(--vt-c-white);
     font-size: 18px;
@@ -120,7 +121,8 @@ export default {
     user-select: none;
     transition: all 0.25s ease;
 }
-.btn:hover{
+
+.btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 </style>

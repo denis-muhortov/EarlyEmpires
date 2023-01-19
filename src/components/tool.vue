@@ -2,94 +2,94 @@
 import popup_upgrade from "./popup_upgrade.vue";
 import { useGameStore } from '../stores/game.js';
 export default {
-  name: "tool",
-  props:{
-    userTool:{
-        required: true,
-        type: Object
-    }
-  },
-  data() {
-    let game = useGameStore();
-    return {
-        view: false,
-        game: game,
-        currentSec: game.getCurrentSeconds(),
-        timerId: 0,
-    };
-  },
-  mounted(){
-    this.timerId = setInterval(()=>{this.currentSec = this.game.getCurrentSeconds()}, 1000);
-  },
-  beforeUnmount(){
-    clearInterval(this.timerId);
-  },
-  components: {
-    popup_upgrade,
-  },
-  methods:{
-    vieposition(){
-        this.view = true;
-    },
-    unstakeTool() {
-        this.$toast.show(`...`, {
-            asyncFunction: async () => { return await this.game.removeTool(+this.userTool.asset_id); },
-            onSuccessMessage: (res) => { 
-                console.log(res);
-                return `.!.`;
-             },
-        });
-    },
-  },
-  computed:{
-    toolName(){
-        return this.userTool.tool.data.name ?? 'Tool';
-    },
-    toolLevel(){
-        return this.userTool.level ?? 0;
-    },
-    toolGen(){
-        return this.userTool.tool.config.gen;
-    },
-    toolPower(){
-        return +this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel).toFixed(6);
-    },
-    unclaimed(){
-        let accumulated = +this.userTool.accumulated.split(' ')[0];
-        let accumulateRate = +this.userTool.accumulate_rate.split(' ')[0];
-        let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.userTool.accumulate_point);
-
-        let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
-
-        let resultIncome = accumulated + accumulateRate * ticksCount;
-
-        return resultIncome;
-    },
-    infoTime(){
-
-        let remainingSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec;
-
-        if(remainingSecs <= 0){
-          return false;
+    name: "game_tool",
+    props: {
+        userTool: {
+            required: true,
+            type: Object
         }
-
-        return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
-    
     },
-    toolImage(){
-
-        return `/nft/${this.userTool.tool.template.template_id}.png`;
-
-        // return "/nft/free.png";
-
+    data() {
+        let game = useGameStore();
+        return {
+            view: false,
+            game: game,
+            currentSec: game.getCurrentSeconds(),
+            timerId: 0,
+        };
     },
-  },
+    mounted() {
+        this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+    },
+    beforeUnmount() {
+        clearInterval(this.timerId);
+    },
+    components: {
+        popup_upgrade,
+    },
+    methods: {
+        vieposition() {
+            this.view = true;
+        },
+        unstakeTool() {
+            this.$toast.show(`...`, {
+                asyncFunction: async () => { return await this.game.removeTool(+this.userTool.asset_id); },
+                onSuccessMessage: (res) => {
+                    console.log(res);
+                    return `.!.`;
+                },
+            });
+        },
+    },
+    computed: {
+        toolName() {
+            return this.userTool.tool.data.name ?? 'Tool';
+        },
+        toolLevel() {
+            return this.userTool.level ?? 0;
+        },
+        toolGen() {
+            return this.userTool.tool.config.gen;
+        },
+        toolPower() {
+            return +this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel).toFixed(6);
+        },
+        unclaimed() {
+            let accumulated = +this.userTool.accumulated.split(' ')[0];
+            let accumulateRate = +this.userTool.accumulate_rate.split(' ')[0];
+            let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.userTool.accumulate_point);
+
+            let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
+
+            let resultIncome = accumulated + accumulateRate * ticksCount;
+
+            return resultIncome;
+        },
+        infoTime() {
+
+            let remainingSecs = this.game.ISOToSeconds(this.userTool.upgrade_end) - this.currentSec;
+
+            if (remainingSecs <= 0) {
+                return false;
+            }
+
+            return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+        },
+        toolImage() {
+
+            return `/nft/${this.userTool.tool.template.template_id}.png`;
+
+            // return "/nft/free.png";
+
+        },
+    },
 };
 </script>
 <template>
     <div class="item">
         <div class="timer">
-            <img src="../assets/pageGame/time.png" alt="timer"/>
+            <img src="../assets/pageGame/time.png" alt="timer" />
         </div>
         <teleport to="body">
             <transition name="fade" mode="out-in">
@@ -97,27 +97,27 @@ export default {
             </transition>
         </teleport>
         <div class="nft" @click="vieposition">
-            <img :src=toolImage alt="nft"/>
+            <img :src=toolImage alt="nft" />
         </div>
         <div class="info_container">
             <div class="helpblock">
                 <div class="info name">
-                    {{toolName}}
+                    {{ toolName }}
                 </div>
                 <div class="info lvl">
-                    LVL: {{toolLevel}}
+                    LVL: {{ toolLevel }}
                 </div>
                 <div class="info gen">
-                    GEN: {{toolGen}}
+                    GEN: {{ toolGen }}
                 </div>
                 <div class="info power">
-                    POWER: {{toolPower}}
+                    POWER: {{ toolPower }}
                 </div>
                 <div class="info time" v-if="Boolean(infoTime)">
-                    time: {{infoTime}}
+                    time: {{ infoTime }}
                 </div>
                 <div class="info unclaimed">
-                    UNCLAIMED: {{+unclaimed.toFixed(6)}}
+                    UNCLAIMED: {{+ unclaimed.toFixed(6)}}
                 </div>
             </div>
             <div>
@@ -130,39 +130,42 @@ export default {
 </template>
 <style scoped>
 .fade-enter-active {
-  transform: translate(0%, 0%);
-  opacity: 1;
-  transition: all 0.25s ease;
+    transform: translate(0%, 0%);
+    opacity: 1;
+    transition: all 0.25s ease;
 }
 
 .fade-leave-active {
-  transform: translate(00%, 0%);
-  opacity: 0;
+    transform: translate(00%, 0%);
+    opacity: 0;
 }
 
 .fade-enter-from {
-  transform: translate(0%, 0%);
-  opacity: 0;
+    transform: translate(0%, 0%);
+    opacity: 0;
 }
 
 .fade-leave-to {
-  transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
 }
 
-.timer.active{
+.timer.active {
     opacity: 1;
 }
-.timer{
+
+.timer {
     position: absolute;
     top: 5px;
     left: 5px;
     opacity: 0;
     transition: all 0.25s ease;
 }
-.timer img{
+
+.timer img {
     width: 30px;
 }
-.item{
+
+.item {
     margin: 10px;
     width: 500px;
     height: 240px;
@@ -171,7 +174,8 @@ export default {
     flex-direction: row;
     justify-content: space-around;
 }
-.info_container{
+
+.info_container {
     width: 270px;
     height: 100%;
     text-transform: uppercase;
@@ -180,12 +184,14 @@ export default {
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     justify-content: space-around;
 }
-.info_container .helpblock{
+
+.info_container .helpblock {
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
 }
-.btn{
+
+.btn {
     padding: 2px 25px;
     border: 1px solid var(--vt-c-white);
     font-size: 18px;
@@ -195,19 +201,23 @@ export default {
     user-select: none;
     transition: all 0.25s ease;
 }
-.btn:hover{
+
+.btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
-.nft img{
+
+.nft img {
     width: 100%;
 }
-.nft{
+
+.nft {
     width: 150px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.0);
     transition: all 0.25s;
 }
-.nft::after{
+
+.nft::after {
     content: "UPGRADE";
     position: absolute;
     top: 0%;
@@ -220,16 +230,19 @@ export default {
     opacity: 0;
     transition: all 0.25s;
 }
-.nft:hover::after{
+
+.nft:hover::after {
     transition: all 0.5s;
     opacity: 1;
     transform: translate(0%, 200%);
 }
-.nft:hover{
+
+.nft:hover {
     transition: all 0.5s;
     border: 1px solid rgba(245, 165, 22, 1.0);
 }
-.nft:hover img{
+
+.nft:hover img {
     filter: brightness(25%);
 }
 </style>

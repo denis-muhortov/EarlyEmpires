@@ -6,8 +6,8 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport';
 export default {
   name: "blockLogin",
   emits: ['login'],
-  props:{
-    restore:{
+  props: {
+    restore: {
       type: Boolean,
       default: true,
     }
@@ -15,19 +15,19 @@ export default {
   data() {
     const game = useGameStore();
     let apiEndpoints = [
-      {title: "NeftyGuild", href: "https://wax-public-testnet.neftyblocks.com"},
-      {title: "3DKRender", href: "https://testnet-wax.3dkrender.com"},
-      {title: "pink.gg", href: "http://testnet.wax.pink.gg"},
+      { title: "NeftyGuild", href: "https://wax-public-testnet.neftyblocks.com" },
+      { title: "3DKRender", href: "https://testnet-wax.3dkrender.com" },
+      { title: "pink.gg", href: "http://testnet.wax.pink.gg" },
     ];
     let atomicEndpoints = [
-    {title: "3DKRender", href: "https://testatomic.3dkrender.com"},
-    {title: "pink.gg", href: "https://test.wax.api.atomicassets.io"},
-    {title: "WAXUSA", href: "https://test.wax.eosusa.io"},
+      { title: "3DKRender", href: "https://testatomic.3dkrender.com" },
+      { title: "pink.gg", href: "https://test.wax.api.atomicassets.io" },
+      { title: "WAXUSA", href: "https://test.wax.eosusa.io" },
     ];
     let historyEndpoints = [
-    {title: "NeftyGuild", href: "https://wax-testnet-hyperion.neftyblocks.com"},
-    {title: "3DKRender", href: "https://tapiwax.3dkrender.com"},
-    {title: "CryptoLions🦁", href: "https://wax-testnet.cryptolions.io"},
+      { title: "NeftyGuild", href: "https://wax-testnet-hyperion.neftyblocks.com" },
+      { title: "3DKRender", href: "https://tapiwax.3dkrender.com" },
+      { title: "CryptoLions🦁", href: "https://wax-testnet.cryptolions.io" },
     ];
     return {
       login: "Login",
@@ -47,21 +47,21 @@ export default {
   methods: {
     loginWax() {
       this.$toast.show(`Loading...`, {
-          asyncFunction: async () => { await this.startGame('wax');},
-          onSuccessMessage: (res) => { return `Success!` },
+        asyncFunction: async () => { await this.startGame('wax'); },
+        onSuccessMessage: (res) => { return `Success!` },
       });
-      
+
     },
     loginAnchor() {
-      var alphabet = ["Wellcom to the hall boy","Привет игрок","Опять этот еблан защел","Если тебя зовут не Дима, то мне не о чем с тобой говорить"
-      ,"Ну давай поиграем... С ОГНЕЕЕЕЕМ","Дорова ущерб","Опять ты? Ты снова испытываешь мое терпение","Овощь на связи","Клуб анальных шалунов приветствует тебя"
-      ,"С возвращением мой господин","Сер вы снова с нами","Пиздый фармить токены заебал... КЛОУН!!!","А тебе в школу не пора?"];
-        var randomIndex = Math.floor(Math.random() * alphabet.length);
+      var alphabet = ["Wellcom to the hall boy", "Привет игрок", "Опять этот еблан защел", "Если тебя зовут не Дима, то мне не о чем с тобой говорить"
+        , "Ну давай поиграем... С ОГНЕЕЕЕЕМ", "Дорова ущерб", "Опять ты? Ты снова испытываешь мое терпение", "Овощь на связи", "Клуб анальных шалунов приветствует тебя"
+        , "С возвращением мой господин", "Сер вы снова с нами", "Пиздый фармить токены заебал... КЛОУН!!!", "А тебе в школу не пора?"];
+      var randomIndex = Math.floor(Math.random() * alphabet.length);
 
-        var randomLetter = alphabet[randomIndex];
+      var randomLetter = alphabet[randomIndex];
       this.$toast.show(`Loading...`, {
-          asyncFunction: async () => { await this.startGame('anchor');},
-          onSuccessMessage: (res) => { return `Success! `+ randomLetter },
+        asyncFunction: async () => { await this.startGame('anchor'); },
+        onSuccessMessage: (res) => { return `Success! ` + randomLetter },
       });
     },
     async startGame(wallet) {
@@ -86,17 +86,17 @@ export default {
         //endWaiting();
       }
     },
-    toastRestore(){
-      var alphabet = ["Wellcom to the hall boy","Привет игрок","Опять этот еблан защел","Если тебя зовут не Дима, то мне не о чем с тобой говорить"
-      ,"Ну давай поиграем... С ОГНЕЕЕЕЕМ","Дорова ущерб","Опять ты? Ты снова испытываешь мое терпение","Овощь на связи","Клуб анальных шалунов приветствует тебя"
-      ,"С возвращением мой господин","Сер вы снова с нами","Пиздый фармить токены заебал... КЛОУН!!!","А тебе в школу не пора?"];
-        var randomIndex = Math.floor(Math.random() * alphabet.length);
+    toastRestore() {
+      var alphabet = ["Wellcom to the hall boy", "Привет игрок", "Опять этот еблан защел", "Если тебя зовут не Дима, то мне не о чем с тобой говорить"
+        , "Ну давай поиграем... С ОГНЕЕЕЕЕМ", "Дорова ущерб", "Опять ты? Ты снова испытываешь мое терпение", "Овощь на связи", "Клуб анальных шалунов приветствует тебя"
+        , "С возвращением мой господин", "Сер вы снова с нами", "Пиздый фармить токены заебал... КЛОУН!!!", "А тебе в школу не пора?"];
+      var randomIndex = Math.floor(Math.random() * alphabet.length);
 
-        var randomLetter = alphabet[randomIndex];
+      var randomLetter = alphabet[randomIndex];
 
       this.$toast.show(`Restoring session...`, {
-          asyncFunction: async () => { await this.restoreGame();},
-          onSuccessMessage: (res) => { return `Success! `+ randomLetter },
+        asyncFunction: async () => { await this.restoreGame(); },
+        onSuccessMessage: (res) => { return `Success! ` + randomLetter },
       });
     },
     async restoreGame() {
@@ -115,7 +115,7 @@ export default {
     },
   },
   mounted() {
-    if(this.restore){
+    if (this.restore) {
       this.toastRestore();
     }
   }
@@ -131,31 +131,31 @@ export default {
 <template>
   <div class="MainContainer">
     <div class="ContainerLogo">
-      <img src="../assets/login/logo.png" alt="logo"/>
+      <img src="../assets/login/logo.png" alt="logo" />
     </div>
     <div class="ContainerLogin">
       <div class="TextBlock">
         To enter the game select a wallet
       </div>
       <div class="wax">
-        <img src="../assets/login/wax.png" alt="wax"/>
+        <img src="../assets/login/wax.png" alt="wax" />
       </div>
       <div class="anchor" @click="loginAnchor">
         <img src="../assets/login/anchor.png" alt="anchor">
       </div>
 
       <div class="FrameLeft">
-        <img src="../assets/login/frame_left.png" alt="frame_left"/>
+        <img src="../assets/login/frame_left.png" alt="frame_left" />
       </div>
       <div class="FrameRight">
-        <img src="../assets/login/frame_right.png" alt="frame_right"/>
+        <img src="../assets/login/frame_right.png" alt="frame_right" />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.MainContainer{
+.MainContainer {
   width: 100%;
   height: 100%;
   min-width: 100vw;
@@ -165,19 +165,22 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.ContainerLogin{
+
+.ContainerLogin {
   width: 700px;
   height: 460px;
   background: rgba(23, 27, 40, 0.5);
 }
-.TextBlock{
+
+.TextBlock {
   height: 100px;
   font-size: 26px;
   color: var(--vt-c-white);
   font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   justify-content: flex-start;
 }
-.wax{
+
+.wax {
   height: 100px;
   width: 400px;
   margin: 25px 0px 25px 0px;
@@ -185,49 +188,63 @@ export default {
   background: #171717;
   cursor: pointer;
 }
-.anchor{
+
+.anchor {
   height: 100px;
   width: 400px;
   border: 1px solid #3650A2;
   cursor: pointer;
 }
-.FrameLeft{
+
+.FrameLeft {
   position: absolute;
   left: -50px;
 }
-.FrameRight{
+
+.FrameRight {
   position: absolute;
   right: -50px;
 }
+
 @media (max-width: 1024px) {
-  .ContainerLogo{
-  height: 150px;
-  width: 800px;
+  .ContainerLogo {
+    height: 150px;
+    width: 800px;
   }
-  .ContainerLogo img{
-  width: 90%;
-  } 
-  .ContainerLogin{
+
+  .ContainerLogo img {
+    width: 90%;
+  }
+
+  .ContainerLogin {
     width: 520px;
     height: 350px;
   }
-  .anchor, .wax{
+
+  .anchor,
+  .wax {
     height: 80px;
     width: 300px;
   }
-  .anchor img{
+
+  .anchor img {
     width: 90%;
   }
-  .wax img{  
+
+  .wax img {
     width: 70%;
   }
-  .FrameLeft img, .FrameRight img{
+
+  .FrameLeft img,
+  .FrameRight img {
     height: 350px;
   }
-  .FrameLeft{
+
+  .FrameLeft {
     left: -40px;
   }
-  .FrameRight{
+
+  .FrameRight {
     right: -40px;
   }
 }

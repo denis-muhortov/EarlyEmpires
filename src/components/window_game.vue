@@ -3,112 +3,113 @@ import block_game from "../components/block_game.vue";
 import { useGameStore } from '../stores/game.js';
 import popup_openitem from "../components/popup_openitem.vue";
 export default {
-  name: "window_game",
-  emits: ['logout'],
-  data() {
-    let game = useGameStore();
-    return {
-        game: game,
-        view: false,
-        status_chest: false,
-        timerId: 0,
-    };
-  },
-  mounted(){
-    this.timerId = setInterval(()=>{this.game.updateGlobalStat()}, 10000);
-  },
-  beforeUnmount(){
-    clearInterval(this.timerId);
-  },
-  components: {
-    popup_openitem,
-    block_game,
-  },
-  methods:{
-    vieposition(){
-        this.view = true;
+    name: "window_game",
+    emits: ['logout'],
+    data() {
+        let game = useGameStore();
+        return {
+            game: game,
+            view: false,
+            status_chest: false,
+            timerId: 0,
+        };
+    },
+    mounted() {
+        this.timerId = setInterval(() => { this.game.updateGlobalStat() }, 10000);
+    },
+    beforeUnmount() {
+        clearInterval(this.timerId);
+    },
+    components: {
+        popup_openitem,
+        block_game,
+    },
+    methods: {
+        vieposition() {
+            this.view = true;
+        }
+    },
+    computed: {
+        globalHashrate() {
+            return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+        },
+        userHashrate() {
+            return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
+        },
     }
-  },
-  computed:{
-    globalHashrate(){
-        return +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
-    },
-    userHashrate(){
-        return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
-    },
-  }
 
 };
 </script>
 <template>
     <div class="MainContainer">
         <div class="logo">
-            <img src="../assets/login/logo.png" alt="logo"/>
+            <img src="../assets/login/logo.png" alt="logo" />
         </div>
         <div class="ContainerHashrate">
             <div class="Hashrate">
-                Hashrate: 
+                Hashrate:
             </div>
             <div class="Global">
-                Global: {{globalHashrate.toFixed(6)}}
+                Global: {{ globalHashrate.toFixed(6) }}
             </div>
             <div class="Your">
-                Your: {{userHashrate.toFixed(6)}}
+                Your: {{ userHashrate.toFixed(6) }}
             </div>
         </div>
         <div class="ContainerTokens">
             <div class="Tokens">
-                Tokens: 
+                Tokens:
             </div>
             <div class="BlockTokens">
                 <div class="Token EAT">
-                    <img src="/EAT.png" alt="EAT"/>
-                    {{game.balanceEAT.toFixed(4)}}
+                    <img src="/EAT.png" alt="EAT" />
+                    {{ game.balanceEAT.toFixed(4) }}
                 </div>
                 <div class="Token EET">
-                    <img src="/EET.png" alt="EET"/>
-                    {{game.balanceEET.toFixed(4)}}
+                    <img src="/EET.png" alt="EET" />
+                    {{ game.balanceEET.toFixed(4) }}
                 </div>
                 <div class="Token MEAT">
-                    <img src="/MEAT.png" alt="MEAT"/>
-                    {{game.balanceMEAT.toFixed(4)}}
+                    <img src="/MEAT.png" alt="MEAT" />
+                    {{ game.balanceMEAT.toFixed(4) }}
                 </div>
             </div>
         </div>
     </div>
     <teleport to="body">
-            <transition name="fade" mode="out-in">
-                <popup_openitem v-if="status_chest" @close="status_chest = false"/>
-            </transition>
-        </teleport>
-    <block_game  @logout="game.logout(), $emit('logout')"/>
+        <transition name="fade" mode="out-in">
+            <popup_openitem v-if="status_chest" @close="status_chest = false" />
+        </transition>
+    </teleport>
+    <block_game @logout="game.logout(), $emit('logout')" />
 </template>
 <style scoped>
 .fade-enter-active {
-  transform: translate(0%, 0%);
-  opacity: 1;
-  transition: all 0.25s ease;
+    transform: translate(0%, 0%);
+    opacity: 1;
+    transition: all 0.25s ease;
 }
 
 .fade-leave-active {
-  transform: translate(00%, 0%);
-  opacity: 0;
+    transform: translate(00%, 0%);
+    opacity: 0;
 }
 
 .fade-enter-from {
-  transform: translate(0%, 0%);
-  opacity: 0;
+    transform: translate(0%, 0%);
+    opacity: 0;
 }
 
 .fade-leave-to {
-  transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
 }
 
-img{
+img {
     width: 100%;
     display: flex;
 }
-.MainContainer{
+
+.MainContainer {
     width: 100%;
     height: fit-content;
     min-width: 100vw;
@@ -116,30 +117,35 @@ img{
     align-items: flex-start;
     justify-content: flex-start;
 }
-.logo{
+
+.logo {
     width: 500px;
     height: 100px;
 }
-.ContainerHashrate{
+
+.ContainerHashrate {
     font-size: 18px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     align-items: flex-start;
     justify-content: flex-start;
 }
-.ContainerTokens{
+
+.ContainerTokens {
     margin: 0px 0px 0px 50px;
     font-size: 18px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     align-items: flex-start;
-    justify-content: flex-start;    
+    justify-content: flex-start;
 }
-.Token:hover::after{
+
+.Token:hover::after {
     transform: translate(0%, 125%);
     opacity: 1;
 }
-.Token::after{
+
+.Token::after {
     position: absolute;
     bottom: 0px;
     padding: 3px 25px;
@@ -155,27 +161,35 @@ img{
     pointer-events: none;
     z-index: 2;
 }
-.Token.EAT::after{
+
+.Token.EAT::after {
     content: "EAT";
 }
-.Token.EET::after{
+
+.Token.EET::after {
     content: "EET";
 }
-.Token.MEAT::after{
+
+.Token.MEAT::after {
     content: "MEAT";
 }
-.Token, .BlockTokens{
+
+.Token,
+.BlockTokens {
     flex-direction: row;
 }
-.Token{
+
+.Token {
     padding: 5px 15px;
     margin: 5px 10px 0px 0px;
     border: 1px solid var(--vt-c-white);
 }
-.Token img{
+
+.Token img {
     width: 35px;
     margin: 0px 5px 0px 0px;
 }
+
 .block_token_open {
     padding: 5px;
     margin: 5px 10px 0px 0px;
@@ -183,39 +197,47 @@ img{
     cursor: pointer;
     transition: all 0.25s ease;
 }
-.block_token_open img{
+
+.block_token_open img {
     width: 29px;
 }
-.block_token_open:hover{
+
+.block_token_open:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 1110px) {
-    .logo{
+    .logo {
         width: 250px;
         height: 100px;
     }
-    .ContainerTokens{
+
+    .ContainerTokens {
         margin: 0px 0px 0px 10px;
     }
 }
+
 @media (max-width: 820px) {
-    .MainContainer{
+    .MainContainer {
         flex-wrap: wrap;
     }
-    .logo{
+
+    .logo {
         width: 400px;
         height: 100px;
     }
-    .ContainerHashrate{
+
+    .ContainerHashrate {
         margin: 10px 0px 10px 10px;
     }
-    .BlockTokens{
+
+    .BlockTokens {
         margin: 5px 0px 20px 0px;
     }
 }
+
 @media (max-width: 640px) {
-    .BlockTokens{
+    .BlockTokens {
         flex-wrap: wrap;
     }
 }
