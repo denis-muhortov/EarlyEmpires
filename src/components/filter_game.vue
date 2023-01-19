@@ -1,6 +1,7 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 export default {
   name: "popup_game_filter",
   emits: ['close', 'setRarityFilter', 'setGenFilter', 'setLevelFilter'],
@@ -23,8 +24,19 @@ export default {
     range: {
         min: 0,
         max: 100
-    }
-});
+    },
+    step: 1,
+    tooltips: {
+        to: v => +v,
+        from: v => +v
+    },
+    });
+
+    slider.noUiSlider.on('change', (values) => {
+        this.levelFilter = {min: values[0], max: values[1]};
+     });
+
+
   },
   components: {
   },
@@ -91,6 +103,8 @@ export default {
         </div>
     </div>
 </template>
+
+
 <style scoped>
 .container_filter{
     position: fixed;
