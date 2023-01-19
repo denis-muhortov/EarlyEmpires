@@ -113,8 +113,8 @@ export default {
     width: 280px;
 }
 .noUi-target{
-    border: 1px solid #F5A516;
-    background: #F5A51660;
+    border: none;
+    background: #ffffffb2;
     box-shadow: none;
     font-size: 18px;
     color: var(--vt-c-white);
