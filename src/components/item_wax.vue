@@ -53,7 +53,7 @@ export default {
                     LVL: {{toolLevel}}
                 </div>
                 <div class="info power">
-                    POWER: {{toolPower}}
+                    POWER: {{toolPower}} 
                 </div>
             </div>
             <div>
