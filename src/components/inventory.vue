@@ -164,7 +164,7 @@ export default {
             :chest="item.chest"
             :is="item.component"
             @chestOpen = "openBox" />
-            <div class="view_box" v-if="itemsList.length == 0">
+            <div class="view_box" v-if="waxItemsList.length == 0">
                 You don't have an nft at the moment
                 <a href="">buy</a>
             </div>
@@ -192,26 +192,6 @@ export default {
   transform: translate(0%, 0%);
 }
 
-.view_box{
-    width: 100%;
-    height: 100%;
-    flex-direction: row;
-    font-size: 24px;
-    color: var(--vt-c-text-dark-2);
-    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
-}
-.view_box a{
-    padding: 0px 0px 0px 5px;
-    color: var(--game-color-yellow-lite);
-    cursor: pointer;
-    transition: all 0.1s ease;
-}
-.view_box a:hover{
-    background: none;
-    color: var(--scroll-color-dark-orange);
-    text-decoration: underline;
-    transition: all 0.1s ease;
-}
 .block_game{
     width: 95%;
     height: 800px;
@@ -275,5 +255,25 @@ export default {
     align-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
+}
+.view_box{
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    font-size: 24px;
+    color: var(--vt-c-text-dark-2);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;   
+}
+.view_box a{
+    padding: 0px 0px 0px 0px;
+    color: var(--game-color-yellow-lite);
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+.view_box a:hover{
+    background: none;
+    color: var(--scroll-color-dark-orange);
+    text-decoration: underline;
+    transition: all 0.1s ease;
 }
 </style>
