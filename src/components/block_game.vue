@@ -180,7 +180,7 @@ export default {
 }
 
 .element_menu.change::after {
-    content: "change";
+    content: "exchange";
 }
 
 .element_menu.calculate::after {
