@@ -156,8 +156,9 @@ export default {
             <div class="btnv2" @click="unstakeAll">
                 Unstake all
             </div>
-            <div class="btnv2" @click="claimAll">
-                Claim all {{ +unclaimedSum.toFixed(2) }}
+            <div class="btnv2 claim_all" @click="claimAll">
+                <p>Claim all:</p>
+                <p>{{ +unclaimedSum.toFixed(2) }}</p>
             </div>
             <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter" />
@@ -259,6 +260,24 @@ export default {
     cursor: pointer;
     user-select: none;
     transition: all 0.25s ease;
+}
+.btnv2.claim_all{
+    padding: 5px 10px;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: fit-content;
+}
+.btnv2.claim_all p{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.btnv2.claim_all p:first-child{
+    width: 100px;
+}
+.btnv2.claim_all p:last-child{
+    width: 110px;
+    justify-content: flex-start;
 }
 
 .btnv2:hover {
