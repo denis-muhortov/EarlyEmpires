@@ -53,10 +53,10 @@ export default {
       <div class="name_block">
         <div class="container_time_to_start_game">
             <div class="time_to_start_game">
-                Time before the game starts: 00:00:00
+                Time before the game starts: <p>00:00:00</p>
             </div>
             <div class="time_to_start_game">
-                Time before awards are awarded: 00:00:00
+                Time before awards are awarded: <p>00:00:00</p>
             </div>
         </div>
         <div class="block_change">
@@ -166,6 +166,15 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.time_to_start_game {
+    flex-direction: row;
+}
+.time_to_start_game p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+}
 .container_tokenChange {
     flex-direction: row;
 }
@@ -183,7 +192,8 @@ export default {
 .balance {
     width: 100%;
     font-size: 20px;
-    flex-direction: column;
+    letter-spacing: 2px;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
 }
@@ -252,10 +262,16 @@ input {
     .container_time_to_start_game{
         font-size: 20px;
     }
+    .time_to_start_game p{
+    width: 90px;
+    }
 }
 @media (max-width: 1400px) {
     .container_time_to_start_game{
         font-size: 16px;
+    }
+    .time_to_start_game p{
+    width: 70px;
     }
 }
 @media (max-width: 1120px) {

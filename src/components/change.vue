@@ -231,7 +231,7 @@ export default {
             <div class="container_waxChange">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceWAX.toFixed(8) }}
+                        Balance: {{ game.walletBalanceWAX.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -243,7 +243,7 @@ export default {
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.balanceMEAT.toFixed(8) }}
+                        Balance: {{ game.balanceMEAT.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -265,7 +265,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.findBalance(game.player.balances, sellTokenSymbol) }}
+                        Balance: {{ game.findBalance(game.player.balances, sellTokenSymbol).toFixed(2) }}
                         <div class="helperblock_eat">
                             <div class="btn" @click="editBalanceSell(25)">
                                 25%
@@ -293,11 +293,11 @@ export default {
                     </div>
                 </div>
                 <div class="info_change">
-                    1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}} <div class="exchange_timer" v-if="sellTokenSymbol == 'EAT'"><img src="../assets/pageGame/time.png"> {{ exchangeLockTime }}</div>
+                    1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}}
                 </div>
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.findBalance(game.player.balances, buyTokenSymbol) }}
+                        Balance: {{ game.findBalance(game.player.balances, buyTokenSymbol).toFixed(2) }}
                         <div class="helperblock_eat">
                             <div class="btn" @click="editBalanceBuy(25)">
                                 25%
@@ -321,14 +321,20 @@ export default {
                         <input type="text" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
                     </div>
                 </div>
-                <div class="btn confirm" @click="exchange">
-                    Confirm
+                <div class="block_btn_timer">
+                    <div class="exchange_timer" v-if="sellTokenSymbol == 'EAT'">
+                        <img src="../assets/pageGame/time.png"> 
+                        <p>{{ exchangeLockTime }}</p>
+                    </div>
+                    <div class="btn confirm" @click="exchange">
+                        Confirm
+                    </div>
                 </div>
             </div>
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(4) }}
+                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -383,15 +389,6 @@ export default {
     </div>
 </template>
 <style scoped>
-
-
-
-.exchange_timer {
-    flex-direction: row;
-    margin: 0px 10px;
-}
-
-
 
 .block_game {
     width: 95%;
@@ -454,6 +451,7 @@ export default {
 }
 
 .balance {
+    letter-spacing: 2px;
     width: 100%;
     font-size: 20px;
     flex-direction: column;
@@ -592,6 +590,25 @@ input {
     position: absolute;
     right: 0;
     transform: translate(225%, 50%);
+}
+.exchange_timer{
+    flex-direction: row;
+    width: 100px;
+    margin: 0px 10px;
+}
+.exchange_timer p{
+    width: 80px;
+}
+.exchange_timer img{
+    width: 35px;
+}
+.block_btn_timer{
+    flex-direction: row-reverse;
+    align-items: center;
+    align-items: flex-end;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .btn.wax_chage {

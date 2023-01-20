@@ -117,7 +117,7 @@ export default {
                     time: {{ infoTime }}
                 </div>
                 <div class="info unclaimed">
-                    UNCLAIMED: {{+ unclaimed.toFixed(6)}}
+                    UNCLAIMED: <p>{{+ unclaimed.toFixed(2)}}</p>
                 </div>
             </div>
             <div>
@@ -173,6 +173,12 @@ export default {
     background: rgba(0, 0, 0, 0.5);
     flex-direction: row;
     justify-content: space-around;
+}
+.info.unclaimed{
+    flex-direction: row;
+}
+.info.unclaimed p{
+    letter-spacing: 2px;
 }
 
 .info_container {

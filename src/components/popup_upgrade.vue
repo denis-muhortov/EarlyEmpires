@@ -184,7 +184,7 @@ export default {
                         Cost:
 
                         <div class="cost_block" v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p>{{+ (+token.split(' ')[0]).toFixed(8)}}</p>
+                            <p>{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
 
@@ -193,7 +193,7 @@ export default {
                         Speed up cost:
 
                         <div class="cost_block" v-for="token in speedupCost" :key="token">
-                            <p>{{+ (+token.split(' ')[0]).toFixed(8)}}</p>
+                            <p>{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
                     </div>
@@ -387,6 +387,7 @@ export default {
 }
 
 .cost_block p {
+    letter-spacing: 2px;
     margin: 0px 5px 0px 15px;
 }
 

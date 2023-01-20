@@ -215,6 +215,7 @@ export default {
 }
 
 .balance {
+    letter-spacing: 2px;
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;
