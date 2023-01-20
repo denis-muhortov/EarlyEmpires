@@ -90,12 +90,12 @@ export default {
 
 @media (max-width: 1060px) {
     .item_leaderboard {
-        justify-content: flex-start;
+        justify-content: center;
     }
 
     .elemet_items {
-        align-items: flex-start;
-        justify-content: flex-start;
+        align-items: center;
+        justify-content: center;
     }
 
     .elemet_items {
@@ -122,13 +122,7 @@ export default {
 }
 
 @media (max-width: 740px) {
-    .item_leaderboard {
-        justify-content: flex-start;
-    }
-
     .elemet_items {
-        align-items: flex-start;
-        justify-content: flex-start;
         font-size: 12px;
     }
 }
