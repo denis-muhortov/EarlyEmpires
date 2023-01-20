@@ -16,8 +16,15 @@ export default {
             buyQuantity: 0,
             buyMeatQuantity: 0,
             sellWaxQuantity: 0,
+            currentSec: game.getCurrentSeconds(),
 
         };
+    },
+    mounted() {
+        this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+    },
+    beforeUnmount() {
+        clearInterval(this.timerId);
     },
     methods: {
         refresh() {
@@ -203,7 +210,18 @@ export default {
             } else {
                 return 'EET'
             }
-        }
+        },
+        exchangeLockTime() {
+
+            let remainingSecs =  this.currentSec + (this.game.gameConfig?.exchange_lock ?? 3600) - this.game.ISOToSeconds(this.game.player.exchange_time);
+
+            if (remainingSecs <= 0) {
+                return '00:00:00';
+            }
+
+            return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+        },
     }
 };
 </script>
@@ -275,7 +293,7 @@ export default {
                     </div>
                 </div>
                 <div class="info_change">
-                    1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}}
+                    1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}} <div class="exchange_timer" v-if="sellTokenSymbol == 'EAT'"><img src="../assets/pageGame/time.png"> {{ exchangeLockTime }}</div>
                 </div>
                 <div class="container_change">
                     <div class="balance">
@@ -365,6 +383,16 @@ export default {
     </div>
 </template>
 <style scoped>
+
+
+
+.exchange_timer {
+    flex-direction: row;
+    margin: 0px 10px;
+}
+
+
+
 .block_game {
     width: 95%;
     height: 800px;
