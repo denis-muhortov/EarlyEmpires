@@ -174,4 +174,12 @@ option {
         width: 400px;
     }
 }
+@media (max-width: 415px) {
+    .block_filter {
+        width: 300px;
+    }
+    .block_position{
+        width: 90%;
+    }
+}
 </style>

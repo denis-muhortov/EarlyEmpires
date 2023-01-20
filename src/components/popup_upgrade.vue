@@ -414,21 +414,74 @@ export default {
     width: 30px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 650px) {
     .block_filter {
         width: 400px;
-    }
-
-    .slider {
-        width: 150px;
-    }
-
-    .helpblockv2 {
+        height: 700px;
         flex-direction: column;
     }
-
+    .block_position{
+        width: 90%;
+    }
+    .nft{
+        width: 60%;
+    }
+    .lvlbox{
+        width: 90px;
+    }
+    .slider {
+        width: 270px;
+        margin: 0px;
+    }
+    .info_container{
+        width: 100%;
+    }
+    .helpblock{
+        width: calc(100% - 10px);
+        margin: 0px 0px 0px 10px;
+        font-size: 20px;
+    }
+    .helpblockv2{
+        flex-direction: column;
+        width: 100%;
+    }
     .btn {
+        width: 90%;
         margin: 5px 0px;
+    }
+}
+@media (max-width: 415px) {
+    .block_filter {
+        width: 300px;
+        height: 600px;
+        flex-direction: column;
+    }
+    .block_position{
+        width: 90%;
+    }
+    .nft{
+        width: 60%;
+    }
+    .info_container{
+        width: 100%;
+    }
+    .lvlbox{
+        width: 60px;
+    }
+    .slider{
+        width: 200px;
+    }
+    .helpblock{
+        width: calc(100% - 10px);
+        margin: 0px 0px 0px 10px;
+        font-size: 14px;
+    }
+    .helpblockv2{
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn {
+        width: 90%;
     }
 }
 </style>

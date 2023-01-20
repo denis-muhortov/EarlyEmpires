@@ -236,5 +236,20 @@ input {
     .block_filter {
         width: 400px;
     }
+    .slider{
+        width: 260px;
+    }
+}
+@media (max-width: 415px) {
+    .block_filter {
+        width: 300px;
+    }
+    .block_position{
+        width: 90%;
+    }
+    .slider{
+        width: 190px;
+        margin: 0px 0px 0px -30px;
+    }
 }
 </style>
