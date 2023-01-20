@@ -51,15 +51,11 @@ export default {
             </div>
             <div class="part_manu">
                 <div class="elemetn" @click="changepage('game')" :class="{ active: selectedTab == 'game' }">game</div>
-                <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">
-                    inventory</div>
+                <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">inventory</div>
                 <div class="elemetn" @click="changepage('shop')" :class="{ active: selectedTab == 'shop' }">shop</div>
-                <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange
-                </div>
-                <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">
-                    calculator</div>
-                <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">
-                    leaderboard</div>
+                <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange</div>
+                <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">calculator</div>
+                <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
             </div>
             <div class="link_game">
                 <a href="">whitepapper</a>
@@ -139,7 +135,7 @@ export default {
 
 .account_block {
     width: 100%;
-    height: 15%;
+    height: 15vh;
     justify-content: flex-start;
     align-items: center;
 }
@@ -167,13 +163,13 @@ export default {
 .part_manu {
     font-size: 38px;
     width: 100%;
-    height: 60%;
+    height: calc(60vh - 10px);
     justify-content: center;
     align-items: flex-start;
 }
 
 .part_manu div {
-    margin: 3% 0%;
+    margin: 5px 0%;
     transition: all 0.2s;
 }
 
@@ -188,7 +184,7 @@ export default {
 
 .link_game {
     width: 100%;
-    height: 15%;
+    height: 15vh;
     justify-content: center;
     align-items: center;
 }
@@ -200,7 +196,7 @@ export default {
 
 .link_chanel {
     width: 100%;
-    height: 10%;
+    height: 10vh;
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
@@ -216,5 +212,41 @@ export default {
     background: none;
     color: #F5A516;
     cursor: pointer;
+}
+@media (max-height: 750px) {
+    .part_manu{
+        font-size: 30px;
+    }
+    .part_manu div{
+        margin: 0px;
+    }
+}
+@media (max-height: 600px) {
+    .part_manu{
+        font-size: 22px;
+    }
+    .link_game, .link_chanel{
+        font-size: 18px;
+    }
+    .account_block{
+        font-size: 18px;
+    }
+}
+@media (max-height: 390px) {
+    .Container_menu{
+        overflow: auto;
+    }
+    .account_block{
+        height: 100px;
+    }
+    .part_manu{
+        height: 400px;
+    }
+    .link_game{
+        height: 200px;
+    }
+    .link_chanel{
+        height: 100px;
+    }
 }
 </style>

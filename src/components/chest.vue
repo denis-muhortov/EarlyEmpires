@@ -56,7 +56,7 @@ export default {
 </template>
 <style scoped>
 .item {
-    margin: 10px 10px 50px 10px;
+    margin: 10px 10px 80px 10px;
     width: 400px;
     height: 580px;
     border: 1px solid var(--vt-c-white);
