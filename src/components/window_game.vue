@@ -205,6 +205,13 @@ img {
 .block_token_open:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+@media (max-width: 1300px) {
+    .logo {
+        width: 300px;
+        height: 100px;
+    }
+}
+
 
 @media (max-width: 1110px) {
     .logo {
@@ -217,7 +224,14 @@ img {
     }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 940px) {
+    .logo {
+        width: 200px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 920px) {
     .MainContainer {
         flex-wrap: wrap;
     }

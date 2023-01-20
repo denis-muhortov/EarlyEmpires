@@ -5,6 +5,7 @@ import shop from "../components/shop.vue";
 import change from "../components/change.vue";
 import calculate from "../components/calculate.vue";
 import leaderboard from "../components/leaderboard.vue";
+import staking from "../components/staking.vue";
 import popup_menu from "../components/popup_menu.vue";
 </script>
 
@@ -15,7 +16,7 @@ export default {
     data() {
         return {
             userLogged: false,
-            currentTab: 'game'
+            currentTab: 'staking'
         };
     },
     components: {
@@ -26,6 +27,7 @@ export default {
         calculate,
         leaderboard,
         popup_menu,
+        staking,
     },
     methods: {
         openmenu() {
