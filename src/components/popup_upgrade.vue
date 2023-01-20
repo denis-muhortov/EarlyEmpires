@@ -413,7 +413,7 @@ export default {
     color: red;
 }
 .cost_block p.active{
-    color: green;
+    color: rgb(5, 209, 5);
 }
 .cost_block img {
     width: 30px;
