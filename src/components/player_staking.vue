@@ -14,14 +14,26 @@ export default {
     },
     computed: {
         leadersList() {
-            let list = this.game.leaderboardRate;
+            let list = this.game.leaderboardStake;
             let globalSum = +(this.game.gameStat?.global_rate.split(' ')[0] ?? 0);
+            let awardsList = this.game.gameConfig?.stake_rewards ?? [];
 
             let calculated = list.map((user, idx) => {
-                user.rate = +user.sum_rate.split(' ')[0];
-                let percent = user.rate / globalSum * 100;
-                user.percent = percent;
+
+                user.stake = +user.stakeidx.split(' ')[0];
+                // let percent = user.rate / globalSum * 100;
+                // user.percent = percent;
                 user.place = idx + 1;
+
+
+
+                let award = awardsList.find(a => a.place == user.place);
+
+
+                let awardItem = this.game.collectionTemplates.find(t => +t.template_id == +award.items[0]);
+
+                user.awardTitle = awardItem?.immutable_data.name;
+
                 return user;
             })
 
@@ -31,7 +43,6 @@ export default {
 };
 </script>
 <template>
-
     <div class="item_leaderboard" v-for="leader in leadersList" :key="leader.wallet"
         :class="{ active: leader.wallet == game.player.wallet }">
         <div class="elemet_items number">
@@ -40,14 +51,14 @@ export default {
         <div class="elemet_items name">
             {{ leader.wallet }}
         </div>
-        <div class="elemet_items influence">
+        <!-- <div class="elemet_items influence">
             {{ leader.percent.toFixed(2) }}%
-        </div>
+        </div> -->
         <div class="elemet_items potion">
-            {{ leader.rate.toFixed(6) }}
+            {{ leader.stake.toFixed(6) }}
         </div>
         <div class="elemet_items chest">
-            medium chest
+            {{ leader.awardTitle }}
         </div>
     </div>
 </template>

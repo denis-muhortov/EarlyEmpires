@@ -2,14 +2,28 @@
 import player_staking from "../components/player_staking.vue";
 import { useGameStore } from '../stores/game.js';
 export default {
-  name: "rate_leaderboard",
+  name: "stake_leaderboard",
+  props:{
+    startISO:{
+        type: String,
+        required: true
+    }
+  },
   data() {
     let game = useGameStore();
     return {
       game: game,
       amountEET: 0,
       userLogged: false,
+      currentSec: game.getCurrentSeconds(),
+      timerId: 0,
     };
+  },
+  mounted() {
+    this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+  },
+  beforeUnmount() {
+      clearInterval(this.timerId);
   },
   components: {
     player_staking,
@@ -43,6 +57,31 @@ export default {
             },
         });
     },
+
+  },
+  computed:{
+    awardTime() {
+
+        let remainingSecs = Math.ceil(this.currentSec/86400)*86400 - this.currentSec;
+
+        if (remainingSecs <= 0) {
+            return '00:00:00';
+        }
+
+        return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+    },
+    startTime() {
+
+    let remainingSecs = this.game.ISOToSeconds(this.startISO) - this.currentSec ;
+
+    if (remainingSecs <= 0) {
+        return '00:00:00';
+    }
+
+    return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+
+    },
   }
 
 };
@@ -53,10 +92,10 @@ export default {
       <div class="name_block">
         <div class="container_time_to_start_game">
             <div class="time_to_start_game">
-                Time before the game starts: 00:00:00
+                Time before the game starts: {{startTime}}
             </div>
             <div class="time_to_start_game">
-                Time before awards are awarded: 00:00:00
+                Time before awards are awarded: {{awardTime}}
             </div>
         </div>
         <div class="block_change">

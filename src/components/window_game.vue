@@ -2,6 +2,7 @@
 import block_game from "../components/block_game.vue";
 import { useGameStore } from '../stores/game.js';
 import popup_openitem from "../components/popup_openitem.vue";
+import stake_leaderboard from "../components/staking.vue";
 export default {
     name: "window_game",
     emits: ['logout'],
@@ -12,17 +13,23 @@ export default {
             view: false,
             status_chest: false,
             timerId: 0,
+            currentSec: game.getCurrentSeconds(),
+            timerId2: 0,
+            startISO: '2023-01-20T16:20:14'
         };
     },
     mounted() {
         this.timerId = setInterval(() => { this.game.updateGlobalStat() }, 10000);
+        this.timerId2 = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 10000);
     },
     beforeUnmount() {
         clearInterval(this.timerId);
+        clearInterval(this.timerId2);
     },
     components: {
         popup_openitem,
         block_game,
+        stake_leaderboard,
     },
     methods: {
         vieposition() {
@@ -36,6 +43,11 @@ export default {
         userHashrate() {
             return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
         },
+        isStakingWindow(){
+          let end = this.game.ISOToSeconds(this.startISO);
+
+          return this.currentSec < end;
+        }
     }
 
 };
@@ -81,7 +93,8 @@ export default {
             <popup_openitem v-if="status_chest" @close="status_chest = false" />
         </transition>
     </teleport>
-    <block_game @logout="game.logout(), $emit('logout')" />
+    <block_game v-if="!isStakingWindow" @logout="game.logout(), $emit('logout')" />
+    <stake_leaderboard v-else @logout="game.logout(), $emit('logout')" :startISO="startISO"/>
 </template>
 <style scoped>
 .fade-enter-active {

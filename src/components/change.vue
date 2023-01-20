@@ -17,6 +17,7 @@ export default {
             buyMeatQuantity: 0,
             sellWaxQuantity: 0,
             currentSec: game.getCurrentSeconds(),
+            timerId: 0,
 
         };
     },
