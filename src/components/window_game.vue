@@ -102,7 +102,7 @@ export default {
 <style scoped>
 .fade-enter-active {
     opacity: 1;
-    transition: all 0.25s ease;
+    transition: all 0.25s 1s ease;
 }
 
 .fade-leave-active {
@@ -114,6 +114,12 @@ export default {
 }
 
 .fade-leave-to {
+    opacity: 0;
+}
+
+
+.fade-leave-to .drop_item{
+  transform: translate(0%, 50%);
 }
 
 img {

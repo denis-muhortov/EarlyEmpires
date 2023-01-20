@@ -25,31 +25,35 @@ export default {
 <template>
   <div class="container_filter">
     <div class="block_filter">
-      <div class="drop_item" v-for="item in resultItems" :key="item.asset_id">
-        <img :src="`/nft/${item.template.template_id}.png`" alt="nft" />
-      </div>
+        <div class="drop_item" v-for="item in resultItems" :key="item.asset_id">
+          <img :src="`/nft/${item.template.template_id}.png`" alt="nft" />
+        </div>
     </div>
   </div>
 </template>
 <style scoped>
-.fade-enter-active {
+.fade-enter-active .drop_item {
   transform: translate(0%, 0%);
   opacity: 1;
-  transition: all 0.25s 1s ease;
+  transition: all 1.0s 0.5s ease-in-out;
 }
 
-.fade-leave-active {
-  transform: translate(0%, 0%);
+.fade-leave-active .drop_item {
+  transform: translate(0%, -50%);
   opacity: 0;
+  transition: all 0.25s 0.0s ease-in-out;
 }
 
-.fade-enter-from {
-  transform: translate(0%, 0%);
+.fade-enter-from .drop_item {
+  transform: translate(0%, -50%);
   opacity: 0;
+  transition: all 0.25s 0.0s ease-in-out;
 }
 
-.fade-leave-to {
-  transform: translate(0%, 0%);
+.fade-leave-to .drop_item {
+  transform: translate(0%, -50%);
+  opacity: 0;
+  transition: all 0.25s 0.0s ease-in-out;
 }
 
 .container_filter {
@@ -77,6 +81,7 @@ export default {
 
 .drop_item {
   width: 350px;
+  transform: translate(0%, 0%);
   height: fit-content;
 }
 

@@ -184,16 +184,16 @@ export default {
                         Cost:
 
                         <div class="cost_block" v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p>{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
+                            <p :class="{active: game.balanceEAT > token}">{{+ (+token.split(' ')[0]).toFixed(2) }}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
 
                     </div>
                     <div class="info speedupcost" :class="{ active: isUpgrading }">
-                        Speed up cost:
+                        Speed up cost: {{ checkToken }}
 
                         <div class="cost_block" v-for="token in speedupCost" :key="token">
-                            <p>{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
+                            <p :class="{active: game.balanceEAT > token}">{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
                     </div>
@@ -409,7 +409,12 @@ export default {
     letter-spacing: 2px;
     margin: 0px 5px 0px 15px;
 }
-
+.cost_block p {
+    color: red;
+}
+.cost_block p.active{
+    color: green;
+}
 .cost_block img {
     width: 30px;
 }
