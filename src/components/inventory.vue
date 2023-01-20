@@ -285,4 +285,32 @@ export default {
     text-decoration: underline;
     transition: all 0.1s ease;
 }
+@media (max-width: 400px) {
+    .element_control{
+        flex-direction: column;
+    }
+    .btnv2, .btnv2.claim_all{
+        width: calc(100% - 20px);
+        padding: 5px;
+        margin: 5px 10px;
+    }
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        border: 1px solid rgba(245, 165, 22, 0.9);
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+}
 </style>

@@ -270,4 +270,14 @@ img {
         flex-wrap: wrap;
     }
 }
+@media (max-width: 400px) {
+    .Token  {
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .Token:hover::after {
+    transform: translate(0%, -20%);
+    opacity: 1;
+}
+}
 </style>

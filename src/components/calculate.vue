@@ -271,4 +271,48 @@ option {
 .cost_block img {
     width: 30px;
 }
+@media (max-width: 400px) {
+    .btnv2, .btnv2.claim_all{
+        width: calc(100% - 20px);
+        padding: 5px;
+        margin: 5px 10px;
+    }
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+    select, input{
+        width: 140px;
+    }
+    .block_position p{
+        width: 120px;
+    }
+    .block_position{
+        width: 100%;
+    }
+    .block_description{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 26px;
+    }
+    .cost_block{
+        width: 100%;
+    }
+}
 </style>

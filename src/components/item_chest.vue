@@ -125,4 +125,31 @@ export default {
 .btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+@media (max-width: 400px) {
+    .item{
+        width: 100%;
+        height: 450px;
+        margin: 10px 0px;
+        flex-direction: column;
+    }
+    .info_container{
+        width: 100%;
+        align-items: center;
+    }
+    .helpblock{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .info {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .nft{
+        margin: 10px 0px 0px 0px;
+    }
+}
 </style>

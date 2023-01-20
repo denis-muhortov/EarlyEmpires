@@ -268,4 +268,47 @@ input {
         margin: 10px 0px 5px 100px;
     }
 }
+@media (max-width: 400px) {
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: absolute;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+    .element_control .container_change:first-child{
+        width: calc(100% - 15px);
+        margin: 50px 0px 40px 10px;
+        justify-content: space-between;
+    }
+    .element_control .container_change:nth-child(2){
+        width: calc(100% - 20px);
+    }
+    .container_change .container_tokenChange{
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    .token_block{
+        width: 110px;
+        margin: 0px;
+    }
+    input{
+        width: 160px;
+    }
+    .btn{
+        width: calc(100% - 20px);
+        margin: 0px 10px;
+    }
+}
 </style>

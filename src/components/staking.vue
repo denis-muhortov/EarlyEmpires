@@ -332,4 +332,72 @@ input {
         margin: 0px 10px 0px 10px;
     }
 }
+@media (max-width: 440px) {
+    .helpblockv2{
+        flex-direction: column;
+    }
+    input{
+        width: 200px;
+    }
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+    .element_control{
+        flex-direction: column-reverse;
+    }
+}
+@media (max-width: 400px) {
+    .btnv2, .btnv2.claim_all{
+        width: calc(100% - 20px);
+        padding: 5px;
+        margin: 5px 10px;
+    }
+    .container_change .container_tokenChange{
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    .token_block{
+        width: 110px;
+        margin: 0px;
+    }
+    input{
+        width: 150px;
+    }
+    .btn.wax_chage{
+        width: calc(100% - 20px);
+        margin: 10px 10px 50px 10px;
+    }
+    .helpblockv2{
+        flex-direction: column;
+    }
+    .block_change{
+        padding: 0px 0px 20px 0px;
+    }
+    .time_to_start_game{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0px;
+    }
+    .container_time_to_start_game{
+        margin: 0px 0px 20px 0px;
+    }
+}
 </style>

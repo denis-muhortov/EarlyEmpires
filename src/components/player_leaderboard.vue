@@ -111,4 +111,9 @@ export default {
         font-size: 16px;
     }
 }
+@media (max-width: 400px) {
+    .elemet_items.name{
+        width: 50%;
+    }
+}
 </style>

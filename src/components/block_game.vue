@@ -5,7 +5,7 @@ import shop from "../components/shop.vue";
 import change from "../components/change.vue";
 import calculate from "../components/calculate.vue";
 import leaderboard from "../components/leaderboard.vue";
-//import staking from "../components/staking.vue";
+// import staking from "../components/staking.vue";
 import popup_menu from "../components/popup_menu.vue";
 </script>
 
@@ -27,7 +27,7 @@ export default {
         calculate,
         leaderboard,
         popup_menu,
-        //staking,
+        // staking,
     },
     methods: {
         openmenu() {
@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .fade-enter-active {
     opacity: 1;
-    transition: all 0.5s ease-in;
+    transition: all 0.25s ease-in;
 }
 
 .fade-leave-active {
@@ -225,6 +225,23 @@ export default {
         left: unset;
         right: unset;
         opacity: 1;
+    }
+}
+@media (max-width: 400px) {
+    .Flat_Menu{
+        width: 100%;
+        justify-content: space-around;
+    }
+    .element_menu{
+        width: 50px;
+        height: 50px;
+        margin: 10px 40px 60px 40px;
+    }
+    .element_menu::after{
+        font-size: 14px;
+    }
+    .element_menu img{
+        width: 80%;
     }
 }
 </style>

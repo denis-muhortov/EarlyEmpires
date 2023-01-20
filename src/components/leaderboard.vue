@@ -88,4 +88,29 @@ export default {
   color: var(--vt-c-white);
   font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+  @media (max-width: 400px) {
+    .element_control{
+      flex-direction: column-reverse;
+    }
+    .name_block{
+      margin: 0px;
+    }
+    .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+}
 </style>

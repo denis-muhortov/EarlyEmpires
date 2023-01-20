@@ -13,7 +13,8 @@ export default {
   },
   components: {
     window_login,
-    window_game
+    window_game,
+
   },
   computed:{
     
@@ -26,7 +27,7 @@ export default {
 
   <window_game v-else @logout="userLogged = false, restore = false"/>
 
-  <!-- <window_game/> -->
+  <!-- <staking/> -->
 
 </template>
 

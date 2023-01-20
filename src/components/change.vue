@@ -282,12 +282,12 @@ export default {
                             </div>
                         </div>
                     </div>
-                    <div class="container_tokenChange">
+                    <div class="container_tokenChange container_EET_token_change">
                         <div class="token_block">
                             <img :src="`/${sellTokenSymbol}.png`" :alt="sellTokenSymbol" />
                             {{ sellTokenSymbol }}
                         </div>
-                        <input type="text" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
+                        <input type="text" class="EET_token_change" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
                         <div class="iconchange" @click="changeSymbol()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange" />
                         </div>
@@ -690,6 +690,81 @@ input {
 
     input {
         width: 120px;
+    }
+}
+
+@media (max-width: 400px) {
+    .element_control{
+        flex-direction: column-reverse;
+    }
+    .btnv2, .btnv2.claim_all{
+        width: calc(100% - 20px);
+        padding: 5px;
+        margin: 5px 10px;
+    }
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        border: 1px solid rgba(245, 165, 22, 0.9);
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+    .element_control .container_change:first-child{
+        width: calc(100% - 15px);
+        margin: 0px 0px 40px 10px;
+        justify-content: space-between;
+    }
+    .element_control .container_change:nth-child(2){
+        width: calc(100% - 20px);
+    }
+    .container_change .container_tokenChange{
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+    .token_block{
+        width: 110px;
+        margin: 0px;
+    }
+    input{
+        width: 150px;
+    }
+    .btn.wax_chage{
+        width: calc(100% - 20px);
+        margin: 10px 10px 50px 10px;
+    }
+    .helpblockv2{
+        flex-direction: column;
+    }
+    .block_change{
+        padding: 0px 0px 20px 0px;
+    }
+    .info_change{
+        font-size: 20px;
+    }
+    .container_EET_token_change{
+        justify-content: flex-start;
+    }
+    .EET_token_change{
+        width: 130px;
+        margin: 0px 35px 0px 0px;
+    }
+    .iconchange{
+        transform: translate(0%, 0%);
+    }
+    .iconchange:hover{
+        transform: translate(0%, 0%) rotate(90deg);
     }
 }
 </style>

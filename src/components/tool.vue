@@ -251,4 +251,18 @@ export default {
 .nft:hover img {
     filter: brightness(25%);
 }
+@media (max-width: 400px) {
+    .item{
+        width: 100%;
+        height: 500px;
+        margin: 10px 0px;
+        flex-direction: column;
+    }
+    .info_container{
+        width: 100%;
+    }
+    .nft{
+        margin: 10px 0px 0px 0px;
+    }
+}
 </style>

@@ -272,5 +272,28 @@ export default {
     width: 250px;
   }
 }
+@media (max-width: 400px) {
+  .ContainerLogo {
+    height: 100px;
+    width: 400px;
+  }  
+  .ContainerLogin {
+    width: 300px;
+    height: 350px;
+    border: 1px solid #FF8F00;
+  }
+  .FrameLeft, .FrameRight{
+    display: none;
+  }
+  .TextBlock{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .anchor, .wax{
+    height: 70px;
+    width: 250px;
+  }
+}
 </style>
 

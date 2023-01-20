@@ -338,4 +338,28 @@ export default {
         margin: 10px 0px 10px 25px;
     }
 }
+@media (max-width: 400px) {
+    .btnv2, .btnv2.claim_all{
+        width: calc(100% - 20px);
+        padding: 5px;
+        margin: 5px 10px;
+    }
+    .filter img, .reload img{
+        position: relative;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+        width: 30px;
+    }
+    .filter, .reload{
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 5px 10px;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        top: unset;
+    }
+}
 </style>

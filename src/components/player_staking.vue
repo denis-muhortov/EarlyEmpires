@@ -126,4 +126,15 @@ export default {
         font-size: 12px;
     }
 }
+@media (max-width: 400px) {
+    .item_leaderboard{
+        width: 100%;
+    }
+    .elemet_items.name{
+        width: 30%;
+    }
+    .elemet_items.chest {
+        width: 35%;
+    }
+}
 </style>

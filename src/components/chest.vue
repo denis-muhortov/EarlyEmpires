@@ -138,4 +138,14 @@ export default {
 .btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
+
+@media (max-width: 400px) {
+    .item{
+        width: 100%;
+        margin: 0px 0px 80px 0px;
+    }
+    .amount_container{
+        flex-direction: column-reverse;
+    }
+}
 </style>
