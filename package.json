@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@sentry/vue": "^7.31.1",
     "@waxio/waxjs": "^1.2.0-beta.2",
     "anchor-link": "^3.5.1",
     "anchor-link-browser-transport": "^3.5.1",
