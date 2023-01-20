@@ -75,15 +75,15 @@ export default {
             <div class="BlockTokens">
                 <div class="Token EAT">
                     <img src="/EAT.png" alt="EAT" />
-                    {{ game.balanceEAT.toFixed(4) }}
+                    {{ game.balanceEAT.toFixed(2) }}
                 </div>
                 <div class="Token EET">
                     <img src="/EET.png" alt="EET" />
-                    {{ game.balanceEET.toFixed(4) }}
+                    {{ game.balanceEET.toFixed(2) }}
                 </div>
                 <div class="Token MEAT">
                     <img src="/MEAT.png" alt="MEAT" />
-                    {{ game.balanceMEAT.toFixed(4) }}
+                    {{ game.balanceMEAT.toFixed(2) }}
                 </div>
             </div>
         </div>
@@ -152,6 +152,9 @@ img {
     align-items: flex-start;
     justify-content: flex-start;
 }
+.Token{
+    letter-spacing: 2px;
+}
 
 .Token:hover::after {
     transform: translate(0%, 125%);
@@ -199,7 +202,7 @@ img {
 }
 
 .Token img {
-    width: 35px;
+    width: 40px;
     margin: 0px 5px 0px 0px;
 }
 

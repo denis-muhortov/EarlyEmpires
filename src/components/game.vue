@@ -33,40 +33,27 @@ export default {
             this.filterLevel = levels;
         },
         unstakeAll() {
-            this.$toast.show(`мы осуждаем данный поступок`, {
+            this.$toast.show(`...`, {
                 asyncFunction: async () => { return await this.game.removeAllTools(); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `Да и пошел ка ты нахуй... Верни на место все что взял`;
+                    return `.!.`;
                 },
             });
         },
         claimAll() {
-            var alphabet = ["Прибыль полученна", "Бабло собрано", "Ресурсы собраны", "Слышим звон чеканных монет", "Вот монетка пиздуй"
-                , "О, а у нас тут свеженькое мясцо", "Главное не количество а качество", "Пасхалка: вас трахнул медведь",
-                "Дань собрали теперь можно и поспать", "Звон собраных монет нарушил визг свиноматки"];
-            var randomIndex = Math.floor(Math.random() * alphabet.length);
-
-            var randomLetter = alphabet[randomIndex];
-
-            this.$toast.show(`ожидаем прибыли`, {
+            this.$toast.show(`...`, {
                 asyncFunction: async () => { return await this.game.claimAll(); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return randomLetter;
+                    return '.!.';
                 },
             });
         },
         refresh() {
-            var alphabet = ["Обустраиваем пещеру", "Ебем служанок", "Занимаемся йёгой", "Готовимся к зиме", "Ожидаем прибыли"
-                , "Обновляем игровые данные", "Играем с палкой-капалкой", "Встречаем медведя", "Утепляем пещеру", "Вешаем шкуры"];
-            var randomIndex = Math.floor(Math.random() * alphabet.length);
-
-            var randomLetter = alphabet[randomIndex];
-
-            this.$toast.show(randomLetter, {
+            this.$toast.show('...', {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `готово и не выебывайся` },
+                onSuccessMessage: (res) => { return `.!.` },
             });
         },
 

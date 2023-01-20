@@ -58,16 +58,10 @@ export default {
             });
         },
         buyShop(id) {
-            var alphabet = ["Купил говно вот и оно", "Опять этот коженый ублюдок...", "Вазилиновый Король одобряет ваш выбор"
-                , "Сука...", "Верни на место", "Опять этот уебан...", "Тебе из него выпадет хуйня", "ХАХАХХАХА проебал бабки"
-                , "Купил хуйню"];
-            var randomIndex = Math.floor(Math.random() * alphabet.length);
-
-            var randomLetter = alphabet[randomIndex];
             this.$toast.show(`...`, {
                 asyncFunction: async () => { return await this.game.buy(id); },
                 onSuccessMessage: (res) => {
-                    return randomLetter;
+                    return '.!.';
                 },
             });
         },
@@ -221,6 +215,7 @@ export default {
 }
 
 .balance {
+    letter-spacing: 2px;
     width: 100%;
     flex-direction: row;
     justify-content: flex-start;

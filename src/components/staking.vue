@@ -45,7 +45,7 @@ export default {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => {
-                return `нужно больше золота`;
+                return `.!.`;
             },
         });
     },
@@ -53,7 +53,7 @@ export default {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => {
-                return `вы успешно пополнили казну`;
+                return `.!.`;
             },
         });
     },
@@ -92,16 +92,16 @@ export default {
       <div class="name_block">
         <div class="container_time_to_start_game">
             <div class="time_to_start_game">
-                Time before the game starts: {{startTime}}
+                Time before the game starts: <p>{{startTime}}</p>
             </div>
             <div class="time_to_start_game">
-                Time before awards are awarded: {{awardTime}}
+                Time before awards are awarded: <p>{{awardTime}}</p>
             </div>
         </div>
         <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(4) }}
+                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
@@ -205,6 +205,15 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.time_to_start_game {
+    flex-direction: row;
+}
+.time_to_start_game p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+}
 .container_tokenChange {
     flex-direction: row;
 }
@@ -222,7 +231,8 @@ export default {
 .balance {
     width: 100%;
     font-size: 20px;
-    flex-direction: column;
+    letter-spacing: 2px;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
 }
@@ -291,10 +301,16 @@ input {
     .container_time_to_start_game{
         font-size: 20px;
     }
+    .time_to_start_game p{
+    width: 90px;
+    }
 }
 @media (max-width: 1400px) {
     .container_time_to_start_game{
         font-size: 16px;
+    }
+    .time_to_start_game p{
+    width: 70px;
     }
 }
 @media (max-width: 1120px) {

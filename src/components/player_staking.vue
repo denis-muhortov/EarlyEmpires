@@ -55,7 +55,7 @@ export default {
             {{ leader.percent.toFixed(2) }}%
         </div> -->
         <div class="elemet_items potion">
-            {{ leader.stake.toFixed(6) }}
+            {{ leader.rate.toFixed(3) }}
         </div>
         <div class="elemet_items chest">
             {{ leader.awardTitle }}

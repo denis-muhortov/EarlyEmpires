@@ -54,19 +54,12 @@ export default {
             });
         },
         openBox(assetId) {
-            var alphabet = ["ХАХАХАХАХАХ ЛОХ", "Дно ебаное снова хуйня упала", "Что бы у тебя член отсох", "Снова хуйня выпала"
-                , "Че пофармил картиночки", "Вазилиновый кароль вас наебал", "Лучше бы в майнрафт задонатил", "В следующий раз кидай сюда +19297789346"
-                , "ООО Писька отвалиська одобрила ваш донат", "ЧЁ ПРОЕБАЛСЯ? Купи еще", "Дима шансы делал, я тут не причем"
-                , "Бля, ну ты уже все деньги с обедов потратил... ОСТАНОВИСЬ ДОЛБОЕБ"];
-            var randomIndex = Math.floor(Math.random() * alphabet.length);
-
-            var randomLetter = alphabet[randomIndex];
             this.$toast.show(`...`, {
                 asyncFunction: async () => { return await this.game.openBox([assetId]); },
                 onSuccessMessage: (res) => {
                     console.log(res);
                     this.viewResultChest(res);
-                    return randomLetter;
+                    return '.!.';
                 },
             });
         },
