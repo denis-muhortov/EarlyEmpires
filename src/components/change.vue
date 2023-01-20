@@ -213,7 +213,7 @@ export default {
         },
         exchangeLockTime() {
 
-            let remainingSecs =  this.currentSec + (this.game.gameConfig?.exchange_lock ?? 3600) - this.game.ISOToSeconds(this.game.player.exchange_time);
+            let remainingSecs = this.game.ISOToSeconds(this.game.player.exchange_time) + (this.game.gameConfig?.exchange_lock ?? 3600) - this.currentSec ;
 
             if (remainingSecs <= 0) {
                 return '00:00:00';
