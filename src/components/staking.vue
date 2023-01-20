@@ -31,7 +31,7 @@ export default {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => {
-                return `нужно больше золота`;
+                return `.!.`;
             },
         });
     },
@@ -39,7 +39,7 @@ export default {
         this.$toast.show(`...`, {
             asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
             onSuccessMessage: (res) => {
-                return `вы успешно пополнили казну`;
+                return `.!.`;
             },
         });
     },
