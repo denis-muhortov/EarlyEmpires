@@ -189,7 +189,7 @@ img {
 }
 
 .Token img {
-    width: 35px;
+    width: 40px;
     margin: 0px 5px 0px 0px;
 }
 

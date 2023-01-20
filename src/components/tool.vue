@@ -117,7 +117,7 @@ export default {
                     time: {{ infoTime }}
                 </div>
                 <div class="info unclaimed">
-                    UNCLAIMED: <p>{{+ unclaimed.toFixed(2)}}</p>
+                    UNCLAIMED: <p>&nbsp;{{+ unclaimed.toFixed(2)}}</p>
                 </div>
             </div>
             <div>
