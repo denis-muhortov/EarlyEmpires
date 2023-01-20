@@ -13,7 +13,15 @@ export default {
             filterRarity: -1,
             filterGen: -1,
             filterLevel: { min: 0, max: 100 },
+            currentSec: game.getCurrentSeconds(),
+            timerId: 0,
         };
+    },
+    mounted() {
+        this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+    },
+    beforeUnmount() {
+        clearInterval(this.timerId);
     },
     components: {
         tool,
@@ -111,6 +119,28 @@ export default {
             });
             return list;
         },
+        unclaimedSum(){
+            function calcUnclaimed(tool, secs, state){
+                    let accumulated = +tool.accumulated.split(' ')[0];
+                  let accumulateRate = +tool.accumulate_rate.split(' ')[0];
+                  let elastedSeconds = secs - state.ISOToSeconds(tool.accumulate_point);
+
+                  let ticksCount = elastedSeconds / (state.gameConfig?.accumulate_tick ?? 1);
+
+                  let resultIncome = accumulated + accumulateRate * ticksCount;
+
+                  return resultIncome;
+            }
+
+
+            let sum = this.toolsList.reduce((accum, current)=>{
+                let unclaimed = calcUnclaimed(current, this.currentSec, this.game);
+                return accum + unclaimed
+            }, 0);
+
+
+            return sum;
+        }
     }
 };
 </script>
@@ -127,7 +157,7 @@ export default {
                 Unstake all
             </div>
             <div class="btnv2" @click="claimAll">
-                Claim all
+                Claim all {{ +unclaimedSum.toFixed(2) }}
             </div>
             <div class="filter" @click="vieposition">
                 <img src="../assets/pageGame/filter.png" alt="filter" />

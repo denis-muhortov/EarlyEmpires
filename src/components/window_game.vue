@@ -15,12 +15,12 @@ export default {
             timerId: 0,
             currentSec: game.getCurrentSeconds(),
             timerId2: 0,
-            startISO: '2023-01-20T16:20:14'
+            startISO: '2023-01-20T15:28:00'
         };
     },
     mounted() {
         this.timerId = setInterval(() => { this.game.updateGlobalStat() }, 10000);
-        this.timerId2 = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 10000);
+        this.timerId2 = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
     },
     beforeUnmount() {
         clearInterval(this.timerId);
@@ -34,6 +34,9 @@ export default {
     methods: {
         vieposition() {
             this.view = true;
+        },
+        testError(){
+            throw new Error('sentry test');
         }
     },
     computed: {
@@ -58,7 +61,7 @@ export default {
             <img src="../assets/login/logo.png" alt="logo" />
         </div>
         <div class="ContainerHashrate">
-            <div class="Hashrate">
+            <div class="Hashrate"  @click="testError">
                 Hashrate:
             </div>
             <div class="Global">
