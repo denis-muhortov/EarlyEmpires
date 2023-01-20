@@ -26,7 +26,8 @@ export default {
         changepage(page) {
             this.togglepopup();
             this.$emit('selectTab', page);
-        }
+        },
+        
     },
     computed: {
         username() {
