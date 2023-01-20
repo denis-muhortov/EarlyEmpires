@@ -78,23 +78,20 @@ export default {
 </template>
 <style scoped>
 .fade-enter-active {
-    transform: translate(0%, 0%);
     opacity: 1;
-    transition: all 0.25s ease;
+    transition: all 0.5s ease-in;
 }
 
 .fade-leave-active {
-    transform: translate(00%, 0%);
-    opacity: 0;
+    opacity: 1;
 }
 
 .fade-enter-from {
-    transform: translate(0%, 0%);
     opacity: 0;
 }
 
 .fade-leave-to {
-    transform: translate(0%, 0%);
+    opacity: 0;
 }
 
 .GameContainer {

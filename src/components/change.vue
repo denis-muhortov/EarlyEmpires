@@ -29,40 +29,40 @@ export default {
     },
     methods: {
         refresh() {
-            this.$toast.show(`...---.-.--.-.-.-..-`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `.!.` },
+                onSuccessMessage: (res) => { return `Game data updated` },
             });
         },
         buyMeat() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.depositWax(`${this.sellWaxQuantity.toFixed(8)} WAX`); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         depositToken() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         withdrawToken() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         exchange() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.exchange(this.sellExchangeQuantity); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },

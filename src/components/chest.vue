@@ -58,7 +58,7 @@ export default {
 .item {
     margin: 10px 10px 80px 10px;
     width: 400px;
-    height: 580px;
+    height: 600px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
     justify-content: space-around;
@@ -67,8 +67,9 @@ export default {
 .name {
     width: 100%;
     height: 15%;
+    margin: 10px 0px;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 28px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     justify-content: space-around;

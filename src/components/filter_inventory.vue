@@ -65,6 +65,25 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active .block_filter{
+    opacity: 1;
+    transition: all 0.25s 0.25s ease-out;
+}
+
+.fade-leave-active .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+    transition: all 0.25s ease-out;
+}
+
+.fade-enter-from .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+}
+
+.fade-leave-to .block_filter{
+    opacity: 0;
+}
 .container_filter {
     position: fixed;
     top: 0;

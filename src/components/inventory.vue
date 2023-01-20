@@ -34,10 +34,10 @@ export default {
         },
         stakeAll() {
             let allTools = this.game.playerTools.filter(t => this.game.walletAssets.some(a => +a.asset_id == t.asset_id));
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.addTool(allTools.splice(0,50).map(t => t.asset_id)); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
@@ -48,18 +48,18 @@ export default {
             this.filterType = type;
         },
         refresh() {
-            this.$toast.show(`...---.-.--.-.-.-..-`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `.!.` },
+                onSuccessMessage: (res) => { return `Game data updated` },
             });
         },
         openBox(assetId) {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.openBox([assetId]); },
                 onSuccessMessage: (res) => {
                     console.log(res);
                     this.viewResultChest(res);
-                    return '.!.';
+                    return 'the transaction is successful';
                 },
             });
         },
@@ -172,23 +172,21 @@ export default {
 </template>
 <style scoped>
 .fade-enter-active {
-    transform: translate(0%, 0%);
     opacity: 1;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-out;
 }
 
 .fade-leave-active {
-    transform: translate(0%, 0%);
     opacity: 0;
+    transition: all 0.25s 0.25s ease-out;
 }
 
 .fade-enter-from {
-    transform: translate(0%, 0%);
     opacity: 0;
 }
 
 .fade-leave-to {
-    transform: translate(0%, 0%);
+    opacity: 0;
 }
 
 .block_game {

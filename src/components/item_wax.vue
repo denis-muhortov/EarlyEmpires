@@ -28,11 +28,11 @@ export default {
     },
     methods: {
         stakeTool() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.addTool([+this.tool.asset_id]); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },

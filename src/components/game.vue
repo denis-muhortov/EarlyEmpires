@@ -41,27 +41,27 @@ export default {
             this.filterLevel = levels;
         },
         unstakeAll() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.removeAllTools(); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         claimAll() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.claimAll(); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return '.!.';
+                    return 'the transaction is successful';
                 },
             });
         },
         refresh() {
-            this.$toast.show('...', {
+            this.$toast.show('await', {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `.!.` },
+                onSuccessMessage: (res) => { return `Game data updated` },
             });
         },
 
@@ -178,24 +178,21 @@ export default {
 </template>
 <style scoped>
 .fade-enter-active {
-    transform: translate(0%, 0%);
     opacity: 1;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-out;
 }
 
 .fade-leave-active {
-    transform: translate(00%, 0%);
+    opacity: 0;
+    transition: all 0.25s 0.25s ease-out;
+}
+.fade-enter-from, .fade-leave-to {
     opacity: 0;
 }
 
-.fade-enter-from {
-    transform: translate(0%, 0%);
-    opacity: 0;
-}
 
-.fade-leave-to {
-    transform: translate(0%, 0%);
-}
+
+
 
 
 .block_game.active {

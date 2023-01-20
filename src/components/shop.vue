@@ -17,9 +17,9 @@ export default {
     },
     methods: {
         refresh() {
-            this.$toast.show(`...---.-.--.-.-.-..-`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `.!.` },
+                onSuccessMessage: (res) => { return `Game data updated` },
             });
         },
     },
@@ -50,18 +50,18 @@ export default {
     },
     methods: {
         buyMeat() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.depositWax(`${this.sellWaxQuantity.toFixed(8)} WAX`); },
                 onSuccessMessage: (res) => {
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         buyShop(id) {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.buy(id); },
                 onSuccessMessage: (res) => {
-                    return '.!.';
+                    return 'the transaction is successful';
                 },
             });
         },
@@ -161,6 +161,7 @@ export default {
     right: 10px;
     top: 5px;
     margin: 5px 0px;
+    z-index: 10;
     transition: all 0.25s ease;
 }
 
@@ -231,7 +232,7 @@ export default {
 }
 
 .token_block img {
-    width: 35px;
+    width: 45px;
     margin: 0px 5px 0px 0px;
 }
 

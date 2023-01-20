@@ -33,7 +33,7 @@ export default {
             this.$emit('close');
         },
         upgradeTool() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => {
                     let res = await this.game.upgradeTool(+this.userTool.asset_id, this.lvl - this.toolLevel);
                     this.vieposition();
@@ -41,12 +41,12 @@ export default {
                 },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
         speedUp() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => {
                     let res = await this.game.speedUp(+this.userTool.asset_id);
                     this.vieposition();
@@ -54,7 +54,7 @@ export default {
                 },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },
@@ -214,6 +214,25 @@ export default {
     </div>
 </template>
 <style scoped>
+.fade-enter-active .block_filter{
+    opacity: 1;
+    transition: all 0.25s 0.25s ease-out;
+}
+
+.fade-leave-active .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+    transition: all 0.25s ease-out;
+}
+
+.fade-enter-from .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+}
+
+.fade-leave-to .block_filter{
+    opacity: 0;
+}
 .container_filter {
     position: fixed;
     top: 0;

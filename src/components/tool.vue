@@ -32,11 +32,11 @@ export default {
             this.view = true;
         },
         unstakeTool() {
-            this.$toast.show(`...`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.removeTool(+this.userTool.asset_id); },
                 onSuccessMessage: (res) => {
                     console.log(res);
-                    return `.!.`;
+                    return `the transaction is successful`;
                 },
             });
         },

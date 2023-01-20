@@ -100,6 +100,26 @@ export default {
 
 
 <style scoped>
+.fade-enter-active .block_filter{
+    opacity: 1;
+    transition: all 0.25s 0.25s ease-out;
+}
+
+.fade-leave-active .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+    transition: all 0.25s ease-out;
+}
+
+.fade-enter-from .block_filter{
+    opacity: 0;
+    transform: translate(0%, -20%);
+}
+
+.fade-leave-to .block_filter{
+    opacity: 0;
+}
+
 .slider {
     margin: 20px 0px 0px 0px;
     width: 280px;
@@ -130,6 +150,7 @@ export default {
 .block_filter {
     width: 550px;
     height: 350px;
+    transform: translate(0%, 0%);
     border: 1px solid #F5A516;
     background: #171B28;
 }

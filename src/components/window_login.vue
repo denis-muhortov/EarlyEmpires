@@ -46,16 +46,16 @@ export default {
   },
   methods: {
     loginWax() {
-      this.$toast.show(`Loading...`, {
+      this.$toast.show(`await`, {
         asyncFunction: async () => { await this.startGame('wax'); },
-        onSuccessMessage: (res) => { return `Success!` },
+        onSuccessMessage: (res) => { return `Authorization was successful` },
       });
 
     },
     loginAnchor() {
-      this.$toast.show(`Loading...`, {
+      this.$toast.show(`await`, {
         asyncFunction: async () => { await this.startGame('anchor'); },
-        onSuccessMessage: (res) => { return `Success! `},
+        onSuccessMessage: (res) => { return `Authorization was successful`},
       });
     },
     async startGame(wallet) {
@@ -81,9 +81,9 @@ export default {
       }
     },
     toastRestore() {
-      this.$toast.show(`Restoring session...`, {
+      this.$toast.show(`wait for the session to be restored`, {
         asyncFunction: async () => { await this.restoreGame(); },
-        onSuccessMessage: (res) => { return `Success! `},
+        onSuccessMessage: (res) => { return `successful`},
       });
     },
     async restoreGame() {
@@ -151,11 +151,17 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 }
-
+.ContainerLogo {
+    height: 250px;
+    width: 800px;
+    margin: 20px 0px 0px 0px;
+  }
 .ContainerLogin {
   width: 700px;
   height: 460px;
+  margin: 0px 0px 20px 0px;
   background: rgba(23, 27, 40, 0.5);
 }
 
@@ -174,13 +180,25 @@ export default {
   border: 1px solid #FF8F00;
   background: #171717;
   cursor: pointer;
+  z-index: 2;
+  transition: all 0.25s ease-in-out;
 }
-
+.wax img, .anchor img{
+  transition: all 0.25s ease-in-out;
+}
+.wax:hover, .anchor:hover{
+  border: 1px solid #FFF;
+}
+.wax:hover img, .anchor:hover img{
+  transform: scale(0.9);
+}
 .anchor {
   height: 100px;
   width: 400px;
   border: 1px solid #3650A2;
   cursor: pointer;
+  z-index: 2;
+  transition: all 0.25s ease-in-out;
 }
 
 .FrameLeft {
@@ -233,6 +251,25 @@ export default {
 
   .FrameRight {
     right: -40px;
+  }
+}
+@media (max-width: 620px) {
+  .ContainerLogo {
+    height: 100px;
+    width: 500px;
+  }  
+  .ContainerLogin {
+    width: 320px;
+    height: 350px;
+  }
+  .TextBlock{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .anchor, .wax{
+    height: 70px;
+    width: 250px;
   }
 }
 </style>

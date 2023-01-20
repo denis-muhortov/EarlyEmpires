@@ -88,9 +88,9 @@ export default {
     },
     methods: {
         refresh() {
-            this.$toast.show(`...---.-.--.-.-.-..-`, {
+            this.$toast.show(`await`, {
                 asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `.!.` },
+                onSuccessMessage: (res) => { return `Game data updated` },
             });
         },
     }
