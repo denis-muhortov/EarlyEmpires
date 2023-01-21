@@ -25,8 +25,17 @@ export default {
 <template>
   <div class="container_filter">
     <div class="block_filter">
-        <div class="drop_item" v-for="item in resultItems" :key="item.asset_id">
-          <img :src="`/nft/${item.template.template_id}.png`" alt="nft" />
+        <div class="drop_item" 
+        :class="{
+          common: item.template.template_id == +605515},
+          {uncommon: item.template.template_id == +605516},
+          {rare: item.template.template_id == +605517},
+          {epic: item.template.template_id == +605518},
+          {legendary: item.template.template_id == +605519},
+          {mythical: item.template.template_id == 605520}"
+          v-for="item in resultItems" :key="item.asset_id">
+          <img :src="`/nft/${item.template.template_id}.png`" alt="nft" 
+          />
         </div>
     </div>
   </div>
@@ -83,6 +92,24 @@ export default {
   width: 350px;
   transform: translate(0%, 0%);
   height: fit-content;
+}
+.drop_item.common img{
+  filter: drop-shadow(0px 0px 10px white);
+}
+.drop_item.uncommon img{
+  filter: drop-shadow(0px 0px 10px rgb(138, 201, 209));
+}
+.drop_item.rare img{
+  filter: drop-shadow(0px 0px 10px rgb(152, 95, 206));
+}
+.drop_item.epic img{
+  filter: drop-shadow(0px 0px 10px rgb(209, 113, 209));
+}
+.drop_item.legendary img{
+  filter: drop-shadow(0px 0px 10px rgb(228, 218, 82));
+}
+.drop_item.mythical img{
+  filter: drop-shadow(0px 0px 10px rgb(223, 41, 41));
 }
 
 .drop_item img {
