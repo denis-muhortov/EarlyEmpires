@@ -182,21 +182,10 @@ export default {
                     </div>
                     <div class="info cost">
                         Cost:
-                        <div class="cost_block" 
-                        :class="{active: game.balanceEAT > +(+toolExpectedUpgradeCost[0].split(' ')[0])}">
-                            <p>
-                                {{ +(+toolExpectedUpgradeCost[0].split(' ')[0]).toFixed(2) }}
-                            </p>
-                            <img :src="`/${toolExpectedUpgradeCost[0].split(' ')[1]}.png`" :alt="toolExpectedUpgradeCost[0].split(' ')[1]" />
+                        <div class="cost_block" v-for="token in toolExpectedUpgradeCost" :key="token" :class="{active: game.findBalance(game.player.balances, token.split(' ')[1]) > +(+token.split(' ')[0])}">
+                            <p>{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
+                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
-                        <div class="cost_block" 
-                        :class="{active: game.balanceMEAT > +(+toolExpectedUpgradeCost[1].split(' ')[0])}">
-                            <p>
-                                {{ +(+toolExpectedUpgradeCost[1].split(' ')[0]).toFixed(2) }}
-                            </p>
-                            <img :src="`/${toolExpectedUpgradeCost[1].split(' ')[1]}.png`" :alt="toolExpectedUpgradeCost[1].split(' ')[1]" />
-                        </div>
-
                     </div>
                     <!-- <div class="info cost">
                         Cost:
@@ -215,10 +204,10 @@ export default {
 
                     </div> -->
                     <div class="info speedupcost" :class="{ active: isUpgrading }">
-                        Speed up cost: {{ checkToken }}
+                        Speed up cost:
 
                         <div class="cost_block" v-for="token in speedupCost" :key="token">
-                            <p :class="{active: game.balanceEAT > +(token.split(' ')[0])}">
+                            <p :class="{active: game.findBalance(game.player.balances, token.split(' ')[1]) > +(+token.split(' ')[0])}">
                                 {{+ (+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
