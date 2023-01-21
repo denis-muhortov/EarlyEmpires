@@ -112,7 +112,7 @@ export default {
         filterList() {
             let list = this.waxItemsList;
 
-            if (this.filterRarity > 0) {
+            if (this.filterRarity >= 0) {
                 list = list.filter((item) => {
                     return item.rarity == this.filterRarity;
                 });
