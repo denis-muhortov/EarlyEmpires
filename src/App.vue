@@ -23,10 +23,8 @@ export default {
 };
 </script>
 <template>
-  <window_login v-if="!userLogged" @login="userLogged = true, restore = true" :restore="restore"/>
-
-  <window_game v-else @logout="userLogged = false, restore = false"/>
-
+    <window_login v-if="!userLogged" @login="userLogged = true, restore = true" :restore="restore"/>
+    <window_game v-else @logout="userLogged = false, restore = false"/>
   <!-- <staking/> -->
 
 </template>

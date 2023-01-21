@@ -227,6 +227,7 @@ export default {
 }
 
 .btn:hover {
+    padding: 2px 35px;
     background: rgba(255, 255, 255, 0.2);
 }
 
