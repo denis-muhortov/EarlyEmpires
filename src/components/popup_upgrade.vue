@@ -70,7 +70,7 @@ export default {
             return this.userTool.tool.config.gen;
         },
         toolPower() {
-            return +this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel).toFixed(6);
+            return this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel);
         },
         toolExpectedPower() {
             let expRate = this.game.calcAccumulateRate(this.userTool.tool.config, this.lvl);
@@ -175,9 +175,9 @@ export default {
                         GEN: {{ toolGen }} 
                     </div>
                     <div class="info power">
-                        POWER:&nbsp; <p class="power_standart">{{ toolPower }}</p>&nbsp; &#8594; &nbsp;
+                        POWER:&nbsp; <p class="power_standart">{{ + toolPower.toFixed(6) }}</p>&nbsp; &#8594; &nbsp;
                                      <p class="power_up"
-                                     :class="{disactive: toolPower > +toolExpectedPower.toFixed(8)}"
+                                     :class="{disactive: toolPower > toolExpectedPower}"
                                      >
                                      {{+ toolExpectedPower.toFixed(6)}}
                                      </p>
