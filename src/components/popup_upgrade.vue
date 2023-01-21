@@ -405,7 +405,7 @@ export default {
     cursor: pointer;
 }
 .power_standart{
-    color: red;
+    color: #F5A516;
 }
 .power_up{
     color: rgb(5, 209, 5);
