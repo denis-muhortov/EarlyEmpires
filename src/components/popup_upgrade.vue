@@ -20,7 +20,7 @@ export default {
         };
     },
     mounted() {
-        this.lvl = this.toolLevel;
+        this.lvl = Math.min(this.toolLevel+1, 100);
         this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
     },
     beforeUnmount() {
