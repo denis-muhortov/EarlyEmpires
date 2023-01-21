@@ -172,7 +172,7 @@ export default {
                         </div>
                     </div>
                     <div class="info gen">
-                        GEN: {{ toolGen }}
+                        GEN: {{ toolGen }} 
                     </div>
                     <div class="info power">
                         POWER: {{+ toolExpectedPower.toFixed(6)}}
@@ -184,7 +184,8 @@ export default {
                         Cost:
 
                         <div class="cost_block" v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p :class="{active: game.balanceEAT > token}">{{+ (+token.split(' ')[0]).toFixed(2) }}</p>
+                            <p :class="{active: game.balanceEAT > +(token.split(' ')[0]) && game.balanceMEAT < +(token.split(' ')[0])}">
+                                {{+ (+token.split(' ')[0]).toFixed(2) }}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
 
@@ -193,7 +194,8 @@ export default {
                         Speed up cost: {{ checkToken }}
 
                         <div class="cost_block" v-for="token in speedupCost" :key="token">
-                            <p :class="{active: game.balanceEAT > token}">{{+ (+token.split(' ')[0]).toFixed(2)}}</p>
+                            <p :class="{active: game.balanceEAT > +(token.split(' ')[0])}">
+                                {{+ (+token.split(' ')[0]).toFixed(2)}}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
                     </div>
