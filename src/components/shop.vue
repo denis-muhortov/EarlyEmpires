@@ -15,14 +15,7 @@ export default {
     components: {
         chest,
     },
-    methods: {
-        refresh() {
-            this.$toast.show(`await`, {
-                asyncFunction: async () => { await this.game.loadstats(); },
-                onSuccessMessage: (res) => { return `Game data updated` },
-            });
-        },
-    },
+
     computed: {
         computedShopList() {
 
@@ -49,6 +42,12 @@ export default {
         },
     },
     methods: {
+        refresh() {
+            this.$toast.show(`await`, {
+                asyncFunction: async () => { await this.game.loadstats(); },
+                onSuccessMessage: (res) => { return `Game data updated` },
+            });
+        },
         buyMeat() {
             this.$toast.show(`await`, {
                 asyncFunction: async () => { return await this.game.depositWax(`${this.sellWaxQuantity.toFixed(8)} WAX`); },
