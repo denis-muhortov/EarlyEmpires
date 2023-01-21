@@ -202,6 +202,7 @@ export default {
     transition: all 0.25s ease-in-out;
 }
 .info.unclaimed:hover .full_info_unclaimed{
+    color: #D89718;
     transform: translate(0%, -100%);
     opacity: 1;
 }
