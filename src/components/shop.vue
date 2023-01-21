@@ -268,6 +268,10 @@ input {
     }
 }
 @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .filter img, .reload img{
         position: relative;
         left: unset;

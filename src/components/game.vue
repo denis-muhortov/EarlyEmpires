@@ -339,6 +339,10 @@ export default {
     }
 }
 @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .btnv2, .btnv2.claim_all{
         width: calc(100% - 20px);
         padding: 5px;

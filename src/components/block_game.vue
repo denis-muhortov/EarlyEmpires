@@ -136,6 +136,9 @@ export default {
     cursor: pointer;
     z-index: 5;
 }
+.element_menu img{
+    width: 45px;
+}
 
 .Block {
     width: 90%;
