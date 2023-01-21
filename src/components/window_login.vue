@@ -14,32 +14,32 @@ export default {
   },
   data() {
     const game = useGameStore();
-    let apiEndpoints = [
-      { title: "NeftyGuild", href: "https://wax-public-testnet.neftyblocks.com" },
-      { title: "3DKRender", href: "https://testnet-wax.3dkrender.com" },
-      { title: "pink.gg", href: "http://testnet.wax.pink.gg" },
-    ];
-    let atomicEndpoints = [
-      { title: "3DKRender", href: "https://testatomic.3dkrender.com" },
-      { title: "pink.gg", href: "https://test.wax.api.atomicassets.io" },
-      { title: "WAXUSA", href: "https://test.wax.eosusa.io" },
-    ];
-    let historyEndpoints = [
-      { title: "NeftyGuild", href: "https://wax-testnet-hyperion.neftyblocks.com" },
-      { title: "3DKRender", href: "https://tapiwax.3dkrender.com" },
-      { title: "CryptoLions🦁", href: "https://wax-testnet.cryptolions.io" },
-    ];
+    // let apiEndpoints = [
+    //   { title: "NeftyGuild", href: "https://wax-public-testnet.neftyblocks.com" },
+    //   { title: "3DKRender", href: "https://testnet-wax.3dkrender.com" },
+    //   { title: "pink.gg", href: "http://testnet.wax.pink.gg" },
+    // ];
+    // let atomicEndpoints = [
+    //   { title: "3DKRender", href: "https://testatomic.3dkrender.com" },
+    //   { title: "pink.gg", href: "https://test.wax.api.atomicassets.io" },
+    //   { title: "WAXUSA", href: "https://test.wax.eosusa.io" },
+    // ];
+    // let historyEndpoints = [
+    //   { title: "NeftyGuild", href: "https://wax-testnet-hyperion.neftyblocks.com" },
+    //   { title: "3DKRender", href: "https://tapiwax.3dkrender.com" },
+    //   { title: "CryptoLions🦁", href: "https://wax-testnet.cryptolions.io" },
+    // ];
     return {
       login: "Login",
       description:
         "Welcome to a play-to-earn game, created on the WAX blockchain.",
       chainId: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12', // f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12 // 1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4
-      apiEndpoints: apiEndpoints,
-      atomicEndpoints: atomicEndpoints,
-      historyEndpoints: historyEndpoints,
-      selectedApiEndpoint: apiEndpoints[0],
-      selectedAtomicEndpoint: atomicEndpoints[0],
-      selectedHistoryEndpoint: historyEndpoints[0],
+      // apiEndpoints: apiEndpoints,
+      // atomicEndpoints: atomicEndpoints,
+      // historyEndpoints: historyEndpoints,
+      // selectedApiEndpoint: apiEndpoints[0],
+      // selectedAtomicEndpoint: atomicEndpoints[0],
+      // selectedHistoryEndpoint: historyEndpoints[0],
       game: game,
       menupoint: false,
     };
