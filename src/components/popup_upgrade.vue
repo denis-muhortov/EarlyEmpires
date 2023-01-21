@@ -69,9 +69,9 @@ export default {
         toolGen() {
             return this.userTool.tool.config.gen;
         },
-        // toolPower(){
-        //     return this.userTool.tool.data.power;
-        // },
+        toolPower() {
+            return +this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel).toFixed(6);
+        },
         toolExpectedPower() {
             let expRate = this.game.calcAccumulateRate(this.userTool.tool.config, this.lvl);
             return expRate;
@@ -175,7 +175,12 @@ export default {
                         GEN: {{ toolGen }} 
                     </div>
                     <div class="info power">
-                        POWER: {{+ toolExpectedPower.toFixed(6)}}
+                        POWER:&nbsp; <p class="power_standart">{{ toolPower }}</p>&nbsp; &#8594; &nbsp;
+                                     <p class="power_up"
+                                     :class="{disactive: toolPower > +toolExpectedPower.toFixed(8)}"
+                                     >
+                                     {{+ toolExpectedPower.toFixed(6)}}
+                                     </p>
                     </div>
                     <div class="info time">
                         UPGRADE TIME: {{ toolExpectedUpgradeTime }}
@@ -399,7 +404,15 @@ export default {
     background: #F5A516;
     cursor: pointer;
 }
-
+.power_standart{
+    color: red;
+}
+.power_up{
+    color: rgb(5, 209, 5);
+}
+.power_up.disactive{
+    color: red;
+}
 .cost_block {
     flex-direction: row;
 }
