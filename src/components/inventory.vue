@@ -286,6 +286,10 @@ export default {
     transition: all 0.1s ease;
 }
 @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .element_control{
         flex-direction: column;
     }

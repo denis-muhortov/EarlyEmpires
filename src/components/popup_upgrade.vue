@@ -187,22 +187,6 @@ export default {
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
                     </div>
-                    <!-- <div class="info cost">
-                        Cost:
-
-                        <div class="cost_block" 
-                        :class="{
-                            active: game.balanceMEAT > +(token.split(' ')[0]),
-                            active: game.balanceEAT > +(token.split(' ')[0]),
-                            
-                        }"
-                        v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p>
-                                {{+ (+token.split(' ')[0]).toFixed(2) }}</p>
-                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
-                        </div>
-
-                    </div> -->
                     <div class="info speedupcost" :class="{ active: isUpgrading }">
                         Speed up cost:
 
