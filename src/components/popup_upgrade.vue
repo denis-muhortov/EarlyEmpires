@@ -172,7 +172,7 @@ export default {
                         </div>
                     </div>
                     <div class="info gen">
-                        GEN: {{ toolGen }} 
+                        <!-- GEN: {{ toolGen }}  -->
                     </div>
                     <div class="info power">
                         POWER: {{+ toolExpectedPower.toFixed(6)}}
@@ -182,14 +182,38 @@ export default {
                     </div>
                     <div class="info cost">
                         Cost:
+                        <div class="cost_block" 
+                        :class="{active: game.balanceEAT > +(+toolExpectedUpgradeCost[0].split(' ')[0])}">
+                            <p>
+                                {{ +(+toolExpectedUpgradeCost[0].split(' ')[0]).toFixed(2) }}
+                            </p>
+                            <img :src="`/${toolExpectedUpgradeCost[0].split(' ')[1]}.png`" :alt="toolExpectedUpgradeCost[0].split(' ')[1]" />
+                        </div>
+                        <div class="cost_block" 
+                        :class="{active: game.balanceMEAT > +(+toolExpectedUpgradeCost[1].split(' ')[0])}">
+                            <p>
+                                {{ +(+toolExpectedUpgradeCost[1].split(' ')[0]).toFixed(2) }}
+                            </p>
+                            <img :src="`/${toolExpectedUpgradeCost[1].split(' ')[1]}.png`" :alt="toolExpectedUpgradeCost[1].split(' ')[1]" />
+                        </div>
 
-                        <div class="cost_block" v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p :class="{active: game.balanceEAT > +(token.split(' ')[0]) && game.balanceMEAT < +(token.split(' ')[0])}">
+                    </div>
+                    <!-- <div class="info cost">
+                        Cost:
+
+                        <div class="cost_block" 
+                        :class="{
+                            active: game.balanceMEAT > +(token.split(' ')[0]),
+                            active: game.balanceEAT > +(token.split(' ')[0]),
+                            
+                        }"
+                        v-for="token in toolExpectedUpgradeCost" :key="token">
+                            <p>
                                 {{+ (+token.split(' ')[0]).toFixed(2) }}</p>
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
 
-                    </div>
+                    </div> -->
                     <div class="info speedupcost" :class="{ active: isUpgrading }">
                         Speed up cost: {{ checkToken }}
 
@@ -414,9 +438,11 @@ export default {
 .cost_block p {
     color: red;
 }
-.cost_block p.active{
+.cost_block.active p{
     color: rgb(5, 209, 5);
 }
+
+
 .cost_block img {
     width: 30px;
 }
