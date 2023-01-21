@@ -441,7 +441,9 @@ export default {
 .cost_block.active p{
     color: rgb(5, 209, 5);
 }
-
+.cost_block p.active{
+    color: rgb(5, 209, 5);
+}
 
 .cost_block img {
     width: 30px;
