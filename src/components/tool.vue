@@ -96,7 +96,10 @@ export default {
                 <popup_upgrade v-if="view" @close="view = false" :userTool="userTool" />
             </transition>
         </teleport>
-        <div class="nft" @click="vieposition">
+        <div class="nft" 
+            :class="{max_lvl: toolLevel >= 100}"
+            @click="vieposition"
+        >
             <img :src=toolImage alt="nft" />
         </div>
         <div class="info_container">
@@ -104,8 +107,9 @@ export default {
                 <div class="info name">
                     {{ toolName }}
                 </div>
-                <div class="info lvl">
-                    LVL: {{ toolLevel }}
+                <div class="info lvl"
+                :class="{active: toolLevel >= 100}">
+                    LVL: <p>&nbsp;{{ toolLevel }}</p>
                 </div>
                 <div class="info gen">
                     GEN: {{ toolGen }}
@@ -113,7 +117,10 @@ export default {
                 <div class="info power">
                     POWER: {{ toolPower }}
                 </div>
-                <div class="info time" v-if="Boolean(infoTime)">
+                <div class="info time" 
+                :class="{active: infoTime != 0}"
+                v-if="Boolean(infoTime)"
+                >
                     time: {{ infoTime }}
                 </div>
                 <div class="info unclaimed">
@@ -190,6 +197,17 @@ export default {
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     justify-content: space-around;
 }
+.info{
+    flex-direction: row;
+}
+.info.lvl.active{
+    color: #d8bf93;
+    font-weight: bold;
+}
+.info.time.active{
+    color: #F5A516;
+    font-weight: bold;
+}
 
 .info_container .helpblock {
     width: 100%;
@@ -222,7 +240,9 @@ export default {
     border: 1px solid rgba(0, 0, 0, 0.0);
     transition: all 0.25s;
 }
-
+.nft.max_lvl{
+    pointer-events: none;
+}
 .nft::after {
     content: "UPGRADE";
     position: absolute;

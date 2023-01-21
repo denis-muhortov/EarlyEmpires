@@ -172,7 +172,7 @@ export default {
                         </div>
                     </div>
                     <div class="info gen">
-                        <!-- GEN: {{ toolGen }}  -->
+                        GEN: {{ toolGen }} 
                     </div>
                     <div class="info power">
                         POWER: {{+ toolExpectedPower.toFixed(6)}}
