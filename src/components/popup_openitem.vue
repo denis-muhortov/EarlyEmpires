@@ -26,14 +26,7 @@ export default {
   <div class="container_filter">
     <div class="block_filter">
         <div class="drop_item" 
-        :class="{
-          common: item.template.template_id == +605515},
-          {uncommon: item.template.template_id == +605516},
-          {rare: item.template.template_id == +605517},
-          {epic: item.template.template_id == +605518},
-          {legendary: item.template.template_id == +605519},
-          {mythical: item.template.template_id == 605520}"
-          v-for="item in resultItems" :key="item.asset_id">
+          v-for="item in resultItems" :key="item.asset_id" :class="[item.data?.Rarity?.toLowerCase() ?? 'common' ]">
           <img :src="`/nft/${item.template.template_id}.png`" alt="nft" 
           />
         </div>
