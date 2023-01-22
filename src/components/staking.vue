@@ -209,7 +209,7 @@ export default {
   right: 10px;
   top: 5px;
   margin: 5px 0px;
-  z-index: 2;
+  z-index: 1;
   transition: all 0.25s ease;
 }
 
