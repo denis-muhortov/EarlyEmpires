@@ -31,8 +31,11 @@ img{pointer-events: none;}
   }
   ::-moz-selection {
   background: #a3803a96; /* Firefox */
-
   }
+  img::selection {
+    background: transparent;
+    color: transparent;
+}
 
 body {
   display: flex;

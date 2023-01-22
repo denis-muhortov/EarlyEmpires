@@ -78,6 +78,9 @@ export default {
     return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
 
     },
+    username() {
+            return this.game.player.wallet ?? 'not logged in';
+    },
   }
 
 };
@@ -86,6 +89,15 @@ export default {
   <div class="block_game">
     <div class="element_control">
       <div class="name_block">
+        <div class="block_logout">
+                <div class="account_name">
+                    <img src="../assets/pageGame/player.png" alt="player" />
+                    {{ username }}&nbsp; 
+                </div>
+                <div class="account_exit" @click="$emit('logout')">
+                    exit
+                </div>
+            </div>
         <div class="container_time_to_start_game">
             <div class="time_to_start_game">
                 Time before the game starts: <p>{{startTime}}</p>
@@ -159,6 +171,27 @@ export default {
   </div>
 </template>
 <style scoped>
+.block_logout{
+    width: 100%;
+    font-size: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.account_name{
+    flex-direction: row;
+    margin: 0px 0px 0px 10px;
+}
+.account_exit {
+    color: red;
+    flex-direction: row;
+    transition: all 0.2s;
+}
+
+.account_exit:hover {
+    cursor: pointer;
+    color: rgb(58, 7, 7);
+}
 .block_game {
   width: 95%;
   height: 800px;
@@ -287,7 +320,7 @@ input {
 }
 
 .name_block {
-  margin: 30px 0px 30px 0px;
+  margin: 10px 0px 30px 0px;
   width: 100%;
   font-size: 42px;
   color: var(--vt-c-white);
@@ -360,6 +393,9 @@ input {
     .block_game{
         min-height: 800px;
         height: fit-content;
+    }
+    .block_logout{
+        justify-content: center;
     }
     .btnv2, .btnv2.claim_all{
         width: calc(100% - 20px);
