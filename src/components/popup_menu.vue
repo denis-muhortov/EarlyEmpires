@@ -58,15 +58,15 @@ export default {
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
             </div>
             <div class="link_game">
-                <a href="https://alcor.exchange/ru/trade/eet-earlytokenss_wax-eosio.token" class="aclor link_hover_block">aclor</a>
-                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" class="whitepapper link_hover_block">whitepapper</a>
-                <a href="https://discord.gg/6TJ2rV5Q" class="discord link_hover_block">discord</a>
-                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/earlyempires" class="collection link_hover_block">collection</a>
+                <a href="https://alcor.exchange/ru/trade/eet-earlytokenss_wax-eosio.token" target="_blank" class="aclor link_hover_block">aclor</a>
+                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" target="_blank" class="whitepapper link_hover_block">whitepapper</a>
+                <a href="https://discord.gg/6TJ2rV5Q" target="_blank" class="discord link_hover_block">discord</a>
+                <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/earlyempires" target="_blank" class="collection link_hover_block">collection</a>
 
             </div>
             <div class="link_chanel">
-                <a href="https://twitter.com/Earlyempires" class="twitter link_hover_block">twitter</a>
-                <a href="https://wp.earlyempire-nft.com/early-empires/roadmap" class="roadmap link_hover_block">roadmap</a>
+                <a href="https://twitter.com/Earlyempires" target="_blank" class="twitter link_hover_block">twitter</a>
+                <a href="https://wp.earlyempire-nft.com/early-empires/roadmap" target="_blank" class="roadmap link_hover_block">roadmap</a>
             </div>
             <div class="close" @click="togglepopup">
                 <img src="../assets/pageGame/close.png" alt="close" />
