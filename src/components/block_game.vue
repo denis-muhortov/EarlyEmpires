@@ -116,6 +116,11 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     user-select: none;
+    transition: all 0.25s ease-out;
+}
+.Menu:hover{
+    padding: 120px 5px;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .Menu img {
