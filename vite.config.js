@@ -33,7 +33,7 @@ export default defineConfig({
 		//global: "globalThis",
 	},
   build: {
-    sourcemap: true,
+    sourcemap: 'hidden',
     //outDir: '../game.empires.com',
     //emptyOutDir: true,
     //publicDir : './public',
