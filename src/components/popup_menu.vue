@@ -88,7 +88,7 @@ export default {
     font-size: 14px;
     opacity: 0;
     pointer-events: none;
-    transform: translate(0%, 0%);
+    transform: translate(0%, 30%);
     z-index: -10;
     transition: all 0.25s ease-in-out;
 }
