@@ -58,13 +58,15 @@ export default {
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
             </div>
             <div class="link_game">
-                <a href="">whitepapper</a>
-                <a href="">collection</a>
-                <a href="">roadmap</a>
+                <a href="" class="aclor link_hover_block">aclor</a>
+                <a href="" class="whitepapper link_hover_block">whitepapper</a>
+                <a href="" class="discord link_hover_block">discord</a>
+                <a href="" class="collection link_hover_block">collection</a>
+
             </div>
             <div class="link_chanel">
-                <a href="">discord</a>
-                <a href="">twitter</a>
+                <a href="" class="twitter link_hover_block">twitter</a>
+                <a href="" class="roadmap link_hover_block">roadmap</a>
             </div>
             <div class="close" @click="togglepopup">
                 <img src="../assets/pageGame/close.png" alt="close" />
@@ -73,6 +75,32 @@ export default {
     </div>
 </template>
 <style scoped>
+.aclor::after{content: "sale of game tokens";}
+.whitepapper::after{content: "whitepapper of the game";}
+.discord::after{content: "join discord";}
+.collection::after{content: "game collection AH";}
+.twitter::after{content: "join twitter";}
+.roadmap::after{content: "roadmap to the game";}
+
+.link_hover_block::after{
+    position: absolute;
+    color: #FFFFFF;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(0%, 0%);
+    z-index: -10;
+    transition: all 0.25s ease-in-out;
+}
+
+.link_hover_block:hover::after{
+    opacity: 1;
+    transform: translate(0%, 100%);
+    z-index: 10;
+    pointer-events: auto;
+}
+
+
 .close {
     position: absolute;
     top: 0;
@@ -185,12 +213,19 @@ export default {
 .link_game {
     width: 100%;
     height: 15vh;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
 .link_game a {
+    width: 50%;
     color: #FFFFFF;
+    color: #75A2FB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.25s;
 }
 
@@ -203,6 +238,10 @@ export default {
 }
 
 .link_chanel a {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.25s;
     color: #75A2FB;
 }
