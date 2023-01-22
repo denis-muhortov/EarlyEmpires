@@ -73,6 +73,10 @@ export default {
             <div class="element_menu leaderboard" @click="openpage('leaderboard')">
                 <img src="../assets/pageGame/leaderboard.png" alt="leaderboard" />
             </div>
+            <div class="Menu_mobile" @click="openmenu">
+            menu
+            <img src="../assets/pageGame/menu.png" alt="menu" />
+        </div>
         </div>
     </div>
 </template>
@@ -116,11 +120,43 @@ export default {
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     user-select: none;
+    transition: all 0.25s ease-out;
+}
+.Menu:hover{
+    padding: 120px 5px;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .Menu img {
     margin: 15px 0px 0px 0px;
 }
+
+.Menu_mobile{
+    display: none;
+    cursor: pointer;
+    text-align: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 20px 0px 20px;
+    padding: 5px 15px;
+    border: 1px solid var(--vt-c-white);
+    text-transform: uppercase;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    user-select: none;
+    transition: all 0.25s ease-out;    
+}
+.Menu_mobile img{
+    margin: 0px 0px 0px 10px;
+}
+.Menu_mobile:hover{
+    width: 80%;
+    padding: 5px 15px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
 
 .Flat_Menu {
     margin: 0px 20px 0px 20px;
@@ -192,7 +228,7 @@ export default {
 }
 
 
-@media (max-width: 640px) {
+@media (max-width: 730px) {
     .GameContainer {
         flex-direction: column-reverse;
     }
@@ -206,8 +242,17 @@ export default {
     }
 
     .Flat_Menu {
+        width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
+    }
+    .Menu_mobile{
+        display: flex;
+        width: 90%;
+        margin: 20px 0px;
+    }
+    .element_menu{
+        display: none;
     }
 
     .element_menu {

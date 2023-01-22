@@ -189,6 +189,7 @@ export default {
 }
 .full_info_unclaimed{
     position: absolute;
+    flex-direction: row;
     width: 100%;
     border: 1px solid var(--vt-c-white);
     background: #1F1F1F;
@@ -203,12 +204,13 @@ export default {
 }
 .info.unclaimed:hover .full_info_unclaimed{
     color: #D89718;
-    transform: translate(0%, -100%);
+    transform: translate(0%, -90%);
     opacity: 1;
 }
 .info.unclaimed p{
     letter-spacing: 2px;
 }
+
 
 .info_container {
     width: 270px;
@@ -252,6 +254,7 @@ export default {
     padding: 2px 35px;
     background: rgba(255, 255, 255, 0.2);
 }
+
 
 .nft img {
     width: 100%;
