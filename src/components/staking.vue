@@ -362,6 +362,9 @@ input {
     }
 }
 @media (max-width: 440px) {
+    .content{
+        padding: 10px 0px;
+    }
     .helpblockv2{
         flex-direction: column;
     }
