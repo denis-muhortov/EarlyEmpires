@@ -140,7 +140,7 @@ export default {
                         </div>
                     </div>
                     <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="withdrawToken">л
+                        <div class="btn" @click="withdrawToken">
                             Withdraw
                         </div>
                         <div class="helperblock">
