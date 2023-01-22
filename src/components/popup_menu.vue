@@ -80,7 +80,7 @@ export default {
 .discord::after{content: "join discord";}
 .collection::after{content: "game collection AH";}
 .twitter::after{content: "join twitter";}
-.roadmap::after{content: "roadmap to the game";}
+.roadmap::after{content: "roadmap of the project";}
 
 .link_hover_block::after{
     position: absolute;
