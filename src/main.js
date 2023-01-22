@@ -17,20 +17,20 @@ const app = createApp(App);
 
 
 
-Sentry.init({
-    app,
-    dsn: "https://4d6e447a637d45a2bcdae572aa374e6b@o4504537608290304.ingest.sentry.io/4504537611567104",
-    debug: true,
-    integrations: [],
-    allowUrls:['earlyempire-nft.com'],
-    //tracingOrigins :['*'],
-    // Set tracesSampleRate to 1.0 to capture 100%
-    // of transactions for performance monitoring.
-    // We recommend adjusting this value in production
-    tracesSampleRate: 1.0,
-    logErrors: true,
-    release: '0.0.2'
-  });
+// Sentry.init({
+//     app,
+//     dsn: "https://4d6e447a637d45a2bcdae572aa374e6b@o4504537608290304.ingest.sentry.io/4504537611567104",
+//     debug: true,
+//     integrations: [],
+//     allowUrls:['earlyempire-nft.com'],
+//     //tracingOrigins :['*'],
+//     // Set tracesSampleRate to 1.0 to capture 100%
+//     // of transactions for performance monitoring.
+//     // We recommend adjusting this value in production
+//     tracesSampleRate: 1.0,
+//     logErrors: true,
+//     //release: '0.0.2'
+//   });
 
 
 
