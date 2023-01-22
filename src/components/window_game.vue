@@ -47,7 +47,7 @@ export default {
             return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
         },
         isStakingWindow(){
-          let end = this.game.ISOToSeconds(this.startISO);
+          let end = this.game.ISOToSeconds(this.game.gameConfig.start);
 
           return this.currentSec < end;
         }
@@ -97,7 +97,7 @@ export default {
         </transition>
     </teleport>
     <block_game v-if="!isStakingWindow" @logout="game.logout(), $emit('logout')" />
-    <stake_leaderboard v-else @logout="game.logout(), $emit('logout')" :startISO="startISO"/>
+    <stake_leaderboard v-else @logout="game.logout(), $emit('logout')"/>
 </template>
 <style scoped>
 .fade-enter-active {
