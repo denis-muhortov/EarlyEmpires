@@ -209,6 +209,22 @@ export default {
 .elemetn.active {
     color: #F5A516;
 }
+.elemetn{flex-direction: row;}
+.elemetn::after {
+    content: '\2192';
+    margin: 0px 0px 0px -15px;
+    color: #F5A516;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.elemetn:hover::after {
+    content: '\2192';
+    margin: 0px 0px 0px 5px;
+    color: #F5A516;
+    pointer-events: auto;
+    opacity: 1;
+}
 
 .link_game {
     width: 100%;
