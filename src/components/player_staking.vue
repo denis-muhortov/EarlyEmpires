@@ -161,7 +161,7 @@ export default {
         width: 35%;
     }
 }
-@media (max-width: 350px) {
+@media (max-width: 360px) {
     .elemet_items.number{
         width: 5%;
     }
