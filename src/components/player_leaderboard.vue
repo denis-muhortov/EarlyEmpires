@@ -100,7 +100,7 @@ export default {
     }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 780px) {
     .item_leaderboard {
         justify-content: flex-start;
     }
@@ -114,6 +114,11 @@ export default {
 @media (max-width: 400px) {
     .elemet_items.name{
         width: 50%;
+    }
+    .elemet_items.influence{
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 }
 </style>
