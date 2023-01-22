@@ -26,6 +26,13 @@ img{pointer-events: none;}
   overflow-x: hidden;
   /* user-select: none; */
 }
+::selection {
+  background: #a3803a96; /* Safari */
+  }
+  ::-moz-selection {
+  background: #a3803a96; /* Firefox */
+
+  }
 
 body {
   display: flex;
