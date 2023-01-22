@@ -753,8 +753,8 @@ export const useGameStore = defineStore("game", {
     }) {
 
       apiEndpoint = apiEndpoint ?? "https://api.wax.alohaeos.com";
-      historyEndpoint = historyEndpoint ?? "http://apiwax.3dkrender.com";
-      atomicEndpoint = atomicEndpoint ?? "http://aa-wax-public1.neftyblocks.com";
+      historyEndpoint = historyEndpoint ?? "https://apiwax.3dkrender.com";
+      atomicEndpoint = atomicEndpoint ?? "https://aa-wax-public1.neftyblocks.com";
       chainId = chainId ?? "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4";
 
 
