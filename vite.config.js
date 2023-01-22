@@ -4,8 +4,15 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 
+
+const RELEASE_VER = "0.1.0";
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    "process.env.RELEASE_VER": `"${RELEASE_VER}"`, 
+    "process.env.SENTRYDSN": `${"https://4d6e447a637d45a2bcdae572aa374e6b@o4504537608290304.ingest.sentry.io/4504537611567104"}`,
+	},
   plugins: [
     vue(),
     sentryVitePlugin({
@@ -20,7 +27,7 @@ export default defineConfig({
       authToken: '5d50a1356a5a4d74aa4908597494b1ede5f4eeedfdd2440fa2029052d3714bbf',
 
       // Optionally uncomment the line below to override automatic release name detection
-      // release: process.env.RELEASE,
+      release: RELEASE_VER,
     }),
 
   ],
@@ -29,9 +36,6 @@ export default defineConfig({
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-  define: {
-		//global: "globalThis",
-	},
   build: {
     sourcemap: 'hidden',
     //outDir: '../game.empires.com',

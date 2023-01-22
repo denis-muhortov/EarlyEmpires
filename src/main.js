@@ -30,7 +30,7 @@ Sentry.init({
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
     logErrors: false,
-    //release: '0.0.3'
+    release: process.env.RELEASE_VER,
   });
 
 
