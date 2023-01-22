@@ -209,7 +209,7 @@ export default {
   right: 10px;
   top: 5px;
   margin: 5px 0px;
-  z-index: 2;
+  z-index: 1;
   transition: all 0.25s ease;
 }
 
@@ -361,7 +361,19 @@ input {
         margin: 0px 10px 0px 10px;
     }
 }
+@media (max-width: 640px) {
+    .block_game{
+        width: 100%;
+    }
+    .content{
+        width: 100%;
+        padding: 10px 0px;
+    }
+}
 @media (max-width: 440px) {
+    .content{
+        padding: 10px 0px;
+    }
     .helpblockv2{
         flex-direction: column;
     }
@@ -388,8 +400,6 @@ input {
     .element_control{
         flex-direction: column-reverse;
     }
-}
-@media (max-width: 400px) {
     .block_game{
         min-height: 800px;
         height: fit-content;
