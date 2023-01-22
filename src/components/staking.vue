@@ -391,8 +391,6 @@ input {
     .element_control{
         flex-direction: column-reverse;
     }
-}
-@media (max-width: 400px) {
     .block_game{
         min-height: 800px;
         height: fit-content;
