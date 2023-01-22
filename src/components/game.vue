@@ -221,7 +221,6 @@ export default {
     cursor: pointer;
     transition: all 0.25s ease;
 }
-
 .filter img {
     width: 89%;
 }
