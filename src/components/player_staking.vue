@@ -69,7 +69,7 @@ export default {
 }
 
 .item_leaderboard {
-    width: 75%;
+    width: 95%;
     height: 35px;
     flex-direction: row;
     font-size: 24px;
@@ -86,6 +86,18 @@ export default {
         width: 100%;
         font-size: 22px;
     }
+    .elemet_items.number{
+        width: 5%;
+    }
+    .elemet_items.name{
+        width: 25%;
+    }
+    .elemet_items.potion{
+        width: 25%;
+    }
+    .elemet_items.chest{
+        width: 40%;
+    }
 }
 
 @media (max-width: 1060px) {
@@ -98,32 +110,44 @@ export default {
         justify-content: center;
     }
 
-    .elemet_items {
-        font-size: 17px;
+    .elemet_items.number{
+        width: 5%;
     }
-    .elemet_items.number {
-        width: 10%;
-    }
-
-    .elemet_items.name {
+    .elemet_items.name{
         width: 25%;
     }
-
-    .elemet_items.influence {
-        width: 15%;
-    }
-
-    .elemet_items.potion {
+    .elemet_items.potion{
         width: 25%;
     }
-    .elemet_items.chest {
-        width: 25%;
+    .elemet_items.chest{
+        width: 40%;
     }
 }
 
 @media (max-width: 740px) {
     .elemet_items {
         font-size: 12px;
+    }
+}
+@media (max-width: 640px) {
+    .block_game{
+        width: 100%;
+    }
+    .content{
+        width: 100%;
+        padding: 10px 0px;
+    }
+    .elemet_items.number{
+        width: 5%;
+    }
+    .elemet_items.name{
+        width: 25%;
+    }
+    .elemet_items.potion{
+        width: 25%;
+    }
+    .elemet_items.chest{
+        width: 40%;
     }
 }
 @media (max-width: 400px) {
@@ -136,5 +160,19 @@ export default {
     .elemet_items.chest {
         width: 35%;
     }
+}
+@media (max-width: 350px) {
+    .elemet_items.number{
+        width: 5%;
+    }
+    .elemet_items.name{
+        width: 25%;
+    }
+    .elemet_items.potion{
+        width: 20%;
+    }
+    .elemet_items.chest{
+        width: 45%;
+    }    
 }
 </style>

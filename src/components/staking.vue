@@ -361,6 +361,15 @@ input {
         margin: 0px 10px 0px 10px;
     }
 }
+@media (max-width: 640px) {
+    .block_game{
+        width: 100%;
+    }
+    .content{
+        width: 100%;
+        padding: 10px 0px;
+    }
+}
 @media (max-width: 440px) {
     .content{
         padding: 10px 0px;
