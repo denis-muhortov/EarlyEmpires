@@ -75,8 +75,8 @@ export default {
     </div>
 </template>
 <style scoped>
-.aclor::after{content: "sale of game tokens";}
-.whitepapper::after{content: "whitepapper of the game";}
+.aclor::after{content: "Trade of game token ";}
+.whitepapper::after{content: "whitepaper of the game";}
 .discord::after{content: "join discord";}
 .collection::after{content: "game collection AH";}
 .twitter::after{content: "join twitter";}
