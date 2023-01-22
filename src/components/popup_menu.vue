@@ -127,7 +127,7 @@ export default {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.0);
-    z-index: 9;
+    z-index: 19;
     transition: all 0.5s ease-in-out;
     pointer-events: none;
 }
@@ -145,7 +145,7 @@ export default {
     width: 400px;
     height: 100vh;
     background: #1A1A20;
-    z-index: 10;
+    z-index: 20;
     opacity: 0;
     pointer-events: none;
     transition: all 0.5s ease;
@@ -271,7 +271,7 @@ export default {
         font-size: 18px;
     }
 }
-@media (max-height: 390px) {
+@media (max-height: 440px) {
     .Container_menu{
         overflow: auto;
     }
@@ -286,6 +286,26 @@ export default {
     }
     .link_chanel{
         height: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .Container_menu{
+        width: 100vw;
+    }
+    .part_manu{
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+    }
+    .link_game, .link_chanel{
+        justify-content: space-between;
+        align-items: space-between;
+        font-size: 20px;
+    }
+    .link_hover_block:hover::after{
+        opacity: 0;
+        pointer-events: none;
     }
 }
 </style>
