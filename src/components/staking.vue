@@ -4,10 +4,6 @@ import { useGameStore } from '../stores/game.js';
 export default {
   name: "stake_leaderboard",
   props:{
-    startISO:{
-        type: String,
-        required: true
-    }
   },
   data() {
     let game = useGameStore();
@@ -73,7 +69,7 @@ export default {
     },
     startTime() {
 
-    let remainingSecs = this.game.ISOToSeconds(this.startISO) - this.currentSec ;
+    let remainingSecs = this.game.ISOToSeconds(this.game.gameConfig.start) - this.currentSec ;
 
     if (remainingSecs <= 0) {
         return '00:00:00';
@@ -361,6 +357,10 @@ input {
     }
 }
 @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .btnv2, .btnv2.claim_all{
         width: calc(100% - 20px);
         padding: 5px;

@@ -8,7 +8,7 @@ export default {
             type: Object,
         }
     },
-    emits: ["openChest"],
+    emits: ["chestOpen"],
     data() {
         let game = useGameStore();
         return {

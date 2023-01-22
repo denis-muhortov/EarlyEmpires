@@ -112,7 +112,7 @@ export default {
         filterList() {
             let list = this.waxItemsList;
 
-            if (this.filterRarity > 0) {
+            if (this.filterRarity >= 0) {
                 list = list.filter((item) => {
                     return item.rarity == this.filterRarity;
                 });
@@ -286,6 +286,10 @@ export default {
     transition: all 0.1s ease;
 }
 @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .element_control{
         flex-direction: column;
     }

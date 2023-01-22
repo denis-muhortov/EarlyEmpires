@@ -20,7 +20,7 @@ export default {
         };
     },
     mounted() {
-        this.lvl = this.toolLevel;
+        this.lvl = Math.min(this.toolLevel+1, 100);
         this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
     },
     beforeUnmount() {
@@ -69,9 +69,9 @@ export default {
         toolGen() {
             return this.userTool.tool.config.gen;
         },
-        // toolPower(){
-        //     return this.userTool.tool.data.power;
-        // },
+        toolPower() {
+            return this.game.calcAccumulateRate(this.userTool.tool.config, this.toolLevel);
+        },
         toolExpectedPower() {
             let expRate = this.game.calcAccumulateRate(this.userTool.tool.config, this.lvl);
             return expRate;
@@ -175,7 +175,12 @@ export default {
                         GEN: {{ toolGen }} 
                     </div>
                     <div class="info power">
-                        POWER: {{+ toolExpectedPower.toFixed(6)}}
+                        POWER:&nbsp; <p class="power_standart">{{ + toolPower.toFixed(6) }}</p>&nbsp; &#8594; &nbsp;
+                                     <p class="power_up"
+                                     :class="{disactive: toolPower > toolExpectedPower}"
+                                     >
+                                     {{+ toolExpectedPower.toFixed(6)}}
+                                     </p>
                     </div>
                     <div class="info time">
                         UPGRADE TIME: {{ toolExpectedUpgradeTime }}
@@ -187,22 +192,6 @@ export default {
                             <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
                         </div>
                     </div>
-                    <!-- <div class="info cost">
-                        Cost:
-
-                        <div class="cost_block" 
-                        :class="{
-                            active: game.balanceMEAT > +(token.split(' ')[0]),
-                            active: game.balanceEAT > +(token.split(' ')[0]),
-                            
-                        }"
-                        v-for="token in toolExpectedUpgradeCost" :key="token">
-                            <p>
-                                {{+ (+token.split(' ')[0]).toFixed(2) }}</p>
-                            <img :src="`/${token.split(' ')[1]}.png`" :alt="token.split(' ')[1]" />
-                        </div>
-
-                    </div> -->
                     <div class="info speedupcost" :class="{ active: isUpgrading }">
                         Speed up cost:
 
@@ -415,7 +404,15 @@ export default {
     background: #F5A516;
     cursor: pointer;
 }
-
+.power_standart{
+    color: #F5A516;
+}
+.power_up{
+    color: rgb(5, 209, 5);
+}
+.power_up.disactive{
+    color: red;
+}
 .cost_block {
     flex-direction: row;
 }

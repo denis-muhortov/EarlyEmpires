@@ -47,7 +47,7 @@ export default {
             e<br>
             n<br>
             u<br>
-            <img src="../assets/pageGame/calculate.png" alt="calculate" />
+            <img src="../assets/pageGame/menu.png" alt="menu" />
         </div>
         <div class="Block">
             <transition name="fade" mode="out-in" appear>
@@ -135,6 +135,9 @@ export default {
     border-radius: 50%;
     cursor: pointer;
     z-index: 5;
+}
+.element_menu img{
+    width: 45px;
 }
 
 .Block {

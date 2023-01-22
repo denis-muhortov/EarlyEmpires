@@ -89,6 +89,10 @@ export default {
   font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
   @media (max-width: 400px) {
+    .block_game{
+        min-height: 800px;
+        height: fit-content;
+    }
     .element_control{
       flex-direction: column-reverse;
     }

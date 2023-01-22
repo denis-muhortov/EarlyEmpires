@@ -125,6 +125,9 @@ export default {
                 </div>
                 <div class="info unclaimed">
                     UNCLAIMED: <p>&nbsp;{{+ unclaimed.toFixed(2)}}</p>
+                    <div class="full_info_unclaimed">
+                        {{+ unclaimed.toFixed(8)}}
+                    </div>
                 </div>
             </div>
             <div>
@@ -183,6 +186,25 @@ export default {
 }
 .info.unclaimed{
     flex-direction: row;
+}
+.full_info_unclaimed{
+    position: absolute;
+    width: 100%;
+    border: 1px solid var(--vt-c-white);
+    background: #1F1F1F;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #D89718;
+    font-size: 18px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+}
+.info.unclaimed:hover .full_info_unclaimed{
+    color: #D89718;
+    transform: translate(0%, -100%);
+    opacity: 1;
 }
 .info.unclaimed p{
     letter-spacing: 2px;
