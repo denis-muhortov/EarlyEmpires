@@ -47,7 +47,7 @@ export default {
             return +(this.game.player?.sum_rate.split(' ')[0] ?? 0);
         },
         isStakingWindow(){
-          let end = this.game.ISOToSeconds(this.game.gameConfig.start);
+          let end = this.game.ISOToSeconds(this.game.gameConfig?.start ?? '2018-12-10T17:15:29');
 
           return this.currentSec < end;
         }

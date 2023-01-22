@@ -124,7 +124,7 @@ export default {
       <div class="TextBlock">
         To enter the game select a wallet
       </div>
-      <div class="wax">
+      <div class="wax" @click="loginWax">
         <img src="../assets/login/wax.png" alt="wax" />
       </div>
       <div class="anchor" @click="loginAnchor">

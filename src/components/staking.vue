@@ -69,7 +69,7 @@ export default {
     },
     startTime() {
 
-    let remainingSecs = this.game.ISOToSeconds(this.game.gameConfig.start) - this.currentSec ;
+    let remainingSecs = this.game.ISOToSeconds(this.game.gameConfig?.start ?? '2018-12-10T17:15:29') - this.currentSec ;
 
     if (remainingSecs <= 0) {
         return '00:00:00';
