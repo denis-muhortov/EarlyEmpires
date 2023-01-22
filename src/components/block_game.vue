@@ -197,7 +197,7 @@ export default {
 }
 
 
-@media (max-width: 640px) {
+@media (max-width: 730px) {
     .GameContainer {
         flex-direction: column-reverse;
     }
