@@ -297,7 +297,7 @@ export default {
 .nft:hover img {
     filter: brightness(25%);
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .item{
         width: 100%;
         height: 500px;

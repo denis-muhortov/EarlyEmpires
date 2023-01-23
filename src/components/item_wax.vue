@@ -115,7 +115,7 @@ export default {
     background: rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .item{
         width: 100%;
         height: 400px;

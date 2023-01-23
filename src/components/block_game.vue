@@ -6,6 +6,7 @@ import change from "../components/change.vue";
 import calculate from "../components/calculate.vue";
 import leaderboard from "../components/leaderboard.vue";
 // import staking from "../components/staking.vue";
+import staking_game from "../components/staking_game.vue";
 import popup_menu from "../components/popup_menu.vue";
 </script>
 
@@ -27,6 +28,7 @@ export default {
         calculate,
         leaderboard,
         popup_menu,
+        staking_game,
         // staking,
     },
     methods: {
@@ -63,6 +65,9 @@ export default {
             </div>
             <div class="element_menu shop" @click="openpage('shop')">
                 <img src="../assets/pageGame/shop.png" alt="shop" />
+            </div>
+            <div class="element_menu staking_game" @click="openpage('staking_game')">
+                <img src="../assets/pageGame/deposit.png" alt="staking_game" />
             </div>
             <div class="element_menu change" @click="openpage('change')">
                 <img src="../assets/pageGame/change.png" alt="change" />
@@ -225,6 +230,9 @@ export default {
 
 .element_menu.leaderboard::after {
     content: "leaderboard";
+}
+.element_menu.staking_game::after {
+    content: "staking";
 }
 
 
