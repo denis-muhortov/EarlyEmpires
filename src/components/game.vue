@@ -171,7 +171,7 @@ export default {
             <tool v-for="item in sortedList" :key="item.asset_id" :userTool="item" />
             <div class="view_box" v-if="toolsList.length == 0">
                 You don't have an nft at the moment
-                <a href="">buy</a>
+                <a href="https://wax.atomichub.io/market?collection_name=earlyempires&order=asc&sort=price&symbol=WAX" target="_blank">buy</a>
             </div>
         </div>
     </div>
@@ -306,14 +306,14 @@ export default {
     padding: 0px 0px 0px 0px;
     color: var(--game-color-yellow-lite);
     cursor: pointer;
-    transition: all 0.1s ease;
+    transition: all 0.25s ease;
 }
 
 .view_box a:hover {
     background: none;
-    color: var(--scroll-color-dark-orange);
+    color: #75A2FB;
     text-decoration: underline;
-    transition: all 0.1s ease;
+    transition: all 0.15s ease;
 }
 
 @media (max-width: 1080px) {
