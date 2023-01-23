@@ -57,25 +57,25 @@ export default {
             </transition>
         </div>
         <div class="Flat_Menu">
-            <div class="element_menu game" @click="openpage('game')">
+            <div class="element_menu game" @click="openpage('game')" :class="{ active: currentTab == 'game' }">
                 <img src="../assets/pageGame/game.png" alt="game" />
             </div>
-            <div class="element_menu inventory" @click="openpage('inventory')">
+            <div class="element_menu inventory" @click="openpage('inventory')" :class="{ active: currentTab == 'inventory' }">
                 <img src="../assets/pageGame/inventory.png" alt="inventory" />
             </div>
-            <div class="element_menu shop" @click="openpage('shop')">
+            <div class="element_menu shop" @click="openpage('shop')" :class="{ active: currentTab == 'shop' }">
                 <img src="../assets/pageGame/shop.png" alt="shop" />
             </div>
-            <div class="element_menu staking_game" @click="openpage('staking_game')">
+            <div class="element_menu staking_game" @click="openpage('staking_game')" :class="{ active: currentTab == 'staking_game' }">
                 <img src="../assets/pageGame/deposit.png" alt="staking_game" />
             </div>
-            <div class="element_menu change" @click="openpage('change')">
+            <div class="element_menu change" @click="openpage('change')" :class="{ active: currentTab == 'change' }">
                 <img src="../assets/pageGame/change.png" alt="change" />
             </div>
-            <div class="element_menu calculate" @click="openpage('calculate')">
+            <div class="element_menu calculate" @click="openpage('calculate')" :class="{ active: currentTab == 'calculate' }">
                 <img src="../assets/pageGame/calculate.png" alt="calculate" />
             </div>
-            <div class="element_menu leaderboard" @click="openpage('leaderboard')">
+            <div class="element_menu leaderboard" @click="openpage('leaderboard')" :class="{ active: currentTab == 'leaderboard' }">
                 <img src="../assets/pageGame/leaderboard.png" alt="leaderboard" />
             </div>
             <div class="Menu_mobile" @click="openmenu">
@@ -166,7 +166,9 @@ export default {
 .Flat_Menu {
     margin: 0px 20px 0px 20px;
 }
-
+.element_menu.active{
+    background: #6080c4;
+}
 .element_menu {
     width: 70px;
     height: 70px;
@@ -176,6 +178,7 @@ export default {
     border-radius: 50%;
     cursor: pointer;
     z-index: 5;
+    transition: all 0.5s ease;
 }
 .element_menu img{
     width: 45px;
