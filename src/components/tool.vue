@@ -258,13 +258,14 @@ export default {
 
 .nft img {
     width: 100%;
+    transition: all 0.5s ease;
 }
 
 .nft {
     width: 150px;
     cursor: pointer;
     border: 1px solid rgba(0, 0, 0, 0.0);
-    transition: all 0.25s;
+    transition: all 0.25s ease;
 }
 .nft.max_lvl{
     pointer-events: none;
@@ -280,17 +281,17 @@ export default {
     color: #F5A516;
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     opacity: 0;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
 }
 
 .nft:hover::after {
-    transition: all 0.5s;
+    transition: all 0.5s ease;
     opacity: 1;
     transform: translate(0%, 200%);
 }
 
 .nft:hover {
-    transition: all 0.5s;
+    transition: all 0.5s ease;
     border: 1px solid rgba(245, 165, 22, 1.0);
 }
 
