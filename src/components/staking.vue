@@ -102,9 +102,9 @@ export default {
             <div class="time_to_start_game">
                 Time before the game starts: <p>{{startTime}}</p>
             </div>
-            <div class="time_to_start_game">
+            <!-- <div class="time_to_start_game">
                 Time before awards are awarded: <p>{{awardTime}}</p>
-            </div>
+            </div> -->
         </div>
         <div class="block_change">
                 <div class="container_change">
