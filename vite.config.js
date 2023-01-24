@@ -11,7 +11,6 @@ const RELEASE_VER = "1.0.1";
 export default defineConfig({
   define: {
     "process.env.RELEASE_VER": `"${RELEASE_VER}"`, 
-    "process.env.SENTRYDSN": `${"https://4d6e447a637d45a2bcdae572aa374e6b@o4504537608290304.ingest.sentry.io/4504537611567104"}`,
 	},
   plugins: [
     vue(),
