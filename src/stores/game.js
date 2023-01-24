@@ -720,7 +720,7 @@ export const useGameStore = defineStore("game", {
 
 
         for(let i = oldLevel; i < newLevel; i++){
-            let multiplier = state.calcUpdMultiplier(genMultiplier, i);
+            let multiplier = state.calcUpdMultiplier(genMultiplier.upgrade_multipliers, i);
 
             if(!multiplier) break;
 
