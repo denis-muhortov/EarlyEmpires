@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 
-const RELEASE_VER = "0.9.5";
+const RELEASE_VER = "1.0.1";
 
 // https://vitejs.dev/config/
 export default defineConfig({
