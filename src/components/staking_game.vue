@@ -1,8 +1,8 @@
 <script>
-import player_staking from "../components/player_staking.vue";
 import { useGameStore } from '../stores/game.js';
+import item_time_withdrow from "../components/item_time_withdrow.vue";
 export default {
-  name: "stake_leaderboard",
+  name: "staking_game",
   props:{
   },
   data() {
@@ -13,6 +13,9 @@ export default {
       userLogged: false,
       currentSec: game.getCurrentSeconds(),
       timerId: 0,
+      totalRewardEWT: 999.9999,
+      yourRewardEWT: 999.9999,
+      time: "00:00",
     };
   },
   mounted() {
@@ -22,7 +25,7 @@ export default {
       clearInterval(this.timerId);
   },
   components: {
-    player_staking,
+    item_time_withdrow,
   },
   methods: {
     refresh() {
@@ -56,31 +59,7 @@ export default {
 
   },
   computed:{
-    awardTime() {
 
-        let remainingSecs = Math.ceil(this.currentSec/86400)*86400 - this.currentSec;
-
-        if (remainingSecs <= 0) {
-            return '00:00:00';
-        }
-
-        return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
-
-    },
-    startTime() {
-
-    let remainingSecs = this.game.ISOToSeconds(this.game.gameConfig?.start ?? '2018-12-10T17:15:29') - this.currentSec ;
-
-    if (remainingSecs <= 0) {
-        return '00:00:00';
-    }
-
-    return `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
-
-    },
-    username() {
-            return this.game.player.wallet ?? 'not logged in';
-    },
   }
 
 };
@@ -89,24 +68,46 @@ export default {
   <div class="block_game">
     <div class="element_control">
       <div class="name_block">
-        <div class="block_logout">
-                <div class="account_name">
-                    <img src="../assets/pageGame/player.png" alt="player" />
-                    {{ username }}&nbsp; 
+        <div class="container_info_up">
+            <div class="name_block_container">
+                <div class="reward_block">
+                    <p>All stake &nbsp;</p> 
+                    <img src="/EET.png" alt="EWT" />
+                    <p> EET: {{ yourRewardEWT }} </p>
                 </div>
-                <div class="account_exit" @click="$emit('logout')">
-                    exit
+                <div class="reward_block">
+                    <p class="your_info">Your stake &nbsp;</p> 
+                    <img src="/EET.png" alt="EWT" />
+                    <p class="your_info"> EET: {{ yourRewardEWT }} </p>
                 </div>
             </div>
-        <div class="container_time_to_start_game">
-            <div class="time_to_start_game">
-                Time before the game starts: <p>{{startTime}}</p>
+            <div class="name_block_container">
+                <div class="reward_block">
+                    <img src="/EET.png" alt="EWT" />
+                    <p>&nbsp;EWT all reward: {{ totalRewardEWT }} per/s</p>
+                </div>
+                <div class="reward_block">
+                    <p class="your_info">Your reward &nbsp; </p> 
+                    <img src="/EET.png" alt="EWT" />
+                    <p class="your_info">EWT: {{ yourRewardEWT }} per/s</p>
+                </div>
             </div>
-            <!-- <div class="time_to_start_game">
-                Time before awards are awarded: <p>{{awardTime}}</p>
-            </div> -->
         </div>
-        <div class="block_change">
+        <div class="block_time">
+            <p>Update &nbsp; </p> 
+                <img src="/EET.png" alt="EWT" />
+            <p>EWT all reward: &nbsp; </p> 
+                <img src="../assets/pageGame/time.png" alt="time" />
+            <p>{{ time }}</p>
+        </div>
+      </div>
+      <div class="reload" @click="refresh()">
+        <img src="../assets/pageGame/reload.png" alt="reload" />
+      </div>
+    </div>
+    <div class="content">
+        <div class="change_container">
+            <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
                         Balance: {{ game.walletBalanceEET.toFixed(2) }}
@@ -160,38 +161,49 @@ export default {
                     </div>
                 </div>
             </div>
-      </div>
-      <div class="reload" @click="refresh()">
-        <img src="../assets/pageGame/reload.png" alt="reload" />
-      </div>
-    </div>
-    <div class="content">
-      <player_staking />
+            <div class="block_change">
+                <div class="container_change">
+                    <div class="balance">
+                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
+                    </div>
+                    <div class="container_tokenChange">
+                        <div class="token_block">
+                            <img src="/EET.png" alt="EET" />
+                            EWT
+                        </div>
+                        <input type="text" v-model.number="amountEET">
+                    </div>
+                </div>
+                <div class="helpblockv2">
+                    <div class="helpercolumn_btnContainer">
+                        <div class="btn" @click="withdrawToken">
+                            Withdraw
+                        </div>
+                        <div class="helperblock">
+                            <div class="btn" @click="editBalanceWithdraw(25)">
+                                25%
+                            </div>
+                            <div class="btn" @click="editBalanceWithdraw(50)">
+                                50%
+                            </div>
+                            <div class="btn" @click="editBalanceWithdraw(75)">
+                                75%
+                            </div>
+                            <div class="btn" @click="editBalanceWithdraw(100)">
+                                100%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="withdrow_container_token">
+            <item_time_withdrow/>
+        </div>
     </div>
   </div>
 </template>
 <style scoped>
-.block_logout{
-    width: 100%;
-    font-size: 30px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-}
-.account_name{
-    flex-direction: row;
-    margin: 0px 0px 0px 10px;
-}
-.account_exit {
-    color: red;
-    flex-direction: row;
-    transition: all 0.2s;
-}
-
-.account_exit:hover {
-    cursor: pointer;
-    color: rgb(58, 7, 7);
-}
 .block_game {
   width: 95%;
   height: 800px;
@@ -247,7 +259,7 @@ export default {
     flex-direction: row;
 }
 .token_block {
-    width: 100px;
+    width: 120px;
     flex-direction: row;
     justify-content: flex-start;
     margin: 0px 25px 0px 0px;
@@ -318,13 +330,51 @@ input {
   align-content: center;
   flex-direction: column;
 }
+.change_container{
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+}
 
+.withdrow_container_token{
+    width: 100%;
+    padding: 20px 0px 0px 0px;
+    font-size: 22px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;    
+}
+.withdrow_container_token img{
+    width: 30px;
+}
 .name_block {
   margin: 10px 0px 30px 0px;
   width: 100%;
-  font-size: 42px;
+  font-size: 22px;
   color: var(--vt-c-white);
   font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.name_block img{
+    width: 40px;
+}
+.container_info_up{
+    width: 100%;
+    flex-direction: row;
+}
+.name_block_container{
+    width: 80%;
+}
+.reward_block{
+    /* width: 50%; */
+    padding: 10px 0px;
+    flex-direction: row;
+}
+.block_time{
+    width: 100%;
+    padding: 10px 0px 0px 0px;
+    flex-direction: row;
+}
+.block_time img{
+    width: 30px;
 }
 @media (max-width: 1500px) {
     .container_time_to_start_game{
@@ -342,13 +392,37 @@ input {
     width: 70px;
     }
 }
-@media (max-width: 1120px) {
-    .container_time_to_start_game{
-        flex-wrap: wrap;
-        justify-content: flex-start;
+@media (max-width: 1330px) {
+    .name_block{
+        font-size: 18px;
     }
-    .time_to_start_game{
-        margin: 0px 10px 0px 10px;
+    .name_block img{
+        width: 30px;
+    }
+}
+@media (max-width: 1160px) {
+    .change_container{
+        flex-direction: column;
+    }
+    .block_change:nth-child(2){
+        margin: 20px 0px 0px 0px;
+    }
+    .container_info_up{
+        width: 90%;
+    }
+}
+@media (max-width: 1120px) {
+    .container_info_up{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .name_block_container{
+        width: 100%;
+        align-items: flex-start;
+    }
+    .block_time{
+        width: 90%;
+        justify-content: flex-start;
     }
 }
 @media (max-width: 1000px) {
@@ -418,7 +492,7 @@ input {
         flex-direction: row;
     }
     .token_block{
-        width: 110px;
+        width: 135px;
         margin: 0px;
     }
     input{
@@ -444,6 +518,25 @@ input {
     }
     .container_time_to_start_game{
         margin: 0px 0px 20px 0px;
+    }
+    .name_block_container{
+        width: 100%;
+        align-items: flex-start;
+    }
+    .block_time{
+        justify-content: flex-start;
+    }
+    .name_block{
+        font-size: 15px;
+    }
+    .name_block img{
+        width: 25px;
+    }
+    .block_time, .container_info_up{
+        width: 100%;
+    }
+    .your_info{
+        font-weight: bold;
     }
 }
 </style>

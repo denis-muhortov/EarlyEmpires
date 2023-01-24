@@ -58,6 +58,26 @@ export default {
   transition: all 0.25s 0.0s ease-in-out;
 }
 
+.fade-enter-active .block_filter {
+  box-shadow: 0px 0px 50px #F5A516 inset;
+  transition: all 0.5s 0.0s ease-in-out;
+}
+
+.fade-leave-active .block_filter {
+  box-shadow: 0px 0px 50px #F5A516 inset;
+  transition: all 0.5s 0.0s ease-in-out;
+}
+
+.fade-enter-from .block_filter {
+  box-shadow: 0px 0px 50px #F5A516 inset;
+  transition: all 0.5s 0.0s ease-in-out;
+}
+
+.fade-leave-to .block_filter {
+  box-shadow: 0px 0px 50px #F5A516 inset;
+  transition: all 0.5s 0.0s ease-in-out;
+}
+
 .container_filter {
   position: fixed;
   top: 0;
@@ -75,6 +95,7 @@ export default {
 .block_filter {
   width: 100%;
   height: 100%;
+  box-shadow: 0px 0px 50px #F5A516 inset;
   justify-content: center;
   align-items: center;
   flex-direction: row;

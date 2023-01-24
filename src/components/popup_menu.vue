@@ -53,6 +53,7 @@ export default {
                 <div class="elemetn" @click="changepage('game')" :class="{ active: selectedTab == 'game' }">game</div>
                 <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">inventory</div>
                 <div class="elemetn" @click="changepage('shop')" :class="{ active: selectedTab == 'shop' }">shop</div>
+                <div class="elemetn" @click="changepage('games')" :class="{ active: selectedTab == 'games' }">staking</div>
                 <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange</div>
                 <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">calculator</div>
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
@@ -75,6 +76,7 @@ export default {
     </div>
 </template>
 <style scoped>
+.part_manu .elemetn:nth-child(4){pointer-events: none;opacity: 0.3;}
 .aclor::after{content: "Trade of game token ";}
 .whitepapper::after{content: "whitepaper of the game";}
 .discord::after{content: "join discord";}
@@ -287,7 +289,7 @@ export default {
         font-size: 18px;
     }
 }
-@media (max-height: 440px) {
+@media (max-height: 525px) {
     .Container_menu{
         overflow: auto;
     }

@@ -73,7 +73,7 @@ export default {
         </div>
         <div class="ContainerTokens">
             <div class="Tokens">
-                Tokens:
+                <a href="https://wp.earlyempire-nft.com/game-mechanics/tokens" target="_blank">Tokens:</a>
             </div>
             <div class="BlockTokens">
                 <div class="Token EAT">
@@ -156,6 +156,14 @@ img {
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     align-items: flex-start;
     justify-content: flex-start;
+}
+.Tokens a{
+    color: #FFF;
+    transition: all 0.25s ease;
+}
+.Tokens a:hover{
+    color: #75A2FB;
+    background: none;
 }
 .Token{
     letter-spacing: 2px;
