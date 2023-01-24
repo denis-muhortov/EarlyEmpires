@@ -53,7 +53,7 @@ export default {
                 <div class="elemetn" @click="changepage('game')" :class="{ active: selectedTab == 'game' }">game</div>
                 <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">inventory</div>
                 <div class="elemetn" @click="changepage('shop')" :class="{ active: selectedTab == 'shop' }">shop</div>
-                <div class="elemetn" @click="changepage('staking_game')" :class="{ active: selectedTab == 'staking_game' }">staking</div>
+                <div class="elemetn" @click="changepage('games')" :class="{ active: selectedTab == 'games' }">staking</div>
                 <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange</div>
                 <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">calculator</div>
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>

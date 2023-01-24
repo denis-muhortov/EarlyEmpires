@@ -66,7 +66,7 @@ export default {
             <div class="element_menu shop" @click="openpage('shop')" :class="{ active: currentTab == 'shop' }">
                 <img src="../assets/pageGame/shop.png" alt="shop" />
             </div>
-            <div class="element_menu staking_game" @click="openpage('staking_game')" :class="{ active: currentTab == 'staking_game' }">
+            <div class="element_menu staking_game" @click="openpage('games')" :class="{ active: currentTab == 'games' }">
                 <img src="../assets/pageGame/deposit.png" alt="staking_game" />
             </div>
             <div class="element_menu change" @click="openpage('change')" :class="{ active: currentTab == 'change' }">
