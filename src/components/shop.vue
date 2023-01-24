@@ -160,7 +160,7 @@ export default {
     right: 10px;
     top: 5px;
     margin: 5px 0px;
-    z-index: 10;
+    z-index: 5;
     transition: all 0.25s ease;
 }
 
