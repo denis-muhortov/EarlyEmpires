@@ -664,8 +664,15 @@ export const useGameStore = defineStore("game", {
       return (configRow, level) => {
         let rate = +configRow.base_rate.split(' ')[0];
 
+
+        let genMultipliers = state.gameConfig.gen_multipliers;
+
+        let genMultiplier = genMultipliers.find(m => m.gen == configRow.gen);
+
+        if(!genMultiplier) return 0;
+
         for(let i = 0; i < level; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(genMultiplier.upgrade_multipliers, i);
 
             if(!multiplier) break;
 
@@ -695,9 +702,14 @@ export const useGameStore = defineStore("game", {
         let additionalCost = 0;
 
 
+        let genMultipliers = state.gameConfig.gen_multipliers;
+
+        let genMultiplier = genMultipliers.find(m => m.gen == configRow.gen);
+
+        if(!genMultiplier) return {balance: [`0 ${configRow.base_cost.split(' ')[1]}`], time: 0, speedup: `0 ${configRow.base_speedup_cost.split(' ')[1]}`};
 
         for(let i = 0; i < oldLevel; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(genMultiplier.upgrade_multipliers, i);
 
             if(!multiplier) break;
 
@@ -708,7 +720,7 @@ export const useGameStore = defineStore("game", {
 
 
         for(let i = oldLevel; i < newLevel; i++){
-            let multiplier = state.calcUpdMultiplier(state.gameConfig.upgrade_multipliers, i);
+            let multiplier = state.calcUpdMultiplier(genMultiplier, i);
 
             if(!multiplier) break;
 
