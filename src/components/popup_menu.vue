@@ -76,6 +76,7 @@ export default {
     </div>
 </template>
 <style scoped>
+.part_manu .elemetn:nth-child(4){pointer-events: none;opacity: 0.3;}
 .aclor::after{content: "Trade of game token ";}
 .whitepapper::after{content: "whitepaper of the game";}
 .discord::after{content: "join discord";}
