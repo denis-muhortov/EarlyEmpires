@@ -260,19 +260,11 @@ img {
     .ContainerTokens {
         margin: 0px 0px 0px 10px;
     }
-}
-
-@media (max-width: 940px) {
-    .logo {
-        width: 200px;
-        height: 100px;
-    }
-}
-
-@media (max-width: 920px) {
     .MainContainer {
         flex-wrap: wrap;
     }
+}
+@media (max-width: 920px) {
 
     .logo {
         width: 400px;
@@ -291,6 +283,7 @@ img {
 @media (max-width: 640px) {
     .BlockTokens {
         flex-wrap: wrap;
+        justify-content: flex-start;
     }
 }
 @media (max-width: 400px) {

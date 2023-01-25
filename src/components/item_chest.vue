@@ -86,14 +86,14 @@ export default {
 .item {
     margin: 10px;
     width: 370px;
-    height: 220px;
+    height: 440px;
     border: 1px solid var(--vt-c-white);
     background: rgba(0, 0, 0, 0.5);
-    flex-direction: row;
     justify-content: space-around;
 }
 
 .nft img {
+    margin: 10px 0px 0px 0px;
     width: 180px;
 }
 
@@ -125,7 +125,7 @@ export default {
 .btn:hover {
     background: rgba(255, 255, 255, 0.2);
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .item{
         width: 100%;
         height: 450px;

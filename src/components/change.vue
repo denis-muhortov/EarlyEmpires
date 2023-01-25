@@ -371,7 +371,7 @@ export default {
                             {{bridgeSymbol}}
                         </div>
                         <input type="number" min="0" v-model.number="bridgeAmount">
-                        <div class="iconchange" @click="changeSymbolBridge()">
+                        <div class="iconchange v2_icon" @click="changeSymbolBridge()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange" />
                         </div>
                     </div>
@@ -700,6 +700,17 @@ input {
     input {
         width: 150px;
     }
+    .container_waxChange .container_change:first-child::before {
+    content: '\2192';
+    position: absolute;
+    right: 0;
+    transform: translate(225%, 50%);
+    }
+    .container_waxChange .container_change:first-child::before {
+        right: unset;
+        bottom: 0;
+        transform: translate(350%,150%) rotate(90deg);
+    }
 }
 
 @media (max-width: 640px) {
@@ -724,10 +735,18 @@ input {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .block_game{
+        width: 100%;
         min-height: 800px;
         height: fit-content;
+    }
+    .content, .block_change{
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .helpblockv2{
+        width: fit-content;
     }
     .element_control{
         flex-direction: column-reverse;
@@ -769,7 +788,7 @@ input {
         flex-direction: row;
     }
     .token_block{
-        width: 110px;
+        width: 140px;
         margin: 0px;
     }
     input{
@@ -794,6 +813,12 @@ input {
     .EET_token_change{
         width: 130px;
         margin: 0px 35px 0px 0px;
+    }
+    .iconchange.v2_icon{
+        transform: translate(120%, 0%);
+    }
+    .iconchange.v2_icon:hover{
+        transform: translate(120%, 0%) rotate(90deg);
     }
     .iconchange{
         transform: translate(0%, 0%);
