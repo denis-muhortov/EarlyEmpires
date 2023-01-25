@@ -363,7 +363,7 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
+                        Balance: {{ game.findBalance(game.walletBalances, bridgeSymbol).toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
