@@ -74,7 +74,7 @@ export const useGameStore = defineStore("game", {
         return {
           wallet: state.userName,
           balances: [],
-          exchange_time: (new Date(0)).toISOString(),
+          exchange_time: "1970-01-01T00:00:00",
           sum_rate: "0.00000000 EAT",
           stakeidx: "0.00000000 EMT"
         }
