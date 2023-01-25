@@ -10,7 +10,8 @@ export default {
         let game = useGameStore();
         return {
             game: game,
-            amountEET: 0,
+            bridgeAmount: 0,
+            bridgeSymbol: 'EMT',
             sellTokenSymbol: 'EAT',
             sellQuantity: 0,
             buyQuantity: 0,
@@ -44,7 +45,7 @@ export default {
         },
         depositToken() {
             this.$toast.show(`await`, {
-                asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
+                asyncFunction: async () => { return await this.game.deposit(`${this.bridgeAmount.toFixed(8)} ${this.bridgeSymbol}`); },
                 onSuccessMessage: (res) => {
                     return `the transaction is successful`;
                 },
@@ -52,7 +53,7 @@ export default {
         },
         withdrawToken() {
             this.$toast.show(`await`, {
-                asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
+                asyncFunction: async () => { return await this.game.withdraw(`${this.bridgeAmount.toFixed(8)} ${this.bridgeSymbol}`); },
                 onSuccessMessage: (res) => {
                     return `the transaction is successful`;
                 },
@@ -74,7 +75,7 @@ export default {
                 quantity = 0;
             }
 
-            let eatByEet = this.globalHashrate;
+            let eatByEmt = this.globalHashrate;
 
             let result = 0;
 
@@ -82,16 +83,20 @@ export default {
 
                 // check(player_itr->exchange_time + game_config.get().exchange_lock < current_time_point_sec(), ERR_EXCHANGE_LOCKED);
 
-                let eet = quantity * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet
+                let emt = quantity * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEmt
 
-                let exchangeFee = eet * (this.game.gameConfig.exchange_tax / 100000000.0);
-                let eetReceive = eet - exchangeFee;
+                let exchangeFee = emt * (this.game.gameConfig.exchange_tax / 100000000.0);
+                let emtReceive = emt - exchangeFee;
 
-                result = eetReceive;
+                result = emtReceive;
+            } else if(this.sellTokenSymbol == 'EMT'){
+
+                let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEmt;
+                result = eat;
             } else {
 
-                let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
-                result = eat;
+                //let eat = quantity / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEmt;
+                result = quantity;
             }
 
 
@@ -107,7 +112,7 @@ export default {
                 quantity = 0;
             }
 
-            let eatByEet = this.globalHashrate;
+            let eatByEmt = this.globalHashrate;
 
             let result = 0;
 
@@ -115,14 +120,18 @@ export default {
             if (this.sellTokenSymbol == 'EAT') {
 
                 // check(player_itr->exchange_time + game_config.get().exchange_lock < current_time_point_sec(), ERR_EXCHANGE_LOCKED);
-                let eetResult = quantity;
-                let eetNeed = eetResult / (1 - (this.game.gameConfig.exchange_tax / 100000000.0));
-                let eetSell = eetNeed / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEet;
-                result = eetSell;
+                let emtResult = quantity;
+                let emtNeed = emtResult / (1 - (this.game.gameConfig.exchange_tax / 100000000.0));
+                let emtSell = emtNeed / (this.game.gameConfig.population_multiplier / 100000000.0) * eatByEmt;
+                result = emtSell;
+            } else if(this.sellTokenSymbol == 'EMT') {
+                let emtResult = quantity;
+                let emtSell = emtResult * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEmt;
+                result = emtSell;
             } else {
-                let eetResult = quantity;
-                let eetSell = eetResult * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEet;
-                result = eetSell;
+                let emtSell = quantity;
+                //let emtSell = emtResult * (this.game.gameConfig.population_multiplier / 100000000.0) / eatByEmt;
+                result = emtSell;
             }
 
 
@@ -130,8 +139,10 @@ export default {
         },
         changeSymbol() {
 
-            if (this.sellTokenSymbol == 'EET') {
+            if (this.sellTokenSymbol == 'EMT') {
                 this.sellTokenSymbol = 'EAT'
+            } else if (this.sellTokenSymbol == 'EET') {
+                this.sellTokenSymbol = 'EMT'
             } else {
                 this.sellTokenSymbol = 'EET'
             }
@@ -144,11 +155,22 @@ export default {
 
 
         },
+        changeSymbolBridge() {
+
+        if (this.bridgeSymbol == 'EET') {
+            this.bridgeSymbol = 'EMT'
+        } else {
+            this.bridgeSymbol = 'EET'
+        }
+
+        let quantity = this.buyQuantity;
+        this.sellQuantity = quantity;
+        },
         editBalanceWithdraw(amount) {
-            this.amountEET = this.game.balanceEET * (amount / 100);
+            this.bridgeAmount = this.game.findBalance(this.game.player.balances, this.bridgeSymbol) * (amount / 100);
         },
         editBalanceDeposit(amount) {
-            this.amountEET = this.game.walletBalanceEET * (amount / 100);
+            this.bridgeAmount = this.game.findBalance(this.game.walletBalances, this.bridgeSymbol) * (amount / 100);
         },
 
         editBalanceSell(amount) {
@@ -199,18 +221,24 @@ export default {
         exchangerateEAT() {
             return +(1 / this.globalHashrate)
         },
-        exchangerateEET() {
-            return +(this.globalHashrate)
-        },
         sellExchangeQuantity() {
             return `${this.sellQuantity.toFixed(8)} ${this.sellTokenSymbol}`;
         },
         buyTokenSymbol() {
-            if (this.sellTokenSymbol == 'EET') {
-                return 'EAT'
+            // if (this.sellTokenSymbol == 'EET') {
+            //     return 'EAT'
+            // } else {
+            //     return 'EET'
+            // }
+
+            if (this.sellTokenSymbol == 'EMT') {
+                return 'EAT';
             } else {
-                return 'EET'
+                return 'EMT';
             }
+
+
+
         },
         exchangeLockTime() {
 
@@ -239,7 +267,7 @@ export default {
                             <img src="../assets/shop/wax.png" alt="WAX" />
                             WAX
                         </div>
-                        <input type="text" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
+                        <input type="number" min="0" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
                     </div>
                 </div>
                 <div class="container_change">
@@ -251,7 +279,7 @@ export default {
                             <img src="/MEAT.png" alt="MEAT" />
                             MEAT
                         </div>
-                        <input type="text" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
+                        <input type="number" min="0" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
                     </div>
                 </div>
                 <div class="btn wax_chage" @click="buyMeat">
@@ -287,7 +315,7 @@ export default {
                             <img :src="`/${sellTokenSymbol}.png`" :alt="sellTokenSymbol" />
                             {{ sellTokenSymbol }}
                         </div>
-                        <input type="text" class="EET_token_change" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
+                        <input type="number" min="0" class="EET_token_change" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
                         <div class="iconchange" @click="changeSymbol()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange" />
                         </div>
@@ -319,7 +347,7 @@ export default {
                             <img :src="`/${buyTokenSymbol}.png`" :alt="buyTokenSymbol" />
                             {{ buyTokenSymbol }}
                         </div>
-                        <input type="text" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
+                        <input type="number" min="0" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
                     </div>
                 </div>
                 <div class="block_btn_timer">
@@ -335,14 +363,17 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
+                        Balance: {{ game.findBalance(game.walletBalances, bridgeSymbol).toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EET.png" alt="EET" />
-                            EET
+                            <img :src="`/${bridgeSymbol}.png`" :alt="bridgeSymbol" />
+                            {{bridgeSymbol}}
                         </div>
-                        <input type="text" v-model.number="amountEET">
+                        <input type="number" min="0" v-model.number="bridgeAmount">
+                        <div class="iconchange" @click="changeSymbolBridge()">
+                            <img src="../assets/shop/iconchange.png" alt="iconchange" />
+                        </div>
                     </div>
                 </div>
                 <div class="helpblockv2">

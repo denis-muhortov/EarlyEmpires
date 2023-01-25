@@ -72,7 +72,7 @@ export default {
             let usedTools = this.game.playerUsedTools;
             let tools = this.game.playerTools;
 
-            tools = tools.filter(t => this.game.inventoryAssets.some(a => +a.asset_id == +t.asset_id));
+            //tools = tools.filter(t => this.game.inventoryAssets.some(a => +a.asset_id == +t.asset_id));
 
             let resultItems = [];
 
