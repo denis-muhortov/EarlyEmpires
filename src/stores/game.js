@@ -76,7 +76,7 @@ export const useGameStore = defineStore("game", {
           balances: [],
           exchange_time: (new Date(0)).toISOString(),
           sum_rate: "0.00000000 EAT",
-          stakeidx: "0.00000000 EET"
+          stakeidx: "0.00000000 EMT"
         }
       }
       
@@ -144,6 +144,10 @@ export const useGameStore = defineStore("game", {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "EET");
     },
+    balanceEMT: (state) => {
+      if (!state.player) return 0;
+      return state.findBalance(state.player.balances, "EMT");
+    },
     balanceMEAT: (state) => {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "MEAT");
@@ -165,6 +169,9 @@ export const useGameStore = defineStore("game", {
     },
     walletBalanceEET: (state) => {
       return state.findBalance(state.walletBalances, "EET");
+    },
+    walletBalanceEMT: (state) => {
+      return state.findBalance(state.walletBalances, "EMT");
     },
     walletBalanceMEAT: (state) => {
       return state.findBalance(state.walletBalances, "MEAT");

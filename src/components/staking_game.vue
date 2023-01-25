@@ -9,7 +9,7 @@ export default {
     let game = useGameStore();
     return {
       game: game,
-      amountEET: 0,
+      amountEMT: 0,
       userLogged: false,
       currentSec: game.getCurrentSeconds(),
       timerId: 0,
@@ -35,14 +35,14 @@ export default {
       });
     },
     editBalanceWithdraw(amount) {
-            this.amountEET = this.game.balanceEET * (amount / 100);
+            this.amountEMT = this.game.balanceEMT * (amount / 100);
         },
     editBalanceDeposit(amount) {
-        this.amountEET = this.game.walletBalanceEET * (amount / 100);
+        this.amountEMT = this.game.walletBalanceEMT * (amount / 100);
     },
     depositToken() {
         this.$toast.show(`await`, {
-            asyncFunction: async () => { return await this.game.deposit(`${this.amountEET.toFixed(8)} EET`); },
+            asyncFunction: async () => { return await this.game.deposit(`${this.amountEMT.toFixed(8)} EMT`); },
             onSuccessMessage: (res) => {
                 return `the transaction is successful`;
             },
@@ -50,7 +50,7 @@ export default {
     },
     withdrawToken() {
         this.$toast.show(`await`, {
-            asyncFunction: async () => { return await this.game.withdraw(`${this.amountEET.toFixed(8)} EET`); },
+            asyncFunction: async () => { return await this.game.withdraw(`${this.amountEMT.toFixed(8)} EMT`); },
             onSuccessMessage: (res) => {
                 return `the transaction is successful`;
             },
@@ -72,30 +72,30 @@ export default {
             <div class="name_block_container">
                 <div class="reward_block">
                     <p>All stake &nbsp;</p> 
-                    <img src="/EET.png" alt="EWT" />
-                    <p> EET: {{ yourRewardEWT }} </p>
+                    <img src="/EMT.png" alt="EWT" />
+                    <p> EMT: {{ yourRewardEWT }} </p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your stake &nbsp;</p> 
-                    <img src="/EET.png" alt="EWT" />
-                    <p class="your_info"> EET: {{ yourRewardEWT }} </p>
+                    <img src="/EMT.png" alt="EWT" />
+                    <p class="your_info"> EMT: {{ yourRewardEWT }} </p>
                 </div>
             </div>
             <div class="name_block_container">
                 <div class="reward_block">
-                    <img src="/EET.png" alt="EWT" />
+                    <img src="/EMT.png" alt="EWT" />
                     <p>&nbsp;EWT all reward: {{ totalRewardEWT }} per/s</p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your reward &nbsp; </p> 
-                    <img src="/EET.png" alt="EWT" />
+                    <img src="/EMT.png" alt="EWT" />
                     <p class="your_info">EWT: {{ yourRewardEWT }} per/s</p>
                 </div>
             </div>
         </div>
         <div class="block_time">
             <p>Update &nbsp; </p> 
-                <img src="/EET.png" alt="EWT" />
+                <img src="/EMT.png" alt="EWT" />
             <p>EWT all reward: &nbsp; </p> 
                 <img src="../assets/pageGame/time.png" alt="time" />
             <p>{{ time }}</p>
@@ -110,14 +110,14 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
+                        Balance: {{ game.walletBalanceEMT.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EET.png" alt="EET" />
-                            EET
+                            <img src="/EMT.png" alt="EMT" />
+                            EMT
                         </div>
-                        <input type="text" v-model.number="amountEET">
+                        <input type="text" v-model.number="amountEMT">
                     </div>
                 </div>
                 <div class="helpblockv2">
@@ -164,14 +164,14 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="balance">
-                        Balance: {{ game.walletBalanceEET.toFixed(2) }}
+                        Balance: {{ game.walletBalanceEMT.toFixed(2) }}
                     </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EET.png" alt="EET" />
+                            <img src="/EMT.png" alt="EMT" />
                             EWT
                         </div>
-                        <input type="text" v-model.number="amountEET">
+                        <input type="text" v-model.number="amountEMT">
                     </div>
                 </div>
                 <div class="helpblockv2">

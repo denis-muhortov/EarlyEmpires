@@ -80,14 +80,19 @@ export default {
                     <img src="/EAT.png" alt="EAT" />
                     {{ game.balanceEAT.toFixed(2) }}
                 </div>
-                <div class="Token EET">
-                    <img src="/EET.png" alt="EET" />
-                    {{ game.balanceEET.toFixed(2) }}
+                <div class="Token EMT">
+                    <img src="/EMT.png" alt="EMT" />
+                    {{ game.balanceEMT.toFixed(2) }}
                 </div>
                 <div class="Token MEAT">
                     <img src="/MEAT.png" alt="MEAT" />
                     {{ game.balanceMEAT.toFixed(2) }}
                 </div>
+                <div class="Token EET">
+                    <img src="/EET.png" alt="EET" />
+                    {{ game.balanceEET.toFixed(2) }}
+                </div>
+                
             </div>
         </div>
     </div>
@@ -197,6 +202,10 @@ img {
 
 .Token.EET::after {
     content: "EET";
+}
+
+.Token.EMT::after {
+    content: "EMT";
 }
 
 .Token.MEAT::after {
