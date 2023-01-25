@@ -267,7 +267,7 @@ input {
         margin: 10px 0px 5px 100px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .block_game{
         min-height: 800px;
         height: fit-content;

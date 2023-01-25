@@ -337,7 +337,7 @@ export default {
         margin: 10px 0px 10px 25px;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .block_game{
         min-height: 800px;
         height: fit-content;

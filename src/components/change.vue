@@ -735,7 +735,7 @@ input {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
     .block_game{
         width: 100%;
         min-height: 800px;

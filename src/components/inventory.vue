@@ -285,7 +285,7 @@ export default {
     text-decoration: underline;
     transition: all 0.15s ease;
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .block_game{
         min-height: 800px;
         height: fit-content;
