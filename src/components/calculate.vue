@@ -271,7 +271,7 @@ option {
 .cost_block img {
     width: 30px;
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     .block_game{
         min-height: 800px;
         height: fit-content;

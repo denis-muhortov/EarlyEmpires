@@ -700,6 +700,17 @@ input {
     input {
         width: 150px;
     }
+    .container_waxChange .container_change:first-child::before {
+    content: '\2192';
+    position: absolute;
+    right: 0;
+    transform: translate(225%, 50%);
+    }
+    .container_waxChange .container_change:first-child::before {
+        right: unset;
+        bottom: 0;
+        transform: translate(350%,150%) rotate(90deg);
+    }
 }
 
 @media (max-width: 640px) {
@@ -726,8 +737,16 @@ input {
 
 @media (max-width: 450px) {
     .block_game{
+        width: 100%;
         min-height: 800px;
         height: fit-content;
+    }
+    .content, .block_change{
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .helpblockv2{
+        width: fit-content;
     }
     .element_control{
         flex-direction: column-reverse;
