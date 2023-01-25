@@ -292,6 +292,14 @@ export default {
         </div>
         <div class="content">
             <div class="block_change">
+                <div class="block_position">
+                    <p>token selection</p>
+                    <select>
+                        <option>AET > EMT</option>
+                        <option>EET > EMT</option>
+                        <option>EMT > EET</option>
+                    </select>
+                </div>
                 <div class="container_change">
                     <div class="balance">
                         Balance: {{ game.findBalance(game.player.balances, sellTokenSymbol).toFixed(2) }}
@@ -421,6 +429,43 @@ export default {
     </div>
 </template>
 <style scoped>
+.option img{
+    width: 20px;
+}
+.block_position {
+    width: 100%;
+    margin: 10px 0px;
+    flex-direction: row;
+    font-size: 22px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.block_position p {
+    width: 180px;
+}
+
+select {
+    outline: none;
+    width: 230px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #F5A516;
+    background: #F5A51660;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+select:focus {
+    outline: none;
+}
+
+option {
+    cursor: pointer;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.0);
+    color: black;
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
 .block_game {
     width: 95%;
@@ -825,6 +870,16 @@ input {
     }
     .iconchange:hover{
         transform: translate(0%, 0%) rotate(90deg);
+    }
+    .block_position{
+        justify-content: flex-start;
+    }
+    .block_position p {
+        width: 180px;
+    }
+
+    select {
+        width: 130px;
     }
 }
 </style>
