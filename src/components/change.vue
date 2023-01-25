@@ -371,7 +371,7 @@ export default {
                             {{bridgeSymbol}}
                         </div>
                         <input type="number" min="0" v-model.number="bridgeAmount">
-                        <div class="iconchange" @click="changeSymbolBridge()">
+                        <div class="iconchange v2_icon" @click="changeSymbolBridge()">
                             <img src="../assets/shop/iconchange.png" alt="iconchange" />
                         </div>
                     </div>
@@ -724,7 +724,7 @@ input {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     .block_game{
         min-height: 800px;
         height: fit-content;
@@ -769,7 +769,7 @@ input {
         flex-direction: row;
     }
     .token_block{
-        width: 110px;
+        width: 140px;
         margin: 0px;
     }
     input{
@@ -794,6 +794,12 @@ input {
     .EET_token_change{
         width: 130px;
         margin: 0px 35px 0px 0px;
+    }
+    .iconchange.v2_icon{
+        transform: translate(120%, 0%);
+    }
+    .iconchange.v2_icon:hover{
+        transform: translate(120%, 0%) rotate(90deg);
     }
     .iconchange{
         transform: translate(0%, 0%);
