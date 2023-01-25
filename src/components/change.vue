@@ -369,6 +369,13 @@ export default {
                 </div>
             </div>
             <div class="block_change">
+                <div class="block_position">
+                    <p>token selection</p>
+                    <select>
+                        <option>EET</option>
+                        <option>EMT</option>
+                    </select>
+                </div>
                 <div class="container_change">
                     <div class="balance">
                         Balance: {{ game.findBalance(game.walletBalances, bridgeSymbol).toFixed(2) }}
