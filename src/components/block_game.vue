@@ -173,7 +173,7 @@ export default {
 .element_menu {
     width: 70px;
     height: 70px;
-    margin: 25px 0px;
+    margin: 22px 0px;
     background: #D89718;
     padding: 10px;
     border-radius: 50%;
