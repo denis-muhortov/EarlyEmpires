@@ -28,8 +28,7 @@ export default {
 <template>
     <div class="time_item_withdrow">
         <p>{{amount}}</p>
-        <img src="/EWT.png" alt="EWT" />
-        <p>&nbsp; : &nbsp; </p> 
+        <img src="/EMT.png" alt="EMT" />
         <img src="../assets/pageGame/time.png" alt="time" />
         <p>{{ timeLeft }}</p>
         <p class="successfull active">&nbsp; successfull</p>

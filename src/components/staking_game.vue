@@ -74,7 +74,7 @@ export default {
   },
   computed:{
     yourStake(){
-        return +this.game.playerStake.stake.split(' ')[0] ?? 0;
+        return +this.game.playerStake?.stake.split(' ')[0] ?? 0;
     },
     totalStake(){
         return +this.game.stakeStat?.stake_sum.split(' ')[0] ?? 1;
@@ -226,9 +226,9 @@ export default {
             <div class="block_change">
                 <div class="container_change">
                     <div class="container_tokenChange">
-                        <div class="token_block">
-                            <img src="/EWT.png" alt="EWT" />
-                            EWT&nbsp;{{+unclaimed.toFixed(4)}}
+                        <div class="token_block claim_block">
+                            <img src="/EMT.png" alt="EWT" />
+                            EWT&nbsp;{{+unclaimed.toFixed(2)}}
                         </div>
                     </div>
                 </div>
@@ -315,6 +315,14 @@ export default {
     justify-content: flex-start;
     margin: 0px 25px 0px 0px;
 }
+.token_block.claim_block{
+    width: fit-content;
+    min-width: 300px;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+    word-break: break-word;
+}
 
 .token_block img {
     width: 45px;
@@ -393,6 +401,7 @@ input {
     font-size: 22px;
     color: var(--vt-c-white);
     font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;    
+    align-items: flex-start;
 }
 .withdrow_container_token img{
     width: 30px;
@@ -588,6 +597,9 @@ input {
     }
     .your_info{
         font-weight: bold;
+    }
+    .token_block.claim_block{
+        font-size: 24px;
     }
 }
 </style>
