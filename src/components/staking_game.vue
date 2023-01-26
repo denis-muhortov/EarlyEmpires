@@ -17,6 +17,10 @@ export default {
   },
   mounted() {
     this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+    let isRefunded = this.refundList.some(r => r.time <= 0);
+    if(isRefunded){
+        this.game.updateRefund();
+    }
   },
   beforeUnmount() {
       clearInterval(this.timerId);
@@ -91,8 +95,8 @@ export default {
 
         let calculated = list.map((refund) => {
             let remainingSecs = this.game.ISOToSeconds(refund.unstake_time) + this.game.gameConfig.stake_refund - this.currentSec;
+            refund.time = remainingSecs; 
             refund.amount = +refund.quantity.split(' ')[0];
-            refund.time = remainingSecs <= 0 ? '00:00' : `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
             return refund;
         })
 
@@ -162,9 +166,6 @@ export default {
         <div class="change_container">
             <div class="block_change">
                 <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.walletBalanceEMT.toFixed(2) }}
-                    </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
                             <img src="/EMT.png" alt="EMT" />
@@ -238,7 +239,8 @@ export default {
             v-for="refund in refundList"
             :key="refund.unstake_time"
             :amount="refund.amount"
-            :timeLeft="refund.time"
+            :secLeft="refund.time"
+            @refund="refund"
             />
         </div>
     </div>

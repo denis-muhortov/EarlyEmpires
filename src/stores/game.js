@@ -1201,6 +1201,7 @@ export const useGameStore = defineStore("game", {
         state.tables.usersbystake = usersbystake;
         state.tables.staking = staking;
         state.tables.stakingbystake = stakingbystake;
+        state.tables.refund = refund;
         state.tables.usertools = usertools;
         state.tables.stat = stat;
         state.tables.stakestat = stakestat;
@@ -1533,7 +1534,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let staking = await this.getSmartTables.staking();
       let stakingbystake = await this.getSmartTables.stakingbystake();
-      let stakestat = await this.getSmartTables.stakestat();
+      let stakestat = ( await this.getSmartTables.stakestat())[0];
 
 
       this.$patch((state) => {
@@ -1551,7 +1552,7 @@ export const useGameStore = defineStore("game", {
       let users = await this.getSmartTables.users();
       let staking = await this.getSmartTables.staking();
       let stakingbystake = await this.getSmartTables.stakingbystake();
-      let stakestat = await this.getSmartTables.stakestat();
+      let stakestat = ( await this.getSmartTables.stakestat())[0];
       let refund = await this.getSmartTables.refund();
 
 
@@ -1613,8 +1614,14 @@ export const useGameStore = defineStore("game", {
     async updateGlobalStat() {
       this.tables.stat = (await this.getSmartTables.stat())[0];
     },
+    async updateStakeStat() {
+      this.tables.stakestat = ( await this.getSmartTables.stakestat())[0];
+    },
     async updateRateLeaders() {
       this.tables.usersbyrate = await this.getSmartTables.usersbyrate();
+    },
+    async updateRefund() {
+      this.tables.refund = await this.getSmartTables.refund();
     },
 
     

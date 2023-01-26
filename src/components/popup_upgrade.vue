@@ -40,7 +40,6 @@ export default {
                     return res;
                 },
                 onSuccessMessage: (res) => {
-                    console.log(res);
                     return `the transaction is successful`;
                 },
             });

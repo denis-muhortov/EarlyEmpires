@@ -7,26 +7,33 @@ export default {
         type: Number,
         required: true,
     },
-    timeLeft:{
+    secLeft:{
         type: Number,
         required: true,
     }
   },
   data() {
     return {
+        timerId:0
     };
   },
+  computed:{
+    timeLeft(){
+        let remainingSecs = this.secLeft;
+        return  remainingSecs <= 0 ? '00:00' : `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+    }
+  }
 };
 </script>
 <template>
-    <div class="time_item_withdrow"
-    :class="{active: status == true}">
+    <div class="time_item_withdrow">
         <p>{{amount}}</p>
         <img src="/EWT.png" alt="EWT" />
-        <p>&nbsp; withdrow: &nbsp; </p> 
+        <p>&nbsp; : &nbsp; </p> 
         <img src="../assets/pageGame/time.png" alt="time" />
         <p>{{ timeLeft }}</p>
-        <p class="successfull">&nbsp; successfull</p>
+        <p class="successfull active">&nbsp; successfull</p>
+        <div v-if="secLeft < 0" @click="this.$emit('refund')">Refund</div>
     </div>
 </template>
 <style scoped>
