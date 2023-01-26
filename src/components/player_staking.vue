@@ -1,7 +1,7 @@
 <script>
 import { useGameStore } from '../stores/game.js';
 export default {
-    name: "player_leaderboard",
+    name: "player_staking",
     data() {
         let game = useGameStore();
         return {
