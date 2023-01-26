@@ -295,9 +295,9 @@ export default {
                 <div class="block_position">
                     <p>token selection</p>
                     <select v-model="sellTokenSymbol">
-                        <option value="EAT">EAT</option>
-                        <option value="EMT">EMT</option>
-                        <option value="EET">EET</option>
+                        <option value="EAT">EAT &#8594; EMT</option>
+                        <option value="EMT">EMT &#8594; EAT</option>
+                        <option value="EET">EET &#8594; EMT</option>
                     </select>
                 </div>
                 <div class="container_change">
