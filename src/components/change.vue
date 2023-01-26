@@ -1,4 +1,7 @@
 <script>
+import exchangeDeposit from "../components/exchangeDeposit.vue";
+import exchangeWithdrow from "../components/exchangeWithdrow.vue";
+import exchange_withdrowEET_EMT from "../components/exchange_withdrowEET_EMT.vue";
 import item_wax from "../components/item_wax.vue";
 import item_chest from "../components/item_chest.vue";
 import { useGameStore } from '../stores/game.js';
@@ -6,6 +9,7 @@ import { useGameStore } from '../stores/game.js';
 
 export default {
     name: "token_change",
+    emits: ['exchangeDeposit'],
     data() {
         let game = useGameStore();
         return {
@@ -19,6 +23,10 @@ export default {
             sellWaxQuantity: 0,
             currentSec: game.getCurrentSeconds(),
             timerId: 0,
+            statusPanel: false,
+            status_EET_EMT: false,
+            exchangeWithdrow: false,
+            exchangeDeposit: false,
 
         };
     },
@@ -27,6 +35,11 @@ export default {
     },
     beforeUnmount() {
         clearInterval(this.timerId);
+    },
+    components:{
+        exchange_withdrowEET_EMT,
+        exchangeWithdrow,
+        exchangeDeposit,
     },
     methods: {
         refresh() {
@@ -210,6 +223,9 @@ export default {
 
             this.sellWaxQuantity = token;
         },
+        openPanelToken(){
+            this.statusPanel = true;
+        }
     },
     computed: {
         globalHashrate() {
@@ -256,186 +272,332 @@ export default {
 </script>
 <template>
     <div class="block_game">
-        <div class="element_control">
-            <div class="container_waxChange">
-                <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.walletBalanceWAX.toFixed(2) }}
-                    </div>
-                    <div class="container_tokenChange">
-                        <div class="token_block">
-                            <img src="../assets/shop/wax.png" alt="WAX" />
-                            WAX
+        <div class="container_token">
+            <div class="element_control">
+                <div class="container_waxChange">
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{ game.walletBalanceWAX.toFixed(2) }}
                         </div>
-                        <input type="number" min="0" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
-                    </div>
-                </div>
-                <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.balanceMEAT.toFixed(2) }}
-                    </div>
-                    <div class="container_tokenChange">
-                        <div class="token_block">
-                            <img src="/MEAT.png" alt="MEAT" />
-                            MEAT
-                        </div>
-                        <input type="number" min="0" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
-                    </div>
-                </div>
-                <div class="btn wax_chage" @click="buyMeat">
-                    Confirm
-                </div>
-            </div>
-            <div class="reload" @click="refresh()">
-                <img src="../assets/pageGame/reload.png" alt="reload" />
-            </div>
-        </div>
-        <div class="content">
-            <div class="block_change">
-                <div class="block_position">
-                    <p>token selection</p>
-                    <select>
-                        <option>AET > EMT</option>
-                        <option>EET > EMT</option>
-                        <option>EMT > EET</option>
-                    </select>
-                </div>
-                <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.findBalance(game.player.balances, sellTokenSymbol).toFixed(2) }}
-                        <div class="helperblock_eat">
-                            <div class="btn" @click="editBalanceSell(25)">
-                                25%
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img src="../assets/shop/wax.png" alt="WAX" />
+                                WAX
                             </div>
-                            <div class="btn" @click="editBalanceSell(50)">
-                                50%
-                            </div>
-                            <div class="btn" @click="editBalanceSell(75)">
-                                75%
-                            </div>
-                            <div class="btn" @click="editBalanceSell(100)">
-                                100%
-                            </div>
+                            <input type="number" min="0" v-model.number="sellWaxQuantity" @input="checkInputWAX($event)">
                         </div>
                     </div>
-                    <div class="container_tokenChange container_EET_token_change">
-                        <div class="token_block">
-                            <img :src="`/${sellTokenSymbol}.png`" :alt="sellTokenSymbol" />
-                            {{ sellTokenSymbol }}
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{ game.balanceMEAT.toFixed(2) }}
                         </div>
-                        <input type="number" min="0" class="EET_token_change" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
-                        <div class="iconchange" @click="changeSymbol()">
-                            <img src="../assets/shop/iconchange.png" alt="iconchange" />
-                        </div>
-                    </div>
-                </div>
-                <div class="info_change">
-                    1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}}
-                </div>
-                <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.findBalance(game.player.balances, buyTokenSymbol).toFixed(2) }}
-                        <div class="helperblock_eat">
-                            <div class="btn" @click="editBalanceBuy(25)">
-                                25%
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img src="/MEAT.png" alt="MEAT" />
+                                MEAT
                             </div>
-                            <div class="btn" @click="editBalanceBuy(50)">
-                                50%
-                            </div>
-                            <div class="btn" @click="editBalanceBuy(75)">
-                                75%
-                            </div>
-                            <div class="btn" @click="editBalanceBuy(100)">
-                                100%
-                            </div>
+                            <input type="number" min="0" v-model.number="buyMeatQuantity" @input="checkInputMEAT($event)">
                         </div>
                     </div>
-                    <div class="container_tokenChange">
-                        <div class="token_block">
-                            <img :src="`/${buyTokenSymbol}.png`" :alt="buyTokenSymbol" />
-                            {{ buyTokenSymbol }}
-                        </div>
-                        <input type="number" min="0" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
-                    </div>
-                </div>
-                <div class="block_btn_timer">
-                    <div class="exchange_timer" v-if="sellTokenSymbol == 'EAT'">
-                        <img src="../assets/pageGame/time.png"> 
-                        <p>{{ exchangeLockTime }}</p>
-                    </div>
-                    <div class="btn confirm" @click="exchange">
+                    <div class="btn wax_chage" @click="buyMeat">
                         Confirm
                     </div>
                 </div>
+                <div class="reload" @click="refresh()">
+                    <img src="../assets/pageGame/reload.png" alt="reload" />
+                </div>
             </div>
-            <div class="block_change">
-                <div class="block_position">
-                    <p>token selection</p>
-                    <select>
-                        <option>EET</option>
-                        <option>EMT</option>
-                    </select>
+            <div class="content">
+                <div class="block_change">
+                    <div class="block_position">
+                        <p>token selection</p>
+                        <select>
+                            <option>AET > EMT</option>
+                            <option>EET > EMT</option>
+                            <option>EMT > EET</option>
+                        </select>
+                    </div>
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{ game.findBalance(game.player.balances, sellTokenSymbol).toFixed(2) }}
+                            <div class="helperblock_eat">
+                                <div class="btn" @click="editBalanceSell(25)">
+                                    25%
+                                </div>
+                                <div class="btn" @click="editBalanceSell(50)">
+                                    50%
+                                </div>
+                                <div class="btn" @click="editBalanceSell(75)">
+                                    75%
+                                </div>
+                                <div class="btn" @click="editBalanceSell(100)">
+                                    100%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container_tokenChange container_EET_token_change">
+                            <div class="token_block">
+                                <img :src="`/${sellTokenSymbol}.png`" :alt="sellTokenSymbol" />
+                                {{ sellTokenSymbol }}
+                            </div>
+                            <input type="number" min="0" class="EET_token_change" v-model.number="sellQuantity" @input="checkInputSell()" ref="inputsell">
+                            <div class="iconchange" @click="changeSymbol()">
+                                <img src="../assets/shop/iconchange.png" alt="iconchange" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info_change">
+                        1 {{ 'EAT'}} = {{ exchangerateEAT.toFixed(8) }} {{ 'EET'}}
+                    </div>
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{ game.findBalance(game.player.balances, buyTokenSymbol).toFixed(2) }}
+                            <div class="helperblock_eat">
+                                <div class="btn" @click="editBalanceBuy(25)">
+                                    25%
+                                </div>
+                                <div class="btn" @click="editBalanceBuy(50)">
+                                    50%
+                                </div>
+                                <div class="btn" @click="editBalanceBuy(75)">
+                                    75%
+                                </div>
+                                <div class="btn" @click="editBalanceBuy(100)">
+                                    100%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img :src="`/${buyTokenSymbol}.png`" :alt="buyTokenSymbol" />
+                                {{ buyTokenSymbol }}
+                            </div>
+                            <input type="number" min="0" v-model.number="buyQuantity" @input="checkInputBuy()" ref="inputbuy">
+                        </div>
+                    </div>
+                    <div class="block_btn_timer">
+                        <div class="exchange_timer" v-if="sellTokenSymbol == 'EAT'">
+                            <img src="../assets/pageGame/time.png"> 
+                            <p>{{ exchangeLockTime }}</p>
+                        </div>
+                        <div class="btn confirm" @click="exchange">
+                            Confirm
+                        </div>
+                    </div>
                 </div>
-                <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.findBalance(game.walletBalances, bridgeSymbol).toFixed(2) }}
+                <div class="block_change">
+                    <div class="block_position">
+                        <p>token selection</p>
+                        <select>
+                            <option>EET</option>
+                            <option>EMT</option>
+                        </select>
                     </div>
-                    <div class="container_tokenChange">
-                        <div class="token_block">
-                            <img :src="`/${bridgeSymbol}.png`" :alt="bridgeSymbol" />
-                            {{bridgeSymbol}}
+                    <div class="container_change">
+                        <div class="balance">
+                            Balance: {{ game.findBalance(game.walletBalances, bridgeSymbol).toFixed(2) }}
                         </div>
-                        <input type="number" min="0" v-model.number="bridgeAmount">
-                        <div class="iconchange v2_icon" @click="changeSymbolBridge()">
-                            <img src="../assets/shop/iconchange.png" alt="iconchange" />
-                        </div>
-                    </div>
-                </div>
-                <div class="helpblockv2">
-                    <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="depositToken">
-                            Deposit
-                        </div>
-                        <div class="helperblock">
-                            <div class="btn" @click="editBalanceDeposit(25)">
-                                25%
+                        <div class="container_tokenChange">
+                            <div class="token_block">
+                                <img :src="`/${bridgeSymbol}.png`" :alt="bridgeSymbol" />
+                                {{bridgeSymbol}}
                             </div>
-                            <div class="btn" @click="editBalanceDeposit(50)">
-                                50%
-                            </div>
-                            <div class="btn" @click="editBalanceDeposit(75)">
-                                75%
-                            </div>
-                            <div class="btn" @click="editBalanceDeposit(100)">
-                                100%
+                            <input type="number" min="0" v-model.number="bridgeAmount">
+                            <div class="iconchange v2_icon" @click="changeSymbolBridge()">
+                                <img src="../assets/shop/iconchange.png" alt="iconchange" />
                             </div>
                         </div>
                     </div>
-                    <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="withdrawToken">
-                            Withdraw
+                    <div class="helpblockv2">
+                        <div class="helpercolumn_btnContainer">
+                            <div class="btn" @click="depositToken">
+                                Deposit
+                            </div>
+                            <div class="helperblock">
+                                <div class="btn" @click="editBalanceDeposit(25)">
+                                    25%
+                                </div>
+                                <div class="btn" @click="editBalanceDeposit(50)">
+                                    50%
+                                </div>
+                                <div class="btn" @click="editBalanceDeposit(75)">
+                                    75%
+                                </div>
+                                <div class="btn" @click="editBalanceDeposit(100)">
+                                    100%
+                                </div>
+                            </div>
                         </div>
-                        <div class="helperblock">
-                            <div class="btn" @click="editBalanceWithdraw(25)">
-                                25%
+                        <div class="helpercolumn_btnContainer">
+                            <div class="btn" @click="withdrawToken">
+                                Withdraw
                             </div>
-                            <div class="btn" @click="editBalanceWithdraw(50)">
-                                50%
-                            </div>
-                            <div class="btn" @click="editBalanceWithdraw(75)">
-                                75%
-                            </div>
-                            <div class="btn" @click="editBalanceWithdraw(100)">
-                                100%
+                            <div class="helperblock">
+                                <div class="btn" @click="editBalanceWithdraw(25)">
+                                    25%
+                                </div>
+                                <div class="btn" @click="editBalanceWithdraw(50)">
+                                    50%
+                                </div>
+                                <div class="btn" @click="editBalanceWithdraw(75)">
+                                    75%
+                                </div>
+                                <div class="btn" @click="editBalanceWithdraw(100)">
+                                    100%
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="block_changeToken" v-if="!statusPanel">
+            <div class="reload" @click="refresh()">
+                <img src="../assets/pageGame/reload.png" alt="reload" />
+            </div>
+
+            <div class="changeToken_block" @click="openPanelToken(), status_EET_EMT = true">
+                <p>exchange</p>
+                <div class="container_TokenChange">
+                    <div class="imgBlock_Token blockArrowAdd">
+                        <img src="/EAT.png" alt="EAT"/>
+                    </div>
+                    <div class="imgBlock_Token">
+                        <img src="/EMT.png" alt="EMT"/>
+                    </div>
+                </div>
+                <div class="container_TokenChange">
+                    <div class="imgBlock_Token blockArrowAdd">
+                        <img src="/EET.png" alt="EET"/>
+                    </div>
+                    <div class="imgBlock_Token">
+                        <img src="/EMT.png" alt="EMT"/>
+                    </div>
+                </div>
+                <div class="container_TokenChange">
+                    <div class="imgBlock_Token blockArrowAdd">
+                        <img src="/EMT.png" alt="EMT"/>
+                    </div>
+                    <div class="imgBlock_Token">
+                        <img src="/EET.png" alt="EET"/>
+                    </div>
+                </div>
+            </div>
+            <div class="changeToken_block" @click="openPanelToken(), exchangeWithdrow = true">
+                <p>withdraw</p>
+                <div class="container_TokenChange">
+                    <div class="imgBlock_Token">
+                        <img src="/EET.png" alt="EET"/>
+                    </div>
+                    <div class="imgBlock_Token">
+                        <img src="/EMT.png" alt="MEAT"/>
+                    </div>
+                </div>
+            </div>
+            <div class="changeToken_block" @click="openPanelToken(), exchangeDeposit = true">
+                <p>deposit</p>
+                <div class="container_TokenChange">
+                    <div class="imgBlock_Token">
+                        <img src="/EET.png" alt="EET"/>
+                    </div>
+                    <div class="imgBlock_Token">
+                        <img src="/EMT.png" alt="MEAT"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <transition name="fade" mode="out-in">
+            <div class="container_panel_token" v-if="statusPanel">
+                <exchange_withdrowEET_EMT v-if="status_EET_EMT"/>
+                <exchangeWithdrow v-if="exchangeWithdrow"/>
+                <exchangeDeposit v-if="exchangeDeposit" />
+            </div>
+        </transition>
     </div>
 </template>
 <style scoped>
+.fade-enter-active {
+    opacity: 1;
+    transition: all 0.25s 0s ease;
+}
+
+.fade-leave-active {
+    opacity: 0;
+}
+
+.fade-enter-from {
+    opacity: 0;
+}
+
+.fade-leave-to {
+    opacity: 0;
+}
+.container_panel_token{
+    width: 100%;
+    height: 100%;   
+}
+.block_changeToken{
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.changeToken_block{
+    width: 300px;
+    height: 300px;
+    border: 1px solid #F5A516;
+    background: rgba(0, 0, 0, 0.0);
+    padding: 10px;
+    font-size: 26px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: all 0.25s ease-in-out;
+}
+.changeToken_block:hover{
+    border: 1px solid #FFF;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.changeToken_block p{
+    position: absolute;
+    top: 0%;
+    transform: translate(0%, -100%);
+}
+.container_TokenChange{
+    flex-direction: row;
+    margin: 10px 0px;
+    align-items: flex-start;
+}
+.imgBlock_Token{
+    flex-direction: row;
+    margin: 0px 5px;
+}
+.changeToken_block .blockArrowAdd:nth-child(1):after{
+    content: '\2192';
+    padding: 0px 0px 0px 5px;
+}
+.changeToken_block img{
+    width: 50pxc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container_token{
+    display: none;
+}
 .option img{
     width: 20px;
 }
