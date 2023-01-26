@@ -294,10 +294,10 @@ export default {
             <div class="block_change">
                 <div class="block_position">
                     <p>token selection</p>
-                    <select>
-                        <option>AET > EMT</option>
-                        <option>EET > EMT</option>
-                        <option>EMT > EET</option>
+                    <select v-model="sellTokenSymbol">
+                        <option value="EAT">EAT</option>
+                        <option value="EMT">EMT</option>
+                        <option value="EET">EET</option>
                     </select>
                 </div>
                 <div class="container_change">
@@ -371,9 +371,9 @@ export default {
             <div class="block_change">
                 <div class="block_position">
                     <p>token selection</p>
-                    <select>
-                        <option>EET</option>
-                        <option>EMT</option>
+                    <select v-model="bridgeSymbol">
+                        <option value="EMT">EMT</option>
+                        <option value="EET">EET</option>
                     </select>
                 </div>
                 <div class="container_change">
