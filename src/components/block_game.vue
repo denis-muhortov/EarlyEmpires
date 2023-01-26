@@ -86,7 +86,6 @@ export default {
     </div>
 </template>
 <style scoped>
-.element_menu.staking_game{pointer-events: none;opacity: 0.3;}
 .fade-enter-active {
     opacity: 1;
     transition: all 0.25s ease-in;
