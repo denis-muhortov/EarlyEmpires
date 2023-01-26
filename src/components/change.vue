@@ -9,7 +9,6 @@ import { useGameStore } from '../stores/game.js';
 
 export default {
     name: "token_change",
-    emits: ['exchangeDeposit'],
     data() {
         let game = useGameStore();
         return {
@@ -25,8 +24,8 @@ export default {
             timerId: 0,
             statusPanel: false,
             status_EET_EMT: false,
-            exchangeWithdrow: false,
-            exchangeDeposit: false,
+            status_exchangeWithdrow: false,
+            status_exchangeDeposit: false,
 
         };
     },
@@ -223,9 +222,18 @@ export default {
 
             this.sellWaxQuantity = token;
         },
-        openPanelToken(){
+        openExchange(){
+            this.status_EET_EMT = true;
             this.statusPanel = true;
-        }
+        },
+        openWithdrow() {
+            this.status_exchangeWithdrow = true;
+            this.statusPanel = true;
+        },
+        openDeposit(){
+            this.status_exchangeDeposit = true;
+            this.statusPanel = true;
+        },
     },
     computed: {
         globalHashrate() {
@@ -451,97 +459,102 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="block_changeToken" v-if="!statusPanel">
-            <div class="reload" @click="refresh()">
-                <img src="../assets/pageGame/reload.png" alt="reload" />
-            </div>
-
-            <div class="changeToken_block" @click="openPanelToken(), status_EET_EMT = true">
-                <p>exchange</p>
-                <div class="container_TokenChange">
-                    <div class="imgBlock_Token blockArrowAdd">
-                        <img src="/EAT.png" alt="EAT"/>
-                    </div>
-                    <div class="imgBlock_Token">
-                        <img src="/EMT.png" alt="EMT"/>
-                    </div>
-                </div>
-                <div class="container_TokenChange">
-                    <div class="imgBlock_Token blockArrowAdd">
-                        <img src="/EET.png" alt="EET"/>
-                    </div>
-                    <div class="imgBlock_Token">
-                        <img src="/EMT.png" alt="EMT"/>
-                    </div>
-                </div>
-                <div class="container_TokenChange">
-                    <div class="imgBlock_Token blockArrowAdd">
-                        <img src="/EMT.png" alt="EMT"/>
-                    </div>
-                    <div class="imgBlock_Token">
-                        <img src="/EET.png" alt="EET"/>
-                    </div>
-                </div>
-            </div>
-            <div class="changeToken_block" @click="openPanelToken(), exchangeWithdrow = true">
-                <p>withdraw</p>
-                <div class="container_TokenChange">
-                    <div class="imgBlock_Token">
-                        <img src="/EET.png" alt="EET"/>
-                    </div>
-                    <div class="imgBlock_Token">
-                        <img src="/EMT.png" alt="MEAT"/>
-                    </div>
-                </div>
-            </div>
-            <div class="changeToken_block" @click="openPanelToken(), exchangeDeposit = true">
-                <p>deposit</p>
-                <div class="container_TokenChange">
-                    <div class="imgBlock_Token">
-                        <img src="/EET.png" alt="EET"/>
-                    </div>
-                    <div class="imgBlock_Token">
-                        <img src="/EMT.png" alt="MEAT"/>
-                    </div>
-                </div>
-            </div>
-        </div>
         <transition name="fade" mode="out-in">
-            <div class="container_panel_token" v-if="statusPanel">
-                <exchange_withdrowEET_EMT v-if="status_EET_EMT"/>
-                <exchangeWithdrow v-if="exchangeWithdrow"/>
-                <exchangeDeposit v-if="exchangeDeposit" />
+            <div class="block_changeToken" v-if="!statusPanel">
+                <div class="reload" @click="refresh()">
+                    <img src="../assets/pageGame/reload.png" alt="reload" />
+                </div>
+
+                <div class="changeToken_block" @click="openExchange">
+                    <p>exchange</p>
+                    <div class="container_TokenChange">
+                        <div class="imgBlock_Token blockArrowAdd">
+                            <img src="/EAT.png" alt="EAT"/>
+                        </div>
+                        <div class="imgBlock_Token">
+                            <img src="/EMT.png" alt="EMT"/>
+                        </div>
+                    </div>
+                    <div class="container_TokenChange">
+                        <div class="imgBlock_Token blockArrowAdd">
+                            <img src="/EET.png" alt="EET"/>
+                        </div>
+                        <div class="imgBlock_Token">
+                            <img src="/EMT.png" alt="EMT"/>
+                        </div>
+                    </div>
+                    <div class="container_TokenChange">
+                        <div class="imgBlock_Token blockArrowAdd">
+                            <img src="/EMT.png" alt="EMT"/>
+                        </div>
+                        <div class="imgBlock_Token">
+                            <img src="/EET.png" alt="EET"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="changeToken_block" @click="openWithdrow">
+                    <p>withdraw</p>
+                    <div class="container_TokenChange">
+                        <div class="imgBlock_Token">
+                            <img src="/EET.png" alt="EET"/>
+                        </div>
+                        <div class="imgBlock_Token">
+                            <img src="/EMT.png" alt="MEAT"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="changeToken_block" @click="openDeposit">
+                    <p>deposit</p>
+                    <div class="container_TokenChange">
+                        <div class="imgBlock_Token">
+                            <img src="/EET.png" alt="EET"/>
+                        </div>
+                        <div class="imgBlock_Token">
+                            <img src="/EMT.png" alt="MEAT"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <transition name="fade" mode="out-in">
+            <div class="container_panel_token" v-if="statusPanel" @close="statusPanel = false">
+                <exchange_withdrowEET_EMT v-if="status_EET_EMT" @close="statusPanel = false, status_EET_EMT = false"/>
+                <exchangeWithdrow v-if="status_exchangeWithdrow" @close="statusPanel = false, status_exchangeWithdrow = false"/>
+                <exchangeDeposit v-if="status_exchangeDeposit" @close="statusPanel = false, status_exchangeDeposit = false"/>
             </div>
         </transition>
     </div>
 </template>
 <style scoped>
+
 .fade-enter-active {
     opacity: 1;
-    transition: all 0.25s 0s ease;
+    transition: all 0.25s ease;
 }
 
-.fade-leave-active {
+.fade-leave-active, .fade-enter-from, .fade-leave-to {
     opacity: 0;
+    transition: all 0.25s ease;
 }
 
-.fade-enter-from {
-    opacity: 0;
-}
-
-.fade-leave-to {
-    opacity: 0;
-}
 .container_panel_token{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;   
+    transition: all 0.25s ease;
 }
 .block_changeToken{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    transition: all 0.25s ease;
 }
 
 .changeToken_block{

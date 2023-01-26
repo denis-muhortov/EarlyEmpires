@@ -10,10 +10,24 @@ export default {
         let game = useGameStore();
         return {
             game: game,
+            statusPanel: false,
         };
     },
     methods: {
-
+        refresh() {
+            this.$toast.show(`await`, {
+                asyncFunction: async () => { await this.game.loadstats(); },
+                onSuccessMessage: (res) => { return `Game data updated` },
+            });
+        },
+        depositToken() {
+            this.$toast.show(`await`, {
+                asyncFunction: async () => { return await this.game.deposit(`${this.bridgeAmount.toFixed(8)} ${this.bridgeSymbol}`); },
+                onSuccessMessage: (res) => {
+                    return `the transaction is successful`;
+                },
+            });
+        },
     },
     computed: {
     }
@@ -24,7 +38,7 @@ export default {
         <div class="reload" @click="refresh()">
             <img src="../assets/pageGame/reload.png" alt="reload" />
         </div>
-        <div class="back_panel" @close="vieposition()">
+        <div class="back_panel" v-on:click="$emit('close')">
             <img src="../assets/pageGame/back.png" alt="back" />
             back
         </div>
@@ -94,6 +108,7 @@ export default {
 
 
 <style scoped>
+
 .back_panel {
     cursor: pointer;
     border: 1px solid #D89718;
