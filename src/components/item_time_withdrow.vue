@@ -1,44 +1,31 @@
 <script>
-import { useGameStore } from '../stores/game.js';
 export default {
   name: "staking_game",
+  emits: ['refund'],
   props:{
+    amount:{
+        type: Number,
+        required: true,
+    },
+    timeLeft:{
+        type: Number,
+        required: true,
+    }
   },
   data() {
-    let game = useGameStore();
     return {
-      game: game,
-      amountEET: 0,
-      userLogged: false,
-      currentSec: game.getCurrentSeconds(),
-      timerId: 0,
-      withdrow_EWT: 999.9999,
-      time: "00:00",
-      status: false,
     };
   },
-  mounted() {
-    this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
-  },
-  components: {
-  },
-  methods: {
-
-  },
-  computed:{
-
-  }
-
 };
 </script>
 <template>
     <div class="time_item_withdrow"
     :class="{active: status == true}">
-        <p>{{withdrow_EWT}}</p>
-        <img src="/EET.png" alt="EWT" />
+        <p>{{amount}}</p>
+        <img src="/EWT.png" alt="EWT" />
         <p>&nbsp; withdrow: &nbsp; </p> 
         <img src="../assets/pageGame/time.png" alt="time" />
-        <p>{{ time }}</p>
+        <p>{{ timeLeft }}</p>
         <p class="successfull">&nbsp; successfull</p>
     </div>
 </template>

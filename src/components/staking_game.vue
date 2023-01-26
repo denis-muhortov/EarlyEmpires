@@ -13,9 +13,6 @@ export default {
       userLogged: false,
       currentSec: game.getCurrentSeconds(),
       timerId: 0,
-      totalRewardEWT: 999.9999,
-      yourRewardEWT: 999.9999,
-      time: "00:00",
     };
   },
   mounted() {
@@ -34,23 +31,39 @@ export default {
         onSuccessMessage: (res) => { return `Game data updated` },
       });
     },
-    editBalanceWithdraw(amount) {
+    editBalanceUnstake(amount) {
             this.amountEMT = this.game.balanceEMT * (amount / 100);
         },
-    editBalanceDeposit(amount) {
+    editBalanceStake(amount) {
         this.amountEMT = this.game.walletBalanceEMT * (amount / 100);
     },
-    depositToken() {
+    stakeToken() {
         this.$toast.show(`await`, {
-            asyncFunction: async () => { return await this.game.deposit(`${this.amountEMT.toFixed(8)} EMT`); },
+            asyncFunction: async () => { return await this.game.stake(`${this.amountEMT.toFixed(8)} EMT`); },
             onSuccessMessage: (res) => {
                 return `the transaction is successful`;
             },
         });
     },
-    withdrawToken() {
+    unstakeToken() {
         this.$toast.show(`await`, {
-            asyncFunction: async () => { return await this.game.withdraw(`${this.amountEMT.toFixed(8)} EMT`); },
+            asyncFunction: async () => { return await this.game.unstake(`${this.amountEMT.toFixed(8)} EMT`); },
+            onSuccessMessage: (res) => {
+                return `the transaction is successful`;
+            },
+        });
+    },
+    claimEWT() {
+        this.$toast.show(`await`, {
+            asyncFunction: async () => { return await this.game.claimEwt(); },
+            onSuccessMessage: (res) => {
+                return `the transaction is successful`;
+            },
+        });
+    },
+    refund() {
+        this.$toast.show(`await`, {
+            asyncFunction: async () => { return await this.game.refund(); },
             onSuccessMessage: (res) => {
                 return `the transaction is successful`;
             },
@@ -59,6 +72,46 @@ export default {
 
   },
   computed:{
+    yourStake(){
+        return +this.game.playerStake.stake.split(' ')[0] ?? 0;
+    },
+    totalStake(){
+        return +this.game.stakeStat?.stake_sum.split(' ')[0] ?? 1;
+    },
+    yourRewardEWT(){
+        let reward = this.totalRewardEWT * this.yourStake / this.totalStake;
+        return Number.isNaN(reward) ? 0 : reward;
+    },
+    totalRewardEWT(){
+        return +this.game.stakeStat?.stake_pool.split(' ')[0] ?? 1;
+    },
+
+    refundList(){
+        let list = this.game.playerRefunds;
+
+        let calculated = list.map((refund) => {
+            let remainingSecs = this.game.ISOToSeconds(refund.unstake_time) + this.game.gameConfig.stake_refund - this.currentSec;
+            refund.amount = +refund.quantity.split(' ')[0];
+            refund.time = remainingSecs <= 0 ? '00:00' : `${String(Math.floor(remainingSecs / 3600)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 3600) / 60)).padStart(2, "0")}:${String(Math.floor((remainingSecs % 60))).padStart(2, "0")}`;
+            return refund;
+        })
+
+        return calculated;
+        
+    },
+    unclaimed() {
+        let accumulated = +this.game.playerStake.accumulated.split(' ')[0];
+        let accumulateRate = +this.game.playerStake.accumulate_rate.split(' ')[0];
+        let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.game.playerStake.accumulate_point);
+
+        let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
+
+        let resultIncome = accumulated + accumulateRate * ticksCount;
+
+        return resultIncome;
+    },
+    
+
 
   }
 
@@ -73,33 +126,33 @@ export default {
                 <div class="reward_block">
                     <p>All stake &nbsp;</p> 
                     <img src="/EMT.png" alt="EWT" />
-                    <p> EMT: {{ yourRewardEWT }} </p>
+                    <p> EMT: {{ +totalStake.toFixed(2) }} </p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your stake &nbsp;</p> 
                     <img src="/EMT.png" alt="EWT" />
-                    <p class="your_info"> EMT: {{ yourRewardEWT }} </p>
+                    <p class="your_info"> EMT: {{ +yourStake.toFixed(2) }} </p>
                 </div>
             </div>
             <div class="name_block_container">
                 <div class="reward_block">
                     <img src="/EMT.png" alt="EWT" />
-                    <p>&nbsp;EWT all reward: {{ totalRewardEWT }} per/s</p>
+                    <p>&nbsp;EWT all reward: {{ +totalRewardEWT.toFixed(2) }} per/s</p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your reward &nbsp; </p> 
                     <img src="/EMT.png" alt="EWT" />
-                    <p class="your_info">EWT: {{ yourRewardEWT }} per/s</p>
+                    <p class="your_info">EWT: {{ +yourRewardEWT.toFixed(2) }} per/s</p>
                 </div>
             </div>
         </div>
-        <div class="block_time">
+        <!-- <div class="block_time">
             <p>Update &nbsp; </p> 
                 <img src="/EMT.png" alt="EWT" />
             <p>EWT all reward: &nbsp; </p> 
                 <img src="../assets/pageGame/time.png" alt="time" />
             <p>{{ time }}</p>
-        </div>
+        </div> -->
       </div>
       <div class="reload" @click="refresh()">
         <img src="../assets/pageGame/reload.png" alt="reload" />
@@ -122,39 +175,39 @@ export default {
                 </div>
                 <div class="helpblockv2">
                     <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="depositToken">
-                            Deposit
+                        <div class="btn" @click="stakeToken">
+                            Stake
                         </div>
                         <div class="helperblock">
-                            <div class="btn" @click="editBalanceDeposit(25)">
+                            <div class="btn" @click="editBalanceStake(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalanceDeposit(50)">
+                            <div class="btn" @click="editBalanceStake(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalanceDeposit(75)">
+                            <div class="btn" @click="editBalanceStake(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalanceDeposit(100)">
+                            <div class="btn" @click="editBalanceStake(100)">
                                 100%
                             </div>
                         </div>
                     </div>
                     <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="withdrawToken">
-                            Withdraw
+                        <div class="btn" @click="unstakeToken">
+                            Unstake
                         </div>
                         <div class="helperblock">
-                            <div class="btn" @click="editBalanceWithdraw(25)">
+                            <div class="btn" @click="editBalanceUnstake(25)">
                                 25%
                             </div>
-                            <div class="btn" @click="editBalanceWithdraw(50)">
+                            <div class="btn" @click="editBalanceUnstake(50)">
                                 50%
                             </div>
-                            <div class="btn" @click="editBalanceWithdraw(75)">
+                            <div class="btn" @click="editBalanceUnstake(75)">
                                 75%
                             </div>
-                            <div class="btn" @click="editBalanceWithdraw(100)">
+                            <div class="btn" @click="editBalanceUnstake(100)">
                                 100%
                             </div>
                         </div>
@@ -163,42 +216,30 @@ export default {
             </div>
             <div class="block_change">
                 <div class="container_change">
-                    <div class="balance">
-                        Balance: {{ game.walletBalanceEMT.toFixed(2) }}
-                    </div>
                     <div class="container_tokenChange">
                         <div class="token_block">
-                            <img src="/EMT.png" alt="EMT" />
-                            EWT
+                            <img src="/EWT.png" alt="EWT" />
+                            EWT&nbsp;{{+unclaimed.toFixed(4)}}
                         </div>
-                        <input type="text" v-model.number="amountEMT">
                     </div>
                 </div>
                 <div class="helpblockv2">
                     <div class="helpercolumn_btnContainer">
-                        <div class="btn" @click="withdrawToken">
-                            Withdraw
-                        </div>
-                        <div class="helperblock">
-                            <div class="btn" @click="editBalanceWithdraw(25)">
-                                25%
-                            </div>
-                            <div class="btn" @click="editBalanceWithdraw(50)">
-                                50%
-                            </div>
-                            <div class="btn" @click="editBalanceWithdraw(75)">
-                                75%
-                            </div>
-                            <div class="btn" @click="editBalanceWithdraw(100)">
-                                100%
-                            </div>
+                        <div class="btn" @click="claimEWT">
+                            Claim
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="withdrow_container_token">
-            <item_time_withdrow/>
+            <div v-if="refundList.length == 0">No refunds</div>
+            <item_time_withdrow
+            v-for="refund in refundList"
+            :key="refund.unstake_time"
+            :amount="refund.amount"
+            :timeLeft="refund.time"
+            />
         </div>
     </div>
   </div>

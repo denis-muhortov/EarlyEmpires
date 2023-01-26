@@ -1578,7 +1578,7 @@ export const useGameStore = defineStore("game", {
       });
 
     },
-    async claimewt() {
+    async claimEwt() {
       await this.sendAction(this.getSmartActions.claimewt());
       await this.sleep();
 
