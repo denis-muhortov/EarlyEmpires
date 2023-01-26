@@ -13,14 +13,11 @@ export default {
       userLogged: false,
       currentSec: game.getCurrentSeconds(),
       timerId: 0,
+      checkedRefunds:[]
     };
   },
   mounted() {
     this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
-    let isRefunded = this.refundList.some(r => r.time <= 0);
-    if(isRefunded){
-        this.game.updateRefund();
-    }
   },
   beforeUnmount() {
       clearInterval(this.timerId);
@@ -92,11 +89,22 @@ export default {
 
     refundList(){
         let list = this.game.playerRefunds;
+        let update = false;
 
         let calculated = list.map((refund) => {
             let remainingSecs = this.game.ISOToSeconds(refund.unstake_time) + this.game.gameConfig.stake_refund - this.currentSec;
             refund.time = remainingSecs; 
             refund.amount = +refund.quantity.split(' ')[0];
+
+            let isChecked = this.checkedRefunds.find(r => r == refund.unstake_time);
+
+            if(refund.time < 0 && !isChecked){
+                this.checkedRefunds.push(refund.unstake_time);
+                if(!update){
+                    update = true;
+                    this.game.updateRefund();
+                }
+            }
             return refund;
         })
 

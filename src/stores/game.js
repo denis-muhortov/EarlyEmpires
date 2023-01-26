@@ -1622,6 +1622,7 @@ export const useGameStore = defineStore("game", {
     },
     async updateRefund() {
       this.tables.refund = await this.getSmartTables.refund();
+      this.tables.users = await this.getSmartTables.users();
     },
 
     
