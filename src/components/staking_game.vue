@@ -33,10 +33,10 @@ export default {
       });
     },
     editBalanceUnstake(amount) {
-            this.amountEMT = this.game.balanceEMT * (amount / 100);
+            this.amountEMT = this.yourStake * (amount / 100);
         },
     editBalanceStake(amount) {
-        this.amountEMT = this.game.walletBalanceEMT * (amount / 100);
+        this.amountEMT = this.game.balanceEMT * (amount / 100);
     },
     stakeToken() {
         this.$toast.show(`await`, {
