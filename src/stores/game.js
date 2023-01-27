@@ -823,7 +823,7 @@ export const useGameStore = defineStore("game", {
     calcUpgradePaid: (state) => {
       return (configRow, oldLevel, newLevel) => {
 
-        let time = configRow.base_time;
+        let time = +configRow.base_time;
         let cost = +configRow.base_cost.split(' ')[0];
         let speedup = +configRow.base_speedup_cost.split(' ')[0];
         let configAdditional = +configRow.additional_cost.split(' ')[0];
@@ -846,7 +846,7 @@ export const useGameStore = defineStore("game", {
 
             if(!multiplier) break;
 
-            time *= (multiplier.multiplier_time / 100000000.0);
+            time = Math.floor(time * multiplier.multiplier_time / 100000000.0);
             cost *= (multiplier.multiplier_cost / 100000000.0);
             speedup *= (multiplier.multiplier_speedup / 100000000.0);
         }
@@ -857,7 +857,7 @@ export const useGameStore = defineStore("game", {
 
             if(!multiplier) break;
 
-            time *= (multiplier.multiplier_time / 100000000.0);
+            time = Math.floor(time * multiplier.multiplier_time / 100000000.0);
             finalTime += time;
 
             cost *= (multiplier.multiplier_cost / 100000000.0);
