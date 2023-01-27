@@ -143,6 +143,7 @@ img {
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -250,44 +251,19 @@ img {
 .block_token_open:hover {
     background: rgba(255, 255, 255, 0.4);
 }
-@media (max-width: 1300px) {
-    .logo {
-        width: 300px;
-        height: 100px;
-    }
-}
 
-
-@media (max-width: 1110px) {
-    .logo {
-        width: 250px;
-        height: 100px;
-    }
-
-    .ContainerTokens {
-        margin: 0px 0px 0px 10px;
-    }
-    .MainContainer {
-        flex-wrap: wrap;
-    }
-}
-@media (max-width: 920px) {
-
-    .logo {
-        width: 400px;
-        height: 100px;
-    }
+@media (max-width: 950px) {
 
     .ContainerHashrate {
+        margin: 10px 0px 10px 10px;
+    }
+    .ContainerTokens {
         margin: 10px 0px 10px 10px;
     }
 
     .BlockTokens {
         margin: 5px 0px 20px 0px;
     }
-}
-
-@media (max-width: 640px) {
     .BlockTokens {
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -299,8 +275,8 @@ img {
         width: 100%;
     }
     .Token:hover::after {
-    transform: translate(0%, -20%);
-    opacity: 1;
-}
+        transform: translate(0%, -20%);
+        opacity: 1;
+    }
 }
 </style>
