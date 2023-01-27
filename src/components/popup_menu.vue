@@ -59,8 +59,8 @@ export default {
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
             </div>
             <div class="link_game">
-                <a href="https://alcor.exchange/trade/emt-earlytokenss_wax-eosio.token" target="_blank" class="aclor link_hover_block">aclor</a>
-                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" target="_blank" class="whitepapper link_hover_block">whitepapper</a>
+                <a href="https://alcor.exchange/trade/emt-earlytokenss_wax-eosio.token" target="_blank" class="aclor link_hover_block">alcor</a>
+                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" target="_blank" class="whitepapper link_hover_block">whitepaper</a>
                 <a href="https://discord.gg/6TJ2rV5Q" target="_blank" class="discord link_hover_block">discord</a>
                 <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/earlyempires" target="_blank" class="collection link_hover_block">collection</a>
 
