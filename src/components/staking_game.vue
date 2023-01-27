@@ -137,23 +137,23 @@ export default {
             <div class="name_block_container">
                 <div class="reward_block">
                     <p>All stake &nbsp;</p> 
-                    <img src="/EMT.png" alt="EWT" />
+                    <img src="/EMT.png" alt="EMT" />
                     <p> EMT: {{ +totalStake.toFixed(2) }} </p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your stake &nbsp;</p> 
-                    <img src="/EMT.png" alt="EWT" />
+                    <img src="/EMT.png" alt="EMT" />
                     <p class="your_info"> EMT: {{ +yourStake.toFixed(2) }} </p>
                 </div>
             </div>
             <div class="name_block_container">
                 <div class="reward_block">
-                    <img src="/EMT.png" alt="EWT" />
+                    <img src="/EWT.png" alt="EWT" />
                     <p>&nbsp;EWT all reward: {{ +totalRewardEWT.toFixed(2) }} per/s</p>
                 </div>
                 <div class="reward_block">
                     <p class="your_info">Your reward &nbsp; </p> 
-                    <img src="/EMT.png" alt="EWT" />
+                    <img src="/EWT.png" alt="EWT" />
                     <p class="your_info">EWT: {{ +yourRewardEWT.toFixed(2) }} per/s</p>
                 </div>
             </div>
@@ -227,7 +227,7 @@ export default {
                 <div class="container_change">
                     <div class="container_tokenChange">
                         <div class="token_block claim_block">
-                            <img src="/EMT.png" alt="EWT" />
+                            <img src="/EWT.png" alt="EWT" />
                             EWT&nbsp;{{+unclaimed.toFixed(2)}}
                         </div>
                     </div>

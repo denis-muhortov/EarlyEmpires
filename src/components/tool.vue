@@ -267,9 +267,6 @@ export default {
     border: 1px solid rgba(0, 0, 0, 0.0);
     transition: all 0.25s ease;
 }
-.nft.max_lvl{
-    pointer-events: none;
-}
 .nft::after {
     content: "UPGRADE";
     position: absolute;

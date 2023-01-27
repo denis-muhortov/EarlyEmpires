@@ -84,10 +84,10 @@ export default {
                     <img src="/EMT.png" alt="EMT" />
                     {{ game.balanceEMT.toFixed(2) }}
                 </div>
-                <!-- <div class="Token EWT">
+                <div class="Token EWT">
                     <img src="/EWT.png" alt="EWT" />
                     {{ game.balanceEWT.toFixed(2) }}
-                </div> -->
+                </div>
                 <div class="Token MEAT">
                     <img src="/MEAT.png" alt="MEAT" />
                     {{ game.balanceMEAT.toFixed(2) }}
