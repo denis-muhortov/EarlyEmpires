@@ -170,6 +170,10 @@ export const useGameStore = defineStore("game", {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "EMT");
     },
+    balanceEWT: (state) => {
+      if (!state.player) return 0;
+      return state.findBalance(state.player.balances, "EWT");
+    },
     balanceMEAT: (state) => {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "MEAT");
