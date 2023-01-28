@@ -302,9 +302,6 @@ export default {
                             </div>
                         </div>
                         <div class="container_change">
-                            <div class="balance">
-                                Balance: {{ game.balanceMEAT.toFixed(2) }}
-                            </div>
                             <div class="container_tokenChange">
                                 <div class="token_block">
                                     <img src="/MEAT.png" alt="MEAT" />
