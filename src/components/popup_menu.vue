@@ -53,14 +53,14 @@ export default {
                 <div class="elemetn" @click="changepage('game')" :class="{ active: selectedTab == 'game' }">game</div>
                 <div class="elemetn" @click="changepage('inventory')" :class="{ active: selectedTab == 'inventory' }">inventory</div>
                 <div class="elemetn" @click="changepage('shop')" :class="{ active: selectedTab == 'shop' }">shop</div>
-                <div class="elemetn" @click="changepage('games')" :class="{ active: selectedTab == 'games' }">staking</div>
+                <div class="elemetn" @click="changepage('staking_game')" :class="{ active: selectedTab == 'staking_game' }">staking</div>
                 <div class="elemetn" @click="changepage('change')" :class="{ active: selectedTab == 'change' }">exchange</div>
                 <div class="elemetn" @click="changepage('calculate')" :class="{ active: selectedTab == 'calculate' }">calculator</div>
                 <div class="elemetn" @click="changepage('leaderboard')" :class="{ active: selectedTab == 'leaderboard' }">leaderboard</div>
             </div>
             <div class="link_game">
-                <a href="https://alcor.exchange/trade/emt-earlytokenss_wax-eosio.token" target="_blank" class="aclor link_hover_block">aclor</a>
-                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" target="_blank" class="whitepapper link_hover_block">whitepapper</a>
+                <a href="https://alcor.exchange/trade/emt-earlytokenss_wax-eosio.token" target="_blank" class="aclor link_hover_block">alcor</a>
+                <a href="https://wp.earlyempire-nft.com/early-empires/our-mission" target="_blank" class="whitepapper link_hover_block">whitepaper</a>
                 <a href="https://discord.gg/6TJ2rV5Q" target="_blank" class="discord link_hover_block">discord</a>
                 <a href="https://wax.atomichub.io/explorer/collection/wax-mainnet/earlyempires" target="_blank" class="collection link_hover_block">collection</a>
 
@@ -76,7 +76,6 @@ export default {
     </div>
 </template>
 <style scoped>
-.part_manu .elemetn:nth-child(4){pointer-events: none;opacity: 0.3;}
 .aclor::after{content: "Trade of game token ";}
 .whitepapper::after{content: "whitepaper of the game";}
 .discord::after{content: "join discord";}

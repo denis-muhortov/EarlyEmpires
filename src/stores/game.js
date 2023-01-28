@@ -39,9 +39,13 @@ export const useGameStore = defineStore("game", {
 
       // stats
       stat: undefined,
+      stakestat: undefined,
 
       users: [],
       usertools: [],
+
+      staking: [],
+      refund: [],
 
       /*
       stake: [],
@@ -66,6 +70,7 @@ export const useGameStore = defineStore("game", {
   getters: {
     gameConfig: (state) => state.tables.gamecfg,
     gameStat: (state) => state.tables.stat,
+    stakeStat: (state) => state.tables.stakestat,
     player: (state) => {
 
       if(state.tables.users[0]){
@@ -81,9 +86,26 @@ export const useGameStore = defineStore("game", {
       }
       
     },
+    playerStake: (state) => {
+
+      if(state.tables.staking[0]){
+        return state.tables.staking[0];
+      }else{
+        return {
+          wallet: state.userName,
+          stake: "0.00000000 EMT",
+          accumulated: "0.00000000 EWT",
+          accumulate_point: "1970-01-01T00:00:00",
+          accumulate_rate: "0.00000000 EWT"
+        }
+      }
+    },
     playerUsedTools: (state) => state.tables.usertools,
     leaderboardRate: (state) => state.tables.usersbyrate,
-    leaderboardStake: (state) => state.tables.usersbystake,
+    //leaderboardStake: (state) => state.tables.usersbystake,
+    leaderboardStake: (state) => state.tables.stakingbystake,
+    playerRefunds: (state) => state.tables.refund,
+
 
     shopList: (state) => state.tables.shop,
     boxesList: (state) => state.tables.boxes,
@@ -147,6 +169,10 @@ export const useGameStore = defineStore("game", {
     balanceEMT: (state) => {
       if (!state.player) return 0;
       return state.findBalance(state.player.balances, "EMT");
+    },
+    balanceEWT: (state) => {
+      if (!state.player) return 0;
+      return state.findBalance(state.player.balances, "EWT");
     },
     balanceMEAT: (state) => {
       if (!state.player) return 0;
@@ -272,6 +298,8 @@ export const useGameStore = defineStore("game", {
           return rows;
         },
 
+        
+
         async shop() {
           let rows = await state.getTableRows(
             state.smartContract,
@@ -347,6 +375,32 @@ export const useGameStore = defineStore("game", {
           return rows;
         },
 
+        async staking(player = state.userName) {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            state.smartContract,
+            "staking",
+            1,
+            player,
+            player
+          );
+          return rows;
+        },
+        async stakingbystake(player = state.userName) {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            state.smartContract,
+            "staking",
+            50,
+            undefined,
+            undefined,
+            2,
+            undefined,
+            true
+          );
+          return rows;
+        },
+
         async usertools(user = state.userName) {
           let rows = await state.getTableRows(
             state.smartContract,
@@ -357,11 +411,31 @@ export const useGameStore = defineStore("game", {
           return rows;
         },
 
+        async refund(user = state.userName) {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            user,
+            "refund",
+            -1
+          );
+          return rows;
+        },
+
         async stat() {
           let rows = await state.getTableRows(
             state.smartContract,
             state.smartContract,
             "globalstats",
+            1
+          );
+          return rows;
+        },
+
+        async stakestat() {
+          let rows = await state.getTableRows(
+            state.smartContract,
+            state.smartContract,
+            "stakestats",
             1
           );
           return rows;
@@ -553,7 +627,63 @@ export const useGameStore = defineStore("game", {
             },
           ];
           return actions;
-        }
+        },
+
+        stake(quantity) {
+          let actions = [
+            {
+              account: state.smartContract,
+              name: "stake",
+              data: {
+                wallet: state.userName,
+                quantity: quantity,
+              },
+              authorization: state.userAuth,
+            },
+          ];
+          return actions;
+        },
+        unstake(quantity) {
+          let actions = [
+            {
+              account: state.smartContract,
+              name: "unstake",
+              data: {
+                wallet: state.userName,
+                quantity: quantity,
+              },
+              authorization: state.userAuth,
+            },
+          ];
+          return actions;
+        },
+        refund() {
+          let actions = [
+            {
+              account: state.smartContract,
+              name: "refund",
+              data: {
+                wallet: state.userName,
+              },
+              authorization: state.userAuth,
+            },
+          ];
+          return actions;
+        },
+        claimewt() {
+          let actions = [
+            {
+              account: state.smartContract,
+              name: "claimewt",
+              data: {
+                wallet: state.userName,
+              },
+              authorization: state.userAuth,
+            },
+          ];
+          return actions;
+        },
+
       };
     },
 
@@ -937,8 +1067,13 @@ export const useGameStore = defineStore("game", {
         this.tables.usersbyrate = statObj.tables.usersbyrate;
         this.tables.usersbystake = statObj.tables.usersbystake;
 
+        this.tables.staking = statObj.tables.staking;
+        this.tables.stakingbystake = statObj.tables.stakingbystake;
+        this.tables.refund = statObj.tables.refund;
+
 
         this.tables.stat = statObj.tables.stat;
+        this.tables.stakestat = statObj.tables.stakestat;
 
 
 
@@ -989,6 +1124,10 @@ export const useGameStore = defineStore("game", {
             stat: this.tables.stat,
             usersbyrate: this.tables.usersbyrate,
             usersbystake: this.tables.usersbystake,
+            refund: this.tables.refund,
+            staking: this.tables.staking,
+            stakingbystake: this.tables.stakingbystake,
+            stakestat: this.tables.stakestat,
           },
           inventoryAssets: this.inventoryAssets,
           walletAssets: this.walletAssets,
@@ -1040,11 +1179,16 @@ export const useGameStore = defineStore("game", {
 
       
       let usertools = await this.getSmartTables.usertools();
+
+      let refund = await this.getSmartTables.refund();
+      let staking = await this.getSmartTables.staking();
+      let stakingbystake = await this.getSmartTables.stakingbystake();
       
       let usersbyrate = await this.getSmartTables.usersbyrate();
       let usersbystake = await this.getSmartTables.usersbystake();
 
       let stat = ( await this.getSmartTables.stat())[0];
+      let stakestat = ( await this.getSmartTables.stakestat())[0];
 
       let inventoryAssets = await this.assetIdsToAtomicAssets(
         this.gameAssetsIdsFromState({usertools: usertools})
@@ -1059,7 +1203,12 @@ export const useGameStore = defineStore("game", {
         state.tables.usertools = usertools;
         state.tables.usersbyrate = usersbyrate;
         state.tables.usersbystake = usersbystake;
+        state.tables.staking = staking;
+        state.tables.stakingbystake = stakingbystake;
+        state.tables.refund = refund;
+        state.tables.usertools = usertools;
         state.tables.stat = stat;
+        state.tables.stakestat = stakestat;
 
         state.inventoryAssets = inventoryAssets;
         state.walletAssets = walletAssets;
@@ -1370,14 +1519,117 @@ export const useGameStore = defineStore("game", {
       return addedAssets;
     },
 
+
+
+
+
+
+
+
+
+
+
+
+
+    async stake(quantity) {
+      await this.sendAction(this.getSmartActions.stake(quantity));
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let staking = await this.getSmartTables.staking();
+      let stakingbystake = await this.getSmartTables.stakingbystake();
+      let stakestat = ( await this.getSmartTables.stakestat())[0];
+
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.staking = staking;
+        state.tables.stakingbystake = stakingbystake;
+        state.tables.stakestat = stakestat;
+      });
+
+    },
+    async unstake(quantity) {
+      await this.sendAction(this.getSmartActions.unstake(quantity));
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let staking = await this.getSmartTables.staking();
+      let stakingbystake = await this.getSmartTables.stakingbystake();
+      let stakestat = ( await this.getSmartTables.stakestat())[0];
+      let refund = await this.getSmartTables.refund();
+
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.staking = staking;
+        state.tables.stakingbystake = stakingbystake;
+        state.tables.stakestat = stakestat;
+        state.tables.refund = refund;
+      });
+
+    },
+    async refund() {
+      await this.sendAction(this.getSmartActions.refund());
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let refund = await this.getSmartTables.refund();
+
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.refund = refund;
+      });
+
+    },
+    async claimEwt() {
+      await this.sendAction(this.getSmartActions.claimewt());
+      await this.sleep();
+
+      let users = await this.getSmartTables.users();
+      let staking = await this.getSmartTables.staking();
+
+
+      this.$patch((state) => {
+        state.tables.users = users;
+        state.tables.staking = staking;
+      });
+
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     async updateGlobalStat() {
       this.tables.stat = (await this.getSmartTables.stat())[0];
+    },
+    async updateStakeStat() {
+      this.tables.stakestat = ( await this.getSmartTables.stakestat())[0];
     },
     async updateRateLeaders() {
       this.tables.usersbyrate = await this.getSmartTables.usersbyrate();
     },
+    async updateRefund() {
+      this.tables.refund = await this.getSmartTables.refund();
+      this.tables.users = await this.getSmartTables.users();
+    },
 
-    //calcs
+    
 
     
   },

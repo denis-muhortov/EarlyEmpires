@@ -66,7 +66,7 @@ export default {
             <div class="element_menu shop" @click="openpage('shop')" :class="{ active: currentTab == 'shop' }">
                 <img src="../assets/pageGame/shop.png" alt="shop" />
             </div>
-            <div class="element_menu staking_game" @click="openpage('games')" :class="{ active: currentTab == 'games' }">
+            <div class="element_menu staking_game" @click="openpage('staking_game')" :class="{ active: currentTab == 'staking_game' }">
                 <img src="../assets/pageGame/deposit.png" alt="staking_game" />
             </div>
             <div class="element_menu change" @click="openpage('change')" :class="{ active: currentTab == 'change' }">
@@ -86,7 +86,6 @@ export default {
     </div>
 </template>
 <style scoped>
-.element_menu.staking_game{pointer-events: none;opacity: 0.3;}
 .fade-enter-active {
     opacity: 1;
     transition: all 0.25s ease-in;
@@ -173,7 +172,7 @@ export default {
 .element_menu {
     width: 70px;
     height: 70px;
-    margin: 25px 0px;
+    margin: 22px 0px;
     background: #D89718;
     padding: 10px;
     border-radius: 50%;
