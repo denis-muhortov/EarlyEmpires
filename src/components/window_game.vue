@@ -252,6 +252,11 @@ img {
     background: rgba(255, 255, 255, 0.4);
 }
 
+@media (max-width: 1700px) {
+    .ContainerTokens {
+        margin: 0px 0px 10px 10px;
+    }
+}
 @media (max-width: 950px) {
 
     .ContainerHashrate {

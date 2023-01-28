@@ -345,7 +345,7 @@ export default {
                             </div>
                         </div>
                         <div class="container_change">
-                            <div class="container_tokenChange">
+                            <div class="container_tokenChange fix_token_block">
                                 <div class="token_block">
                                     <img src="/EMT.png" alt="EMT" />
                                     EMT
@@ -385,7 +385,7 @@ export default {
                             </div>
                         </div>
                         <div class="container_change">
-                            <div class="container_tokenChange">
+                            <div class="container_tokenChange fix_token_block">
                                 <div class="token_block">
                                     <img src="/EAT.png" alt="EAT" />
                                     EAT
@@ -425,7 +425,7 @@ export default {
                             </div>
                         </div>
                         <div class="container_change">
-                            <div class="container_tokenChange">
+                            <div class="container_tokenChange fix_token_block">
                                 <div class="token_block">
                                     <img src="/EMT.png" alt="EMT" />
                                     EMT
@@ -613,6 +613,9 @@ option {
     flex-direction: row;
     align-items: flex-end;
 }
+.container_tokenChange.fix_token_block{
+    margin: 35px 0px 0px 0px;
+}
 
 .token_block {
     width: 100px;
@@ -742,7 +745,7 @@ input {
     margin: 5px 50px 0px 0px;
 }
 
-.container_waxChange .container_change:first-child::before {
+.container_waxChange .container_change:nth-child(1)::before {
     content: '\2192';
     position: absolute;
     right: 0;
@@ -826,7 +829,7 @@ input {
         margin: 5px 5px 10px 0px;
     }
 
-    .container_waxChange .container_change:first-child::before {
+    .container_waxChange .container_change:nth-child(1)::before {
         right: unset;
         bottom: 0;
         transform: translate(0%, 150%) rotate(90deg);
@@ -856,13 +859,13 @@ input {
     input {
         width: 150px;
     }
-    .container_waxChange .container_change:first-child::before {
+    .container_waxChange .container_change:nth-child(1)::before {
     content: '\2192';
     position: absolute;
     right: 0;
     transform: translate(225%, 50%);
     }
-    .container_waxChange .container_change:first-child::before {
+    .container_waxChange .container_change:nth-child(1)::before {
         right: unset;
         bottom: 0;
         transform: translate(350%,150%) rotate(90deg);
