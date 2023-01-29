@@ -302,9 +302,6 @@ export default {
                             </div>
                         </div>
                         <div class="container_change">
-                            <div class="balance">
-                                Balance: {{ game.balanceMEAT.toFixed(2) }}
-                            </div>
                             <div class="container_tokenChange">
                                 <div class="token_block">
                                     <img src="/MEAT.png" alt="MEAT" />
@@ -315,6 +312,9 @@ export default {
                         </div>
                         <div class="btn wax_chage" @click="buyMeat">
                             Confirm
+                        </div>
+                        <div class="info_rate_token">
+                            1 WAX = 0.5 MEAT
                         </div>
                     </div>
                     <div class="container_waxChange">
@@ -353,8 +353,15 @@ export default {
                                 <input type="number" min="0" v-model.number="buyQuantity.EATEMT" @input="checkInputBuy('EAT', $event.target.value)">
                             </div>
                         </div>
-                        <div class="btn wax_chage" @click="exchange(sellQuantity.EATEMT, 'EAT')">
-                            Confirm
+                        <div class="btn wax_chage" 
+                        :class="{active: exchangeLockTime != '00:00:00'},
+                                {disactive: exchangeLockTime == '00:00:00'}"
+                        @click="exchange(sellQuantity.EATEMT, 'EAT')">
+                            <p>Confirm</p>
+                            <p>{{ exchangeLockTime }}</p>
+                        </div>
+                        <div class="info_rate_token">
+                            1 EAT = {{exchangerateEAT.toFixed(8)}} EMT
                         </div>
                     </div>
                     <div class="container_waxChange">
@@ -396,6 +403,9 @@ export default {
                         <div class="btn wax_chage" @click="exchange(sellQuantity.EMTEAT, 'EMT')">
                             Confirm
                         </div>
+                        <div class="info_rate_token">
+                            1 EMT = {{globalHashrate.toFixed(8)}} EAT
+                        </div>
                     </div>
                     <div class="container_waxChange">
                         <div class="container_change">
@@ -435,6 +445,9 @@ export default {
                         </div>
                         <div class="btn wax_chage" @click="exchange(sellQuantity.EETEMT, 'EET')">
                             Confirm
+                        </div>
+                        <div class="info_rate_token">
+                            1 EET = 1 EMT
                         </div>
                     </div>
                 </div>
@@ -775,7 +788,18 @@ input {
     padding: 6px 30px;
     margin: 32px 0px 0px 0px;
 }
-
+.btn.wax_chage.disactive{
+    pointer-events: auto;
+}
+.btn.wax_chage.disactive p:nth-child(2){
+    display: none;
+}
+.btn.wax_chage.active{
+    pointer-events: none;
+}
+.btn.wax_chage.active p:nth-child(1){
+    display: none;
+}
 
 .container_tokenChange {
     margin: 5px 0px 0px 0px;
@@ -805,6 +829,14 @@ input {
     align-items: flex-start;
     justify-self: flex-start;
     margin: 0px 0px 0px 10px;
+}
+
+.info_rate_token{
+    flex-direction: row;
+    margin: 0px 0px 0px 20px;
+    font-size: 28px;
+    color: var(--vt-c-white);
+    font-family: 'TheAncient', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media (max-width: 1440px) {
@@ -994,6 +1026,9 @@ input {
 
     select {
         width: 130px;
+    }
+    .info_rate_token{
+        font-size: 22px;
     }
 }
 </style>
