@@ -112,8 +112,8 @@ export default {
         
     },
     unclaimed() {
-        let accumulated = +this.game.playerStake.accumulated.split(' ')[0];
-        let accumulateRate = +this.game.playerStake.accumulate_rate.split(' ')[0];
+        let accumulated = +this.game.playerStake?.accumulated.split(' ')[0] ?? 0;
+        let accumulateRate = +this.game.playerStake?.accumulate_rate.split(' ')[0] ?? 0;
         let elastedSeconds = this.currentSec - this.game.ISOToSeconds(this.game.playerStake.accumulate_point);
 
         let ticksCount = elastedSeconds / (this.game.gameConfig?.accumulate_tick ?? 1);
