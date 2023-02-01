@@ -41,7 +41,7 @@ export default {
     <div class="Container_menu" :class="{ active: statuspopup }">
         <div class="block_menu">
             <div class="account_block">
-                <div class="account_name">
+                <div class="account_name" @click.ctrl.alt.middle="changepage('autogame')">
                     <img src="../assets/pageGame/player.png" alt="player" />
                     {{ username }}
                 </div>

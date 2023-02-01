@@ -8,6 +8,7 @@ import leaderboard from "../components/leaderboard.vue";
 // import staking from "../components/staking.vue";
 import staking_game from "../components/staking_game.vue";
 import popup_menu from "../components/popup_menu.vue";
+import autogame from "../components/autogame.vue";
 </script>
 
 <script>
@@ -29,6 +30,7 @@ export default {
         leaderboard,
         popup_menu,
         staking_game,
+        autogame,
         // staking,
     },
     methods: {
