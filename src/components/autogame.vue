@@ -3,6 +3,7 @@
 import tool from "./tool.vue";
 import popup_filter from "./filter_game.vue";
 import { useGameStore } from '../stores/game.js'
+import { markRaw } from "vue";
 export default {
     name: "auto_game",
     data() {
@@ -11,28 +12,59 @@ export default {
             game: game,
             currentSec: game.getCurrentSeconds(),
             timerId: 0,
-            timerClaimId: 0,
+            //timerClaimId: 0,
+            intervalWorker: undefined,
+            started: false
         };
     },
     mounted() {
         this.timerId = setInterval(() => { this.currentSec = this.game.getCurrentSeconds() }, 1000);
+        this.intervalWorker = markRaw(new Worker("/interval_worker.js"));
     },
     beforeUnmount() {
         clearInterval(this.timerId);
+        this.intervalWorker.terminate();
     },
     components: {
         tool,
-        popup_filter,
     },
     methods: {
         startAuto() {
-            this.timerClaimId = setInterval(() => {
-                 this.updateAuto();
-                }, 3600000);
+
+            this.intervalWorker.postMessage({type: 'start', interval: 3600000});
+            this.started = true;
+            this.intervalWorker.onmessage = function(e) {
+                let m = e.data;
+              if(m.type == 'interval'){
+                this.updateAuto();
+              }
+            }
+            
+            
+            // this.timerClaimId = setInterval(() => {
+            //      this.updateAuto();
+            //     }, 3600000);
+        },
+        testWorker() {
+            this.intervalWorker.postMessage({type: 'start', interval: 10000});
+            this.started = true;
+            this.intervalWorker.onmessage = (e) => {
+                let m = e.data;
+                  if(m.type == 'interval'){
+                    console.log(this.game.getCurrentSeconds());
+                  }
+                }
+
+
+        // this.timerClaimId = setInterval(() => {
+        //      this.updateAuto();
+        //     }, 3600000);
         },
         stopAuto() {
-            clearInterval(this.timerClaimId);
-            this.timerClaimId = 0;
+            this.intervalWorker.postMessage({type: 'stop'});
+            this.started = false;
+            // clearInterval(this.timerClaimId);
+            // this.timerClaimId = 0;
         },
         async updateAuto() {
 
@@ -165,7 +197,10 @@ export default {
     <div class="block_game">
         <div class="element_control">
             <div class="btnv2" @click="startAuto">
-                Start auto  (started: {{timerClaimId != 0}})
+                Start auto  (started: {{started}})
+            </div>
+            <div class="btnv2" @click="testWorker">
+                test timer
             </div>
             <div class="btnv2" @click="stopAuto">
                 Stop auto
